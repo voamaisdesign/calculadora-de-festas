@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Landing Page — Calculadora de Festas</title>
+  <title>Calculadora de Festas — Simulador</title>
   <style>
     :root {
       --bg: #e8ecf2;
@@ -36,8 +36,8 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       background: var(--bg);
       color: var(--text);
-      line-height: 1.55;
-      -webkit-font-smoothing: antialiased;
+      line-height: 1.5;
+      padding-bottom: 92px;
     }
 
     .container {
@@ -57,8 +57,8 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      min-height: 70px;
-      gap: 16px;
+      min-height: 68px;
+      gap: 12px;
     }
 
     .brand {
@@ -69,31 +69,14 @@
       text-decoration: none;
     }
 
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .nav-links a:not(.btn) {
-      color: #e2e8f0;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.92rem;
-    }
-
-    .nav-links a:not(.btn):hover {
-      color: #fbbf24;
-    }
-
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 12px 20px;
+      padding: 11px 18px;
       border-radius: 10px;
       font-weight: 700;
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       text-decoration: none;
       border: 2px solid transparent;
       cursor: pointer;
@@ -102,94 +85,14 @@
     .btn-cta { background: var(--cta); color: #ffffff; }
     .btn-cta:hover { background: var(--cta-hover); }
 
-    .btn-outline {
-      background: var(--surface);
-      color: var(--primary);
-      border-color: var(--primary);
+    main { padding: 28px 0; }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 1.35fr 0.9fr;
+      gap: 22px;
+      align-items: start;
     }
-    .btn-outline:hover { background: var(--badge-bg); }
-
-    .hero {
-      padding: 56px 0 48px;
-      background: linear-gradient(180deg, #dde3ee 0%, #e8ecf2 100%);
-      border-bottom: 1px solid var(--border-light);
-    }
-
-    .pill {
-      display: inline-block;
-      background: var(--primary);
-      color: #ffffff;
-      font-weight: 700;
-      font-size: 0.84rem;
-      padding: 6px 14px;
-      border-radius: 999px;
-      margin-bottom: 14px;
-    }
-
-    h1 {
-      font-size: clamp(2.1rem, 4.5vw, 3.4rem);
-      line-height: 1.08;
-      color: var(--primary);
-      text-transform: uppercase;
-      font-weight: 900;
-      margin-bottom: 12px;
-    }
-
-    .hero-tagline {
-      font-size: clamp(1.18rem, 2.2vw, 1.5rem);
-      line-height: 1.3;
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 14px;
-      max-width: 54ch;
-    }
-
-    .lead {
-      font-size: 1.05rem;
-      color: var(--text-secondary);
-      max-width: 62ch;
-      margin-bottom: 24px;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 12px;
-    }
-
-    .micro {
-      font-size: 0.86rem;
-      color: var(--text-secondary);
-    }
-
-    section { padding: 48px 0; }
-
-    .section-alt {
-      background: var(--surface-alt);
-      border-top: 1px solid var(--border-light);
-      border-bottom: 1px solid var(--border-light);
-    }
-
-    .section-head {
-      max-width: 680px;
-      margin-bottom: 26px;
-    }
-
-    .section-head h2 {
-      font-size: clamp(1.5rem, 2.6vw, 2.05rem);
-      margin-bottom: 8px;
-      color: var(--text);
-    }
-
-    .section-head p {
-      color: var(--text-secondary);
-      font-size: 1rem;
-    }
-
-    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-    .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
 
     .card {
       background: var(--surface);
@@ -197,100 +100,145 @@
       border-radius: var(--radius);
       padding: 22px;
       box-shadow: var(--shadow);
+      margin-bottom: 18px;
     }
 
-    .card h3 { margin-bottom: 10px; font-size: 1.12rem; color: var(--text); }
-    .card p, .card li { color: var(--text-secondary); font-size: 0.95rem; }
-    .card ul { list-style: none; display: grid; gap: 10px; }
-
-    .step-badge {
-      display: inline-block;
-      background: var(--badge-bg);
+    .card h1, .card h2 {
+      font-size: 1.25rem;
       color: var(--primary);
-      font-weight: 800;
-      font-size: 0.82rem;
-      padding: 4px 10px;
-      border-radius: 999px;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
-    .plan-featured {
-      border: 3px solid var(--primary);
-      position: relative;
+    .field-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
     }
 
-    .plan-tag {
-      display: inline-block;
-      background: var(--primary);
-      color: #ffffff;
-      font-size: 0.78rem;
-      font-weight: 800;
-      padding: 4px 10px;
-      border-radius: 999px;
-      margin-bottom: 8px;
-    }
+    .field { display: flex; flex-direction: column; gap: 6px; }
+    .field.full { grid-column: 1 / -1; }
 
-    .price { font-size: 1.9rem; font-weight: 800; color: var(--text); margin: 8px 0 4px; }
-    .cycle { font-size: 0.88rem; color: var(--text-secondary); font-weight: 600; margin-bottom: 14px; }
-
-    .faq-list { display: grid; gap: 12px; }
-
-    details.faq {
-      background: var(--surface);
-      border: 1.5px solid var(--border-light);
-      border-radius: var(--radius);
-      padding: 16px 20px;
-    }
-
-    details.faq summary {
+    label {
+      font-size: 0.88rem;
       font-weight: 700;
-      cursor: pointer;
       color: var(--text);
     }
 
-    details.faq p {
-      margin-top: 10px;
-      color: var(--text-secondary);
+    input, select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
       font-size: 0.95rem;
+      color: var(--text);
+      background: #ffffff;
     }
 
-    .cta-banner {
-      background: var(--surface-dark);
-      color: #ffffff;
-      border-radius: 16px;
-      padding: 36px 28px;
+    .options-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .check-item {
       display: flex;
-      flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
+      gap: 12px;
+      padding: 10px 12px;
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      background: var(--surface-alt);
+      cursor: pointer;
     }
 
-    .cta-banner h2 {
-      font-size: clamp(1.4rem, 2.5vw, 1.95rem);
-      margin-bottom: 6px;
-      color: #ffffff;
+    .check-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.92rem;
+      font-weight: 600;
     }
 
-    .cta-banner p {
-      color: #cbd5e1;
-      max-width: 56ch;
+    .check-left input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
     }
 
-    footer {
-      text-align: center;
-      padding: 30px 0 42px;
+    .summary-box {
+      position: sticky;
+      top: 18px;
+    }
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 14px 0;
+      border-top: 2px solid var(--border-light);
+      border-bottom: 1px solid var(--border-light);
+      margin: 12px 0 16px;
+    }
+
+    .total-label { font-weight: 700; font-size: 1rem; }
+    .total-value { font-size: 1.7rem; font-weight: 900; color: var(--primary); }
+
+    .detail-line {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
       color: var(--text-secondary);
-      font-size: 0.88rem;
+      margin-bottom: 8px;
     }
 
-    @media (max-width: 960px) {
-      .grid-5 { grid-template-columns: repeat(2, 1fr); }
+    .status-bar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--surface-dark);
+      color: #ffffff;
+      border-top: 2px solid #1e293b;
+      padding: 12px 20px;
+      z-index: 30;
+      box-shadow: 0 -6px 20px rgba(15, 23, 42, 0.22);
     }
 
-    @media (max-width: 820px) {
-      .grid-2, .grid-3, .grid-5 { grid-template-columns: 1fr; }
-      .nav-links a:not(.btn) { display: none; }
+    .status-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .status-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-size: 0.92rem;
+    }
+
+    .status-badge {
+      background: #1e293b;
+      border: 1px solid #334155;
+      padding: 6px 12px;
+      border-radius: 8px;
+    }
+
+    .status-total {
+      font-weight: 800;
+      color: #fbbf24;
+      font-size: 1.05rem;
+    }
+
+    @media (max-width: 860px) {
+      .layout { grid-template-columns: 1fr; }
+      .field-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -298,218 +246,185 @@
   <header>
     <div class="container nav">
       <a href="#topo" class="brand">CALCULADORA DE FESTAS</a>
-      <nav class="nav-links">
-        <a href="#como-funciona">Como funciona</a>
-        <a href="#recursos">Recursos</a>
-        <a href="#planos">Planos</a>
-        <a href="#faq">Dúvidas</a>
-        <a href="#link-da-calculadora" class="btn btn-cta">Testar grátis por 7 dias</a>
-      </nav>
+      <a href="#resumo-simulacao" class="btn btn-cta">Ver simulação</a>
     </div>
   </header>
 
   <main id="topo">
-    <!-- 1. HERO -->
-    <section class="hero">
-      <div class="container">
-        <span class="pill">Para salões de festa, buffets e espaços de eventos</span>
-        <h1>CALCULADORA DE FESTAS</h1>
-        <p class="hero-tagline">Pare de perder tempo respondendo "qual o valor?" no WhatsApp. Deixe o cliente simular a festa sozinho.</p>
-        <p class="lead">
-          Você cadastra o logotipo, até 3 fotos e os valores do seu espaço em poucos minutos. O cliente escolhe o tipo de festa, o período, o número de convidados e os adicionais, vê a estimativa na hora e envia o resumo pronto para o seu WhatsApp.
-        </p>
-        <div class="hero-actions">
-          <a href="#link-da-calculadora" class="btn btn-cta">Testar grátis por 7 dias</a>
-          <a href="#planos" class="btn btn-outline">Ver planos</a>
+    <div class="container layout">
+      <div>
+        <div class="card">
+          <h1>Simulador de Festa</h1>
+          <div class="field-grid">
+            <div class="field">
+              <label for="espacoNome">Nome do espaço</label>
+              <input id="espacoNome" type="text" value="Salão de Festa Poa" />
+            </div>
+            <div class="field">
+              <label for="whatsappNumero">WhatsApp do espaço (com DDD)</label>
+              <input id="whatsappNumero" type="text" value="51999999999" />
+            </div>
+            <div class="field">
+              <label for="tipoFesta">Tipo de festa</label>
+              <select id="tipoFesta">
+                <option value="Aniversário / Infantil" data-mult="1">Aniversário / Infantil</option>
+                <option value="Casamento" data-mult="1.2">Casamento (+20%)</option>
+                <option value="Confraternização / Corporativo" data-mult="1.1">Confraternização / Corporativo (+10%)</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="periodo">Dia / Período</label>
+              <select id="periodo">
+                <option value="Segunda a quinta (4h)" data-base="1500">Segunda a quinta — R$ 1.500</option>
+                <option value="Sexta ou domingo (5h)" data-base="2200" selected>Sexta ou domingo — R$ 2.200</option>
+                <option value="Sábado (6h)" data-base="2800">Sábado — R$ 2.800</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="convidadosBase">Convidados inclusos no valor base</label>
+              <input id="convidadosBase" type="number" min="10" max="500" value="60" />
+            </div>
+            <div class="field">
+              <label for="convidadosTotal">Total de convidados desejados</label>
+              <input id="convidadosTotal" type="number" min="10" max="500" value="80" />
+            </div>
+            <div class="field full">
+              <label for="valorExtra">Valor por convidado extra (R$)</label>
+              <input id="valorExtra" type="number" min="0" max="500" step="5" value="35" />
+            </div>
+          </div>
         </div>
-        <p class="micro">Configure em 5 passos • Teste gratuito de 7 dias • Sem fidelidade</p>
-      </div>
-    </section>
 
-    <!-- 2. ANTES X DEPOIS -->
-    <section>
-      <div class="container">
-        <div class="section-head">
-          <h2>Mais conversas prontas para fechar, menos curiosos</h2>
-          <p>Transforme o atendimento inicial em um processo rápido e direto para quem organiza eventos.</p>
-        </div>
-        <div class="grid-2">
-          <div class="card">
-            <h3>Sem a calculadora</h3>
-            <ul>
-              <li><strong>Curiosos somem:</strong> pedem preço e desaparecem quando ouvem o valor.</li>
-              <li><strong>Contas manuais:</strong> você repete os mesmos cálculos todos os dias.</li>
-              <li><strong>Demora custa datas:</strong> quem espera horas acaba fechando em outro lugar.</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h3>Com a calculadora</h3>
-            <ul>
-              <li><strong>Link 24h:</strong> coloque nas redes sociais, Google Maps e WhatsApp.</li>
-              <li><strong>Simulação rápida:</strong> o cliente monta a festa sozinho em 1 minuto.</li>
-              <li><strong>Pedido organizado:</strong> você recebe o resumo pronto no WhatsApp.</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 3. COMO FUNCIONA EM 5 PASSOS -->
-    <section id="como-funciona" class="section-alt">
-      <div class="container">
-        <div class="section-head">
-          <h2>Como funciona em 5 passos simples</h2>
-          <p>Configuração direta feita por você mesmo, sem precisar de suporte técnico.</p>
-        </div>
-        <div class="grid-5">
-          <div class="card">
-            <span class="step-badge">Passo 1</span>
-            <h3>Identidade</h3>
-            <p>Informe o nome do seu espaço e o número de WhatsApp que vai receber os orçamentos.</p>
-          </div>
-          <div class="card">
-            <span class="step-badge">Passo 2</span>
-            <h3>Logotipo</h3>
-            <p>Envie a marca do seu salão ou buffet para aparecer no topo da calculadora.</p>
-          </div>
-          <div class="card">
-            <span class="step-badge">Passo 3</span>
-            <h3>Até 3 fotos</h3>
-            <p>Mostre os melhores ângulos do seu espaço para valorizar o orçamento na hora.</p>
-          </div>
-          <div class="card">
-            <span class="step-badge">Passo 4</span>
-            <h3>Capacidade</h3>
-            <p>Defina o limite de convidados e os tipos de festa que o seu espaço atende.</p>
-          </div>
-          <div class="card">
-            <span class="step-badge">Passo 5</span>
-            <h3>Valores</h3>
-            <p>Cadastre o valor base por período, convidado extra e itens adicionais.</p>
+        <div class="card">
+          <h2>Itens adicionais</h2>
+          <div class="options-list" id="adicionaisLista">
+            <label class="check-item">
+              <span class="check-left">
+                <input type="checkbox" class="add-item" data-nome="Monitoria / Recreação" data-valor="350" checked />
+                Monitoria / Recreação
+              </span>
+              <strong>+ R$ 350</strong>
+            </label>
+            <label class="check-item">
+              <span class="check-left">
+                <input type="checkbox" class="add-item" data-nome="Som e iluminação" data-valor="450" />
+                Som e iluminação
+              </span>
+              <strong>+ R$ 450</strong>
+            </label>
+            <label class="check-item">
+              <span class="check-left">
+                <input type="checkbox" class="add-item" data-nome="Limpeza pós-evento" data-valor="250" checked />
+                Limpeza pós-evento
+              </span>
+              <strong>+ R$ 250</strong>
+            </label>
           </div>
         </div>
       </div>
-    </section>
 
-    <!-- 4. RECURSOS DO SIMULADOR -->
-    <section id="recursos">
-      <div class="container">
-        <div class="section-head">
-          <h2>Tudo o que o seu cliente encontra no link</h2>
-          <p>Uma página leve, feita para abrir rápido no celular de quem está cotando a festa.</p>
+      <aside id="resumo-simulacao" class="card summary-box">
+        <h2>Resumo da Simulação</h2>
+        <div class="detail-line">
+          <span>Valor base + tipo:</span>
+          <strong id="resBase">R$ 0,00</strong>
         </div>
-        <div class="grid-3">
-          <div class="card">
-            <h3>Sua marca e suas fotos</h3>
-            <p>O cliente vê o logotipo e até 3 fotos do seu espaço enquanto simula os valores.</p>
-          </div>
-          <div class="card">
-            <h3>Cálculo automático</h3>
-            <p>Atualiza na hora conforme o dia da semana, quantidade de convidados e adicionais escolhidos.</p>
-          </div>
-          <div class="card">
-            <h3>Resumo no WhatsApp</h3>
-            <p>Com um clique, o cliente envia toda a simulação pronta para o seu WhatsApp comercial.</p>
-          </div>
+        <div class="detail-line">
+          <span>Convidados extras (<span id="resExtrasQtd">0</span>):</span>
+          <strong id="resExtrasValor">R$ 0,00</strong>
         </div>
-      </div>
-    </section>
+        <div class="detail-line">
+          <span>Adicionais selecionados:</span>
+          <strong id="resAddValor">R$ 0,00</strong>
+        </div>
 
-    <!-- 5. PLANOS -->
-    <section id="planos" class="section-alt">
-      <div class="container">
-        <div class="section-head">
-          <h2>Planos após os 7 dias gratuitos</h2>
-          <p>Teste gratuitamente por 7 dias. Depois escolha o período que melhor combina com o seu espaço.</p>
+        <div class="total-row">
+          <span class="total-label">Estimativa total</span>
+          <span class="total-value" id="resTotal">R$ 0,00</span>
         </div>
-        <div class="grid-3">
-          <div class="card">
-            <h3>Mensal</h3>
-            <div class="price">R$ 120,00</div>
-            <p class="cycle">Cobrado mensalmente</p>
-            <ul>
-              <li>Calculadora personalizada com sua marca</li>
-              <li>Logotipo e até 3 fotos do espaço</li>
-              <li>Envio direto para seu WhatsApp</li>
-            </ul>
-            <br />
-            <a href="#link-da-calculadora" class="btn btn-outline" style="width:100%;">Começar 7 dias grátis</a>
-          </div>
 
-          <div class="card plan-featured">
-            <span class="plan-tag">Mais escolhido</span>
-            <h3>Trimestral</h3>
-            <div class="price">R$ 320,00</div>
-            <p class="cycle">A cada 3 meses (equivale a R$ 106,67/mês)</p>
-            <ul>
-              <li>Calculadora personalizada com sua marca</li>
-              <li>Logotipo e até 3 fotos do espaço</li>
-              <li>Envio direto para seu WhatsApp</li>
-            </ul>
-            <br />
-            <a href="#link-da-calculadora" class="btn btn-cta" style="width:100%;">Começar 7 dias grátis</a>
-          </div>
-
-          <div class="card">
-            <h3>Semestral</h3>
-            <div class="price">R$ 528,00</div>
-            <p class="cycle">A cada 6 meses (equivale a R$ 88,00/mês)</p>
-            <ul>
-              <li>Calculadora personalizada com sua marca</li>
-              <li>Logotipo e até 3 fotos do espaço</li>
-              <li>Envio direto para seu WhatsApp</li>
-            </ul>
-            <br />
-            <a href="#link-da-calculadora" class="btn btn-outline" style="width:100%;">Começar 7 dias grátis</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 6. FAQ -->
-    <section id="faq">
-      <div class="container">
-        <div class="section-head">
-          <h2>Perguntas frequentes</h2>
-          <p>Respostas rápidas antes de criar a sua calculadora.</p>
-        </div>
-        <div class="faq-list">
-          <details class="faq" open>
-            <summary>Como funciona o teste grátis de 7 dias?</summary>
-            <p>Você configura sua calculadora agora e usa por 7 dias sem pagar nada. Se gostar e quiser manter o link ativo, escolhe um dos planos (Mensal, Trimestral ou Semestral).</p>
-          </details>
-          <details class="faq">
-            <summary>Preciso saber programação ou design?</summary>
-            <p>Não. Tudo é preenchido em um formulário simples de 5 passos, e suas imagens são ajustadas automaticamente.</p>
-          </details>
-          <details class="faq">
-            <summary>Posso alterar os valores do meu espaço depois?</summary>
-            <p>Sim. Sempre que reajustar preços de locação, convidado extra ou adicionais, basta atualizar no painel.</p>
-          </details>
-          <details class="faq">
-            <summary>Existe multa ou fidelidade?</summary>
-            <p>Não há fidelidade. Você renova apenas pelo período escolhido.</p>
-          </details>
-        </div>
-      </div>
-    </section>
-
-    <!-- 7. CHAMADA FINAL -->
-    <section>
-      <div class="container">
-        <div class="cta-banner">
-          <div>
-            <h2>Pronto para deixar seu espaço vendendo 24 horas?</h2>
-            <p>Comece seu teste gratuito de 7 dias agora mesmo e compartilhe o link da calculadora no seu WhatsApp e redes sociais.</p>
-          </div>
-          <a href="#link-da-calculadora" class="btn btn-cta">Testar grátis por 7 dias</a>
-        </div>
-      </div>
-    </section>
+        <a id="btnWhatsApp" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-cta" style="width: 100%;">
+          Enviar simulação no WhatsApp
+        </a>
+      </aside>
+    </div>
   </main>
 
-  <footer>
-    <div class="container">CALCULADORA DE FESTAS • Todos os direitos reservados • Teste gratuito de 7 dias</div>
-  </footer>
+  <div class="status-bar" aria-live="polite">
+    <div class="status-inner">
+      <div class="status-info">
+        <span class="status-badge">Convidados: <strong id="barConvidados">80</strong> (Extras: <strong id="barExtras">20</strong>)</span>
+        <span class="status-badge">Adicionais: <strong id="barAdd">R$ 600,00</strong></span>
+        <span class="status-total">Simulação: <span id="barTotal">R$ 2.800,00</span></span>
+      </div>
+      <a id="barWhatsApp" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-cta">
+        Enviar no WhatsApp
+      </a>
+    </div>
+  </div>
+
+  <script>
+    const fmtBRL = (v) => v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+
+    function calcular() {
+      const espacoNome = document.getElementById("espacoNome").value.trim() || "Espaço de Eventos";
+      const whatsRaw = document.getElementById("whatsappNumero").value.replace(/\D/g, "");
+      const tipoSel = document.getElementById("tipoFesta");
+      const periodoSel = document.getElementById("periodo");
+
+      const multTipo = parseFloat(tipoSel.selectedOptions[0].dataset.mult || "1");
+      const basePeriodo = parseFloat(periodoSel.selectedOptions[0].dataset.base || "0");
+      const convBase = Math.max(0, parseInt(document.getElementById("convidadosBase").value || "0", 10));
+      const convTotal = Math.max(0, parseInt(document.getElementById("convidadosTotal").value || "0", 10));
+      const valorExtra = Math.max(0, parseFloat(document.getElementById("valorExtra").value || "0"));
+
+      const extrasQtd = Math.max(0, convTotal - convBase);
+      const extrasValor = extrasQtd * valorExtra;
+      const baseAjustado = basePeriodo * multTipo;
+
+      let addValor = 0;
+      const selecionados = [];
+      document.querySelectorAll(".add-item:checked").forEach((el) => {
+        addValor += parseFloat(el.dataset.valor || "0");
+        selecionados.push(el.dataset.nome);
+      });
+
+      const total = baseAjustado + extrasValor + addValor;
+
+      document.getElementById("resBase").textContent = fmtBRL(baseAjustado);
+      document.getElementById("resExtrasQtd").textContent = extrasQtd;
+      document.getElementById("resExtrasValor").textContent = fmtBRL(extrasValor);
+      document.getElementById("resAddValor").textContent = fmtBRL(addValor);
+      document.getElementById("resTotal").textContent = fmtBRL(total);
+
+      document.getElementById("barConvidados").textContent = convTotal;
+      document.getElementById("barExtras").textContent = extrasQtd;
+      document.getElementById("barAdd").textContent = fmtBRL(addValor);
+      document.getElementById("barTotal").textContent = fmtBRL(total);
+
+      const texto = [
+        `Olá! Simulei uma festa no *${espacoNome}*:`,
+        `• Tipo: ${tipoSel.value}`,
+        `• Período: ${periodoSel.value}`,
+        `• Convidados: ${convTotal} (${extrasQtd} extras)`,
+        `• Adicionais: ${selecionados.length ? selecionados.join(", ") : "Nenhum"}`,
+        `• *Estimativa total: ${fmtBRL(total)}*`
+      ].join("\n");
+
+      const link = whatsRaw
+        ? `https://wa.me/${whatsRaw}?text=${encodeURIComponent(texto)}`
+        : `https://wa.me/?text=${encodeURIComponent(texto)}`;
+
+      document.getElementById("btnWhatsApp").href = link;
+      document.getElementById("barWhatsApp").href = link;
+    }
+
+    document.querySelectorAll("input, select").forEach((el) => {
+      el.addEventListener("input", calcular);
+      el.addEventListener("change", calcular);
+    });
+
+    calcular();
+  </script>
 </body>
 </html>
