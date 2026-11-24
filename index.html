@@ -1,1 +1,887 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculadora de Orçamentos para Salões, Buffets e Espaços de Eventos</title>
+  <style>
+    :root {
+      --bg: #f7f6f2;
+      --surface: #ffffff;
+      --surface-alt: #f1efe9;
+      --text: #18181b;
+      --muted: #52525b;
+      --border: #e4e4e7;
+      --accent: #0f766e;
+      --accent-hover: #115e59;
+      --accent-soft: #ccfbf1;
+      --warm: #b45309;
+      --warm-soft: #fef3c7;
+      --radius: 14px;
+      --shadow: 0 8px 28px rgba(24, 24, 27, 0.06);
+    }
 
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header */
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 70px;
+      gap: 16px;
+    }
+
+    .brand-slot {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 12px;
+      border: 1px dashed #cbd5e1;
+      border-radius: 10px;
+      background: #fafafa;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .brand-slot img {
+      max-height: 34px;
+      max-width: 120px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 0.92rem;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.18s ease, transform 0.12s ease;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+    }
+
+    .btn-outline {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-outline:hover {
+      background: var(--surface-alt);
+    }
+
+    /* Hero */
+    .hero {
+      padding: 56px 0 44px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .pill {
+      display: inline-block;
+      background: var(--accent-soft);
+      color: var(--accent-hover);
+      font-weight: 600;
+      font-size: 0.82rem;
+      padding: 6px 12px;
+      border-radius: 999px;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-size: clamp(1.9rem, 3.8vw, 2.85rem);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+
+    .hero p.lead {
+      font-size: 1.08rem;
+      color: var(--muted);
+      margin-bottom: 24px;
+      max-width: 60ch;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .micro-note {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .client-logo-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .client-logo-card .label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .logo-preview-box {
+      min-height: 110px;
+      border: 1px dashed #cbd5e1;
+      border-radius: 10px;
+      background: #fafafa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+
+    .logo-preview-box img {
+      max-width: 100%;
+      max-height: 82px;
+      object-fit: contain;
+    }
+
+    .client-logo-card small {
+      display: block;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    /* Sections */
+    section {
+      padding: 48px 0;
+    }
+
+    .section-header {
+      max-width: 680px;
+      margin-bottom: 28px;
+    }
+
+    .section-header h2 {
+      font-size: clamp(1.45rem, 2.6vw, 2rem);
+      line-height: 1.22;
+      margin-bottom: 10px;
+    }
+
+    .section-header p {
+      color: var(--muted);
+    }
+
+    /* Dor vs Solucao */
+    .compare-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 14px;
+    }
+
+    .card ul {
+      list-style: none;
+      display: grid;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .card ul li strong {
+      color: var(--text);
+    }
+
+    .card-pain {
+      border-top: 4px solid #dc2626;
+    }
+
+    .card-gain {
+      border-top: 4px solid var(--accent);
+    }
+
+    /* Demo Interativa */
+    .demo-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .field {
+      margin-bottom: 16px;
+    }
+
+    .field label {
+      display: block;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+    }
+
+    .field select,
+    .field input[type="range"] {
+      width: 100%;
+    }
+
+    .field select {
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid #d4d4d8;
+      background: #fff;
+      font-size: 0.95rem;
+    }
+
+    .range-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .checks {
+      display: grid;
+      gap: 8px;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 9px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .check-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .photos-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .photo-thumb {
+      border: 2px solid transparent;
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      background: var(--surface-alt);
+      aspect-ratio: 4 / 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-align: center;
+      padding: 6px;
+    }
+
+    .photo-thumb.active {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      color: var(--accent-hover);
+    }
+
+    .summary-panel {
+      background: var(--surface-alt);
+      border-radius: 12px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .total-display {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--accent-hover);
+    }
+
+    .wa-preview {
+      background: #ffffff;
+      border: 1px solid #d4d4d8;
+      border-radius: 10px;
+      padding: 12px;
+      font-size: 0.85rem;
+      white-space: pre-line;
+      color: var(--text);
+    }
+
+    /* 3 Passos */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .step-num {
+      display: inline-flex;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+    }
+
+    /* Planos */
+    .plans-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .plan-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: var(--shadow);
+    }
+
+    .plan-card.featured {
+      border: 2px solid var(--accent);
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.76rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+      background: var(--warm-soft);
+      color: var(--warm);
+    }
+
+    .badge-accent {
+      background: var(--accent-soft);
+      color: var(--accent-hover);
+    }
+
+    .price-month {
+      font-size: 2rem;
+      font-weight: 800;
+      margin: 8px 0 4px;
+    }
+
+    .price-month span {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    .price-cycle {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+
+    /* FAQ */
+    .faq-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .faq-item h4 {
+      margin-bottom: 6px;
+      font-size: 1rem;
+    }
+
+    .faq-item p {
+      color: var(--muted);
+      font-size: 0.93rem;
+    }
+
+    /* CTA Final & Footer */
+    .cta-final {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px 28px;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .cta-final h2 {
+      font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+      margin-bottom: 16px;
+    }
+
+    footer {
+      padding: 28px 0 40px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    @media (max-width: 860px) {
+      .hero-grid,
+      .compare-grid,
+      .demo-box,
+      .steps-grid,
+      .plans-grid,
+      .faq-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container nav">
+      <!-- Espaco para o logotipo do cliente -->
+      <a href="#topo" class="brand-slot" id="headerBrandSlot" title="Espaço reservado para o logotipo do espaço/cliente">
+        <span id="headerLogoPlaceholder">Seu Logo Aqui</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#como-funciona">Como funciona</a>
+        <a href="#demonstracao">Demonstração</a>
+        <a href="#planos">Planos</a>
+        <a href="#faq">Dúvidas</a>
+      </nav>
+
+      <a href="#planos" class="btn btn-primary">Testar grátis por 7 dias</a>
+    </div>
+  </header>
+
+  <main id="topo">
+    <!-- Seção 1: Topo -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <span class="pill">Para salões de festa, buffets e espaços de eventos</span>
+          <h1>Pare de perder tempo respondendo "qual o valor?" no WhatsApp. Deixe o cliente simular a festa sozinho.</h1>
+          <p class="lead">
+            Crie a calculadora personalizada do seu espaço em poucos minutos. O cliente escolhe a data, o número de convidados e os adicionais, vê o valor estimado e envia o orçamento pronto direto para o seu WhatsApp.
+          </p>
+          <div class="hero-actions">
+            <a href="#planos" class="btn btn-primary">Testar grátis por 7 dias</a>
+            <a href="#demonstracao" class="btn btn-outline">Ver simulação ao vivo</a>
+          </div>
+          <p class="micro-note">Configure você mesmo em 5 passos simples • Não precisa instalar nada • Sem fidelidade</p>
+        </div>
+
+        <aside class="client-logo-card">
+          <span class="label">Identidade do seu espaço na calculadora</span>
+          <div class="logo-preview-box" id="heroLogoBox">
+            <strong>Espaço Jardim Real</strong>
+          </div>
+          <small>O logotipo do cliente (comprimido automaticamente) aparece no topo do simulador e do resumo.</small>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Seção 2: Dor vs. Solução -->
+    <section id="como-funciona">
+      <div class="container">
+        <div class="section-header">
+          <h2>Como funciona hoje vs. Como fica com a sua calculadora</h2>
+          <p>Menos mensagens repetitivas e mais conversas com quem já sabe o que quer.</p>
+        </div>
+
+        <div class="compare-grid">
+          <div class="card card-pain">
+            <h3>Sem a calculadora</h3>
+            <ul>
+              <li><strong>Curiosos somem:</strong> pedem preço nas redes sociais ou no WhatsApp e desaparecem assim que ouvem o valor.</li>
+              <li><strong>Conta manual repetitiva:</strong> você gasta horas somando convidados, pacotes e adicionais todos os dias.</li>
+              <li><strong>Demora custa datas:</strong> quem espera horas por uma resposta acaba fechando em outro espaço.</li>
+            </ul>
+          </div>
+
+          <div class="card card-gain">
+            <h3>Com a sua calculadora</h3>
+            <ul>
+              <li><strong>Link sempre disponível:</strong> coloque nas suas redes sociais, no Google Maps e nas respostas automáticas do WhatsApp 24 horas por dia.</li>
+              <li><strong>Simulação em 1 minuto:</strong> o cliente monta a festa sozinho e já vê se cabe no orçamento antes de chamar.</li>
+              <li><strong>Lead qualificado:</strong> você recebe no WhatsApp o resumo organizado com data, convidados, adicionais e estimativa.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção 3: Demonstração Interativa -->
+    <section id="demonstracao">
+      <div class="container">
+        <div class="section-header">
+          <h2>Veja como o seu cliente vai usar no celular</h2>
+          <p>Faça um teste rápido abaixo como se estivesse orçando uma festa no seu espaço:</p>
+        </div>
+
+        <div class="demo-box">
+          <div>
+            <div class="field">
+              <label>Fotos do espaço (até 3 fotos na demonstração)</label>
+              <div class="photos-strip" id="photoSelector">
+                <div class="photo-thumb active" data-photo="Salão Principal • Ambiente climatizado e palco">Foto 1: Salão</div>
+                <div class="photo-thumb" data-photo="Área Externa • Jardim e espaço gourmet">Foto 2: Área Externa</div>
+                <div class="photo-thumb" data-photo="Buffet & Mesas • Montagem completa">Foto 3: Estrutura</div>
+              </div>
+              <p class="micro-note" id="photoCaption">Foto 1: Salão Principal • Ambiente climatizado e palco</p>
+            </div>
+
+            <div class="field">
+              <label for="eventType">Tipo de evento / Dia</label>
+              <select id="eventType">
+                <option value="2200" data-label="Festa / Aniversário (Seg a Qui)">Festa / Aniversário (Seg a Qui) — Base R$ 2.200</option>
+                <option value="3400" data-label="Evento / Casamento (Sex a Dom)" selected>Evento / Casamento (Sex a Dom) — Base R$ 3.400</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="guestRange">Número de convidados (R$ 45 por pessoa extra acima de 50)</label>
+              <input type="range" id="guestRange" min="30" max="150" step="10" value="80" />
+              <div class="range-meta">
+                <span>30</span>
+                <strong id="guestCountLabel">80 convidados</strong>
+                <span>150</span>
+              </div>
+            </div>
+
+            <div class="field">
+              <label>Adicionais opcionais</label>
+              <div class="checks">
+                <label class="check-item">
+                  <span class="check-left"><input type="checkbox" class="addon" value="650" data-name="Som e Iluminação" checked /> Som e Iluminação</span>
+                  <strong>+ R$ 650</strong>
+                </label>
+                <label class="check-item">
+                  <span class="check-left"><input type="checkbox" class="addon" value="900" data-name="Churrasqueira / Equipe" /> Churrasqueira / Equipe</span>
+                  <strong>+ R$ 900</strong>
+                </label>
+                <label class="check-item">
+                  <span class="check-left"><input type="checkbox" class="addon" value="500" data-name="Decoração Básica" /> Decoração Básica</span>
+                  <strong>+ R$ 500</strong>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="summary-panel">
+            <div>
+              <span class="micro-note">Estimativa inicial simulada</span>
+              <div class="total-display" id="totalPrice">R$ 5.400</div>
+              <p class="micro-note" style="margin-top: 8px; margin-bottom: 6px;"><strong>Prévia da mensagem enviada ao WhatsApp do espaço:</strong></p>
+              <div class="wa-preview" id="waPreview"></div>
+            </div>
+
+            <a href="#planos" class="btn btn-primary" style="width: 100%;">Quero isso no meu espaço por 7 dias grátis</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção 4: 3 Passos -->
+    <section>
+      <div class="container">
+        <div class="section-header">
+          <h2>Pronto para usar em poucos minutos</h2>
+          <p>Sem depender de suporte técnico para colocar a calculadora no ar.</p>
+        </div>
+
+        <div class="steps-grid">
+          <div class="card">
+            <div class="step-num">1</div>
+            <h3>Preencha em 5 etapas</h3>
+            <p style="color: var(--muted); font-size: 0.94rem;">
+              Coloque o logotipo e o nome do seu espaço, seu WhatsApp, até 3 fotos do ambiente e os valores base de convidados e adicionais.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="step-num">2</div>
+            <h3>Compartilhe seu link</h3>
+            <p style="color: var(--muted); font-size: 0.94rem;">
+              Coloque o endereço exclusivo da sua calculadora nas suas redes sociais, no Google Maps e nas respostas automáticas do WhatsApp.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="step-num">3</div>
+            <h3>Receba orçamentos prontos</h3>
+            <p style="color: var(--muted); font-size: 0.94rem;">
+              Acompanhe os pedidos chegando organizados no seu WhatsApp, prontos para você avançar na visita ou no fechamento.
+            </p>
+          </div>
+        </div>
+        <p class="micro-note" style="margin-top: 14px;">Acompanha guia rápido em vídeo para celular e computador.</p>
+      </div>
+    </section>
+
+    <!-- Seção 5: Planos -->
+    <section id="planos">
+      <div class="container">
+        <div class="section-header">
+          <h2>Teste grátis por 7 dias. Escolha um plano só se fizer sentido para o seu espaço.</h2>
+          <p>Todos os planos incluem calculadora ilimitada, envio direto para o WhatsApp e até 3 fotos do seu espaço.</p>
+        </div>
+
+        <div class="plans-grid">
+          <div class="plan-card">
+            <div>
+              <span class="badge">Flexível</span>
+              <h3>Mensal</h3>
+              <div class="price-month">R$ 120,00 <span>/mês</span></div>
+              <p class="price-cycle">Cobrado mensalmente</p>
+              <p class="micro-note">Ativação imediata via Pix ou Cartão após o teste.</p>
+            </div>
+            <a href="#fechamento" class="btn btn-outline" style="margin-top: 20px;">Começar 7 dias grátis</a>
+          </div>
+
+          <div class="plan-card featured">
+            <div>
+              <span class="badge badge-accent">Mais escolhido</span>
+              <h3>Trimestral</h3>
+              <div class="price-month">R$ 106,67 <span>/mês</span></div>
+              <p class="price-cycle">Cobrado R$ 320,00 a cada 3 meses</p>
+              <p class="micro-note">Ativação imediata via Pix ou Cartão após o teste.</p>
+            </div>
+            <a href="#fechamento" class="btn btn-primary" style="margin-top: 20px;">Começar 7 dias grátis</a>
+          </div>
+
+          <div class="plan-card">
+            <div>
+              <span class="badge">Economize 27%</span>
+              <h3>Semestral</h3>
+              <div class="price-month">R$ 88,00 <span>/mês</span></div>
+              <p class="price-cycle">Cobrado R$ 528,00 a cada 6 meses</p>
+              <p class="micro-note">Ativação imediata via Pix ou Cartão após o teste.</p>
+            </div>
+            <a href="#fechamento" class="btn btn-outline" style="margin-top: 20px;">Começar 7 dias grátis</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção 6: FAQ -->
+    <section id="faq">
+      <div class="container">
+        <div class="section-header">
+          <h2>Perguntas frequentes</h2>
+        </div>
+
+        <div class="faq-grid">
+          <div class="card faq-item">
+            <h4>Preciso ter site próprio para usar?</h4>
+            <p>Não. Você ganha um link pronto para colocar direto nas suas redes sociais, no Google Maps ou no WhatsApp.</p>
+          </div>
+
+          <div class="card faq-item">
+            <h4>Preciso entender de informática ou programação?</h4>
+            <p>Não. Todo o cadastro é guiado em 5 telas simples, com passo a passo para fazer pelo celular ou computador.</p>
+          </div>
+
+          <div class="card faq-item">
+            <h4>E se eu não quiser continuar depois dos 7 dias?</h4>
+            <p>Basta não ativar nenhum plano. O acesso de teste expira automaticamente, sem cobrança surpresa e sem multa.</p>
+          </div>
+
+          <div class="card faq-item">
+            <h4>Posso alterar meus preços e fotos depois?</h4>
+            <p>Sim, sempre que precisar ajustar valores de convidados, adicionais ou trocar as fotos e o logotipo do espaço.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção 7: Fechamento -->
+    <section id="fechamento">
+      <div class="container">
+        <div class="cta-final">
+          <h2>Seu espaço merece orçamentos mais rápidos e clientes mais decididos.</h2>
+          <a href="#planos" class="btn btn-primary">Criar minha calculadora grátis por 7 dias</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      Calculadora de Orçamentos para Salões, Buffets e Espaços de Eventos • Teste gratuito de 7 dias.
+    </div>
+  </footer>
+
+  <script>
+    const eventTypeEl = document.getElementById("eventType");
+    const guestRangeEl = document.getElementById("guestRange");
+    const guestCountLabelEl = document.getElementById("guestCountLabel");
+    const addonEls = document.querySelectorAll(".addon");
+    const totalPriceEl = document.getElementById("totalPrice");
+    const waPreviewEl = document.getElementById("waPreview");
+    const photoThumbs = document.querySelectorAll(".photo-thumb");
+    const photoCaptionEl = document.getElementById("photoCaption");
+
+    let selectedPhotoText = "Foto 1: Salão Principal • Ambiente climatizado e palco";
+
+    photoThumbs.forEach((thumb) => {
+      thumb.addEventListener("click", () => {
+        photoThumbs.forEach((t) => t.classList.remove("active"));
+        thumb.classList.add("active");
+        selectedPhotoText = thumb.dataset.photo;
+        photoCaptionEl.textContent = selectedPhotoText;
+        updateCalculator();
+      });
+    });
+
+    function formatBRL(value) {
+      return value.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+        maximumFractionDigits: 0
+      });
+    }
+
+    function updateCalculator() {
+      const basePrice = Number(eventTypeEl.value);
+      const eventLabel = eventTypeEl.options[eventTypeEl.selectedIndex].dataset.label;
+      const guests = Number(guestRangeEl.value);
+      guestCountLabelEl.textContent = `${guests} convidados`;
+
+      const extraGuests = Math.max(0, guests - 50);
+      const extraGuestsCost = extraGuests * 45;
+
+      const selectedAddons = [];
+      let addonsCost = 0;
+
+      addonEls.forEach((chk) => {
+        if (chk.checked) {
+          addonsCost += Number(chk.value);
+          selectedAddons.push(chk.dataset.name);
+        }
+      });
+
+      const total = basePrice + extraGuestsCost + addonsCost;
+      totalPriceEl.textContent = formatBRL(total);
+
+      const addonsText = selectedAddons.length > 0 ? selectedAddons.join(", ") : "Nenhum";
+      waPreviewEl.textContent =
+        `Olá! Simulei um orçamento para o Espaço Jardim Real:\n` +
+        `• Modalidade: ${eventLabel}\n` +
+        `• Convidados: ${guests}\n` +
+        `• Adicionais: ${addonsText}\n` +
+        `• Estimativa inicial: ${formatBRL(total)}`;
+    }
+
+    eventTypeEl.addEventListener("change", updateCalculator);
+    guestRangeEl.addEventListener("input", updateCalculator);
+    addonEls.forEach((chk) => chk.addEventListener("change", updateCalculator));
+
+    updateCalculator();
+  </script>
+</body>
+</html>
