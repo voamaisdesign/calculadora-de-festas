@@ -6,19 +6,22 @@
   <title>Calculadora de Orçamentos para Salões, Buffets e Espaços de Eventos</title>
   <style>
     :root {
-      --bg: #f7f6f2;
+      --bg: #e8ecf2;
       --surface: #ffffff;
-      --surface-alt: #f1efe9;
-      --text: #18181b;
-      --muted: #52525b;
-      --border: #e4e4e7;
-      --accent: #0f766e;
-      --accent-hover: #115e59;
-      --accent-soft: #ccfbf1;
-      --warm: #b45309;
-      --warm-soft: #fef3c7;
-      --radius: 14px;
-      --shadow: 0 8px 28px rgba(24, 24, 27, 0.06);
+      --surface-alt: #f1f5f9;
+      --surface-dark: #0f172a;
+      --text: #0f172a;
+      --text-secondary: #334155;
+      --border: #94a3b8;
+      --border-light: #cbd5e1;
+      --primary: #1e3a8a;
+      --primary-hover: #172554;
+      --cta: #d97706;
+      --cta-hover: #b45309;
+      --badge-bg: #dbeafe;
+      --badge-text: #1e3a8a;
+      --radius: 12px;
+      --shadow: 0 6px 20px rgba(15, 23, 42, 0.10);
     }
 
     * {
@@ -37,15 +40,16 @@
 
     .container {
       width: 100%;
-      max-width: 1100px;
+      max-width: 1120px;
       margin: 0 auto;
       padding: 0 20px;
     }
 
     /* Header */
     header {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
+      background: var(--surface-dark);
+      color: #ffffff;
+      border-bottom: 2px solid #1e293b;
       position: sticky;
       top: 0;
       z-index: 20;
@@ -55,7 +59,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      min-height: 70px;
+      min-height: 72px;
       gap: 16px;
     }
 
@@ -63,40 +67,31 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      padding: 6px 12px;
-      border: 1px dashed #cbd5e1;
+      padding: 8px 14px;
+      border: 2px dashed #94a3b8;
       border-radius: 10px;
-      background: #fafafa;
-      font-size: 0.875rem;
-      font-weight: 600;
-      color: var(--text);
+      background: #1e293b;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #ffffff;
       text-decoration: none;
-    }
-
-    .brand-slot img {
-      max-height: 34px;
-      max-width: 120px;
-      width: auto;
-      height: auto;
-      object-fit: contain;
-      display: block;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 20px;
-      font-size: 0.92rem;
+      gap: 22px;
+      font-size: 0.94rem;
     }
 
     .nav-links a {
-      color: var(--muted);
+      color: #e2e8f0;
       text-decoration: none;
-      font-weight: 500;
+      font-weight: 600;
     }
 
     .nav-links a:hover {
-      color: var(--text);
+      color: #fbbf24;
     }
 
     .btn {
@@ -104,38 +99,49 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      padding: 12px 20px;
+      padding: 13px 22px;
       border-radius: 10px;
-      font-weight: 600;
-      font-size: 0.95rem;
+      font-weight: 700;
+      font-size: 0.96rem;
       text-decoration: none;
-      border: none;
+      border: 2px solid transparent;
       cursor: pointer;
-      transition: background 0.18s ease, transform 0.12s ease;
+      transition: background 0.16s ease, border-color 0.16s ease;
+    }
+
+    .btn-cta {
+      background: var(--cta);
+      color: #ffffff;
+    }
+
+    .btn-cta:hover {
+      background: var(--cta-hover);
     }
 
     .btn-primary {
-      background: var(--accent);
+      background: var(--primary);
       color: #ffffff;
     }
 
     .btn-primary:hover {
-      background: var(--accent-hover);
+      background: var(--primary-hover);
     }
 
     .btn-outline {
       background: var(--surface);
-      color: var(--text);
-      border: 1px solid var(--border);
+      color: var(--primary);
+      border-color: var(--primary);
     }
 
     .btn-outline:hover {
-      background: var(--surface-alt);
+      background: var(--badge-bg);
     }
 
     /* Hero */
     .hero {
-      padding: 56px 0 44px;
+      padding: 52px 0 44px;
+      background: linear-gradient(180deg, #dde3ee 0%, #e8ecf2 100%);
+      border-bottom: 1px solid var(--border-light);
     }
 
     .hero-grid {
@@ -147,25 +153,26 @@
 
     .pill {
       display: inline-block;
-      background: var(--accent-soft);
-      color: var(--accent-hover);
-      font-weight: 600;
-      font-size: 0.82rem;
-      padding: 6px 12px;
+      background: var(--primary);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.84rem;
+      padding: 6px 14px;
       border-radius: 999px;
       margin-bottom: 16px;
     }
 
     h1 {
-      font-size: clamp(1.9rem, 3.8vw, 2.85rem);
+      font-size: clamp(1.9rem, 3.8vw, 2.8rem);
       line-height: 1.15;
       letter-spacing: -0.02em;
+      color: var(--text);
       margin-bottom: 16px;
     }
 
     .hero p.lead {
       font-size: 1.08rem;
-      color: var(--muted);
+      color: var(--text-secondary);
       margin-bottom: 24px;
       max-width: 60ch;
     }
@@ -178,50 +185,49 @@
     }
 
     .micro-note {
-      font-size: 0.85rem;
-      color: var(--muted);
+      font-size: 0.86rem;
+      color: var(--text-secondary);
+      font-weight: 500;
     }
 
     .client-logo-card {
       background: var(--surface);
-      border: 1px solid var(--border);
+      border: 2px solid var(--border);
       border-radius: var(--radius);
-      padding: 22px;
+      padding: 24px;
       box-shadow: var(--shadow);
       text-align: center;
     }
 
     .client-logo-card .label {
-      font-size: 0.78rem;
+      font-size: 0.8rem;
+      font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.06em;
-      color: var(--muted);
+      color: var(--primary);
       margin-bottom: 12px;
       display: block;
     }
 
     .logo-preview-box {
-      min-height: 110px;
-      border: 1px dashed #cbd5e1;
+      min-height: 116px;
+      border: 2px dashed var(--primary);
       border-radius: 10px;
-      background: #fafafa;
+      background: #f8fafc;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 14px;
+      padding: 16px;
       margin-bottom: 12px;
-    }
-
-    .logo-preview-box img {
-      max-width: 100%;
-      max-height: 82px;
-      object-fit: contain;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--primary);
     }
 
     .client-logo-card small {
       display: block;
-      color: var(--muted);
-      font-size: 0.82rem;
+      color: var(--text-secondary);
+      font-size: 0.84rem;
     }
 
     /* Sections */
@@ -230,45 +236,48 @@
     }
 
     .section-header {
-      max-width: 680px;
+      max-width: 720px;
       margin-bottom: 28px;
     }
 
     .section-header h2 {
-      font-size: clamp(1.45rem, 2.6vw, 2rem);
+      font-size: clamp(1.5rem, 2.6vw, 2.05rem);
       line-height: 1.22;
+      color: var(--text);
       margin-bottom: 10px;
     }
 
     .section-header p {
-      color: var(--muted);
+      color: var(--text-secondary);
+      font-size: 1rem;
     }
 
     /* Dor vs Solucao */
     .compare-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
+      gap: 22px;
     }
 
     .card {
       background: var(--surface);
-      border: 1px solid var(--border);
+      border: 1.5px solid var(--border-light);
       border-radius: var(--radius);
       padding: 24px;
       box-shadow: var(--shadow);
     }
 
     .card h3 {
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       margin-bottom: 14px;
+      color: var(--text);
     }
 
     .card ul {
       list-style: none;
       display: grid;
-      gap: 10px;
-      color: var(--muted);
+      gap: 12px;
+      color: var(--text-secondary);
       font-size: 0.96rem;
     }
 
@@ -277,23 +286,34 @@
     }
 
     .card-pain {
-      border-top: 4px solid #dc2626;
+      border-top: 5px solid #b91c1c;
     }
 
     .card-gain {
-      border-top: 4px solid var(--accent);
+      border-top: 5px solid var(--primary);
     }
 
     /* Demo Interativa */
     .demo-box {
       background: var(--surface);
-      border: 1px solid var(--border);
+      border: 2px solid var(--border);
       border-radius: var(--radius);
       padding: 24px;
       box-shadow: var(--shadow);
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1.1fr 0.9fr;
       gap: 24px;
+    }
+
+    .config-banner {
+      background: var(--badge-bg);
+      border: 1px solid #93c5fd;
+      color: var(--primary-hover);
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 0.86rem;
+      font-weight: 600;
+      margin-bottom: 16px;
     }
 
     .field {
@@ -302,108 +322,162 @@
 
     .field label {
       display: block;
-      font-weight: 600;
-      font-size: 0.9rem;
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: var(--text);
       margin-bottom: 6px;
     }
 
-    .field select,
-    .field input[type="range"] {
-      width: 100%;
+    .inline-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
     }
 
-    .field select {
+    .field select,
+    .field input[type="number"] {
+      width: 100%;
       padding: 10px 12px;
       border-radius: 8px;
-      border: 1px solid #d4d4d8;
-      background: #fff;
+      border: 1.5px solid var(--border);
+      background: #ffffff;
+      color: var(--text);
       font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .field select:focus,
+    .field input[type="number"]:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .field input[type="range"] {
+      width: 100%;
+      accent-color: var(--primary);
+      cursor: pointer;
     }
 
     .range-meta {
       display: flex;
       justify-content: space-between;
-      font-size: 0.85rem;
-      color: var(--muted);
+      font-size: 0.86rem;
+      color: var(--text-secondary);
       margin-top: 4px;
     }
 
     .checks {
       display: grid;
-      gap: 8px;
+      gap: 10px;
     }
 
     .check-item {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 9px 12px;
-      border: 1px solid var(--border);
+      gap: 10px;
+      padding: 10px 12px;
+      border: 1.5px solid var(--border-light);
+      background: #f8fafc;
       border-radius: 8px;
-      font-size: 0.9rem;
-      cursor: pointer;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text);
     }
 
     .check-left {
       display: flex;
       align-items: center;
       gap: 8px;
+      cursor: pointer;
+    }
+
+    .check-left input[type="checkbox"] {
+      width: 17px;
+      height: 17px;
+      accent-color: var(--primary);
+    }
+
+    .price-edit-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.86rem;
+      color: var(--text-secondary);
+    }
+
+    .price-edit-wrap input[type="number"] {
+      width: 92px;
+      padding: 6px 8px;
+      border-radius: 6px;
+      border: 1.5px solid var(--border);
+      font-weight: 700;
+      color: var(--text);
+      text-align: right;
     }
 
     .photos-strip {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 8px;
-      margin-bottom: 14px;
+      margin-bottom: 10px;
     }
 
     .photo-thumb {
-      border: 2px solid transparent;
+      border: 2px solid var(--border-light);
       border-radius: 8px;
-      overflow: hidden;
       cursor: pointer;
-      background: var(--surface-alt);
+      background: #f8fafc;
       aspect-ratio: 4 / 3;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: var(--muted);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-secondary);
       text-align: center;
       padding: 6px;
     }
 
     .photo-thumb.active {
-      border-color: var(--accent);
-      background: var(--accent-soft);
-      color: var(--accent-hover);
+      border-color: var(--primary);
+      background: var(--badge-bg);
+      color: var(--primary-hover);
     }
 
     .summary-panel {
-      background: var(--surface-alt);
+      background: var(--surface-dark);
+      color: #ffffff;
       border-radius: 12px;
-      padding: 18px;
+      padding: 22px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 14px;
+      gap: 16px;
+    }
+
+    .summary-panel .label-top {
+      font-size: 0.86rem;
+      color: #cbd5e1;
+      font-weight: 600;
     }
 
     .total-display {
-      font-size: 1.75rem;
+      font-size: 2rem;
       font-weight: 800;
-      color: var(--accent-hover);
+      color: #fbbf24;
+      margin-top: 2px;
     }
 
     .wa-preview {
       background: #ffffff;
-      border: 1px solid #d4d4d8;
+      border: 2px solid #94a3b8;
       border-radius: 10px;
-      padding: 12px;
-      font-size: 0.85rem;
+      padding: 14px;
+      font-size: 0.87rem;
       white-space: pre-line;
-      color: var(--text);
+      color: #0f172a;
+      font-weight: 500;
     }
 
     /* 3 Passos */
@@ -415,15 +489,15 @@
 
     .step-num {
       display: inline-flex;
-      width: 30px;
-      height: 30px;
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
-      background: var(--accent);
-      color: #fff;
+      background: var(--primary);
+      color: #ffffff;
       align-items: center;
       justify-content: center;
-      font-weight: 700;
-      font-size: 0.9rem;
+      font-weight: 800;
+      font-size: 0.95rem;
       margin-bottom: 12px;
     }
 
@@ -436,7 +510,7 @@
 
     .plan-card {
       background: var(--surface);
-      border: 1px solid var(--border);
+      border: 2px solid var(--border-light);
       border-radius: var(--radius);
       padding: 24px;
       display: flex;
@@ -446,41 +520,44 @@
     }
 
     .plan-card.featured {
-      border: 2px solid var(--accent);
+      border: 3px solid var(--primary);
+      background: #f8fafc;
     }
 
     .badge {
       display: inline-block;
-      font-size: 0.76rem;
+      font-size: 0.78rem;
       font-weight: 700;
       padding: 4px 10px;
       border-radius: 999px;
       margin-bottom: 10px;
-      background: var(--warm-soft);
-      color: var(--warm);
+      background: #e2e8f0;
+      color: #1e293b;
     }
 
     .badge-accent {
-      background: var(--accent-soft);
-      color: var(--accent-hover);
+      background: var(--primary);
+      color: #ffffff;
     }
 
     .price-month {
-      font-size: 2rem;
+      font-size: 2.05rem;
       font-weight: 800;
+      color: var(--text);
       margin: 8px 0 4px;
     }
 
     .price-month span {
       font-size: 0.95rem;
-      font-weight: 500;
-      color: var(--muted);
+      font-weight: 600;
+      color: var(--text-secondary);
     }
 
     .price-cycle {
-      font-size: 0.88rem;
-      color: var(--muted);
-      margin-bottom: 18px;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      font-weight: 600;
+      margin-bottom: 16px;
     }
 
     /* FAQ */
@@ -492,34 +569,36 @@
 
     .faq-item h4 {
       margin-bottom: 6px;
-      font-size: 1rem;
+      font-size: 1.02rem;
+      color: var(--text);
     }
 
     .faq-item p {
-      color: var(--muted);
-      font-size: 0.93rem;
+      color: var(--text-secondary);
+      font-size: 0.94rem;
     }
 
     /* CTA Final & Footer */
     .cta-final {
-      background: var(--surface);
-      border: 1px solid var(--border);
+      background: var(--surface-dark);
+      color: #ffffff;
       border-radius: var(--radius);
-      padding: 36px 28px;
+      padding: 38px 28px;
       text-align: center;
       box-shadow: var(--shadow);
     }
 
     .cta-final h2 {
-      font-size: clamp(1.4rem, 2.5vw, 1.9rem);
-      margin-bottom: 16px;
+      font-size: clamp(1.45rem, 2.5vw, 1.95rem);
+      margin-bottom: 18px;
     }
 
     footer {
       padding: 28px 0 40px;
       text-align: center;
-      color: var(--muted);
-      font-size: 0.86rem;
+      color: var(--text-secondary);
+      font-size: 0.88rem;
+      font-weight: 500;
     }
 
     @media (max-width: 860px) {
@@ -528,7 +607,8 @@
       .demo-box,
       .steps-grid,
       .plans-grid,
-      .faq-grid {
+      .faq-grid,
+      .inline-grid {
         grid-template-columns: 1fr;
       }
 
@@ -542,9 +622,8 @@
 
   <header>
     <div class="container nav">
-      <!-- Espaco para o logotipo do cliente -->
-      <a href="#topo" class="brand-slot" id="headerBrandSlot" title="Espaço reservado para o logotipo do espaço/cliente">
-        <span id="headerLogoPlaceholder">Seu Logo Aqui</span>
+      <a href="#topo" class="brand-slot" title="Espaço reservado para o logotipo do cliente">
+        <span>Seu logotipo aqui</span>
       </a>
 
       <nav class="nav-links">
@@ -554,7 +633,7 @@
         <a href="#faq">Dúvidas</a>
       </nav>
 
-      <a href="#planos" class="btn btn-primary">Testar grátis por 7 dias</a>
+      <a href="#planos" class="btn btn-cta">Testar grátis por 7 dias</a>
     </div>
   </header>
 
@@ -566,10 +645,10 @@
           <span class="pill">Para salões de festa, buffets e espaços de eventos</span>
           <h1>Pare de perder tempo respondendo "qual o valor?" no WhatsApp. Deixe o cliente simular a festa sozinho.</h1>
           <p class="lead">
-            Crie a calculadora personalizada do seu espaço em poucos minutos. O cliente escolhe a data, o número de convidados e os adicionais, vê o valor estimado e envia o orçamento pronto direto para o seu WhatsApp.
+            Crie a calculadora personalizada do seu espaço em poucos minutos. O cliente escolhe o tipo de festa, a data, o número de convidados e os adicionais, vê o valor estimado e envia o orçamento pronto direto para o seu WhatsApp.
           </p>
           <div class="hero-actions">
-            <a href="#planos" class="btn btn-primary">Testar grátis por 7 dias</a>
+            <a href="#planos" class="btn btn-cta">Testar grátis por 7 dias</a>
             <a href="#demonstracao" class="btn btn-outline">Ver simulação ao vivo</a>
           </div>
           <p class="micro-note">Configure você mesmo em 5 passos simples • Não precisa instalar nada • Sem fidelidade</p>
@@ -577,10 +656,10 @@
 
         <aside class="client-logo-card">
           <span class="label">Identidade do seu espaço na calculadora</span>
-          <div class="logo-preview-box" id="heroLogoBox">
-            <strong>Espaço Jardim Real</strong>
+          <div class="logo-preview-box">
+            Seu logotipo aqui
           </div>
-          <small>O logotipo do cliente (comprimido automaticamente) aparece no topo do simulador e do resumo.</small>
+          <small>O logotipo do seu espaço (comprimido automaticamente) aparece no topo do simulador e do resumo.</small>
         </aside>
       </div>
     </section>
@@ -608,7 +687,7 @@
             <ul>
               <li><strong>Link sempre disponível:</strong> coloque nas suas redes sociais, no Google Maps e nas respostas automáticas do WhatsApp 24 horas por dia.</li>
               <li><strong>Simulação em 1 minuto:</strong> o cliente monta a festa sozinho e já vê se cabe no orçamento antes de chamar.</li>
-              <li><strong>Lead qualificado:</strong> você recebe no WhatsApp o resumo organizado com data, convidados, adicionais e estimativa.</li>
+              <li><strong>Lead qualificado:</strong> você recebe no WhatsApp o resumo organizado com tipo de evento, data, convidados, adicionais e estimativa.</li>
             </ul>
           </div>
         </div>
@@ -620,67 +699,124 @@
       <div class="container">
         <div class="section-header">
           <h2>Veja como o seu cliente vai usar no celular</h2>
-          <p>Faça um teste rápido abaixo como se estivesse orçando uma festa no seu espaço:</p>
+          <p>Você define a capacidade do seu espaço e os valores que cobra. Teste abaixo editando os valores ou simulando como cliente:</p>
         </div>
 
         <div class="demo-box">
           <div>
+            <div class="config-banner">
+              Simulador editável: altere a capacidade máxima e os preços abaixo para testar com a realidade do seu espaço.
+            </div>
+
             <div class="field">
               <label>Fotos do espaço (até 3 fotos na demonstração)</label>
               <div class="photos-strip" id="photoSelector">
-                <div class="photo-thumb active" data-photo="Salão Principal • Ambiente climatizado e palco">Foto 1: Salão</div>
-                <div class="photo-thumb" data-photo="Área Externa • Jardim e espaço gourmet">Foto 2: Área Externa</div>
-                <div class="photo-thumb" data-photo="Buffet & Mesas • Montagem completa">Foto 3: Estrutura</div>
+                <div class="photo-thumb active" data-photo="Foto 1: Salão Principal • Ambiente climatizado e palco">Foto 1: Salão</div>
+                <div class="photo-thumb" data-photo="Foto 2: Área Externa • Jardim e espaço gourmet">Foto 2: Área Externa</div>
+                <div class="photo-thumb" data-photo="Foto 3: Buffet & Mesas • Montagem completa">Foto 3: Estrutura</div>
               </div>
               <p class="micro-note" id="photoCaption">Foto 1: Salão Principal • Ambiente climatizado e palco</p>
             </div>
 
-            <div class="field">
-              <label for="eventType">Tipo de evento / Dia</label>
-              <select id="eventType">
-                <option value="2200" data-label="Festa / Aniversário (Seg a Qui)">Festa / Aniversário (Seg a Qui) — Base R$ 2.200</option>
-                <option value="3400" data-label="Evento / Casamento (Sex a Dom)" selected>Evento / Casamento (Sex a Dom) — Base R$ 3.400</option>
-              </select>
+            <div class="inline-grid">
+              <div class="field">
+                <label for="eventCategory">Tipo de festa / evento</label>
+                <select id="eventCategory">
+                  <option value="Aniversário Adulto">Aniversário Adulto</option>
+                  <option value="Festa Infantil">Festa Infantil</option>
+                  <option value="Casamento" selected>Casamento</option>
+                  <option value="Debutante / 15 Anos">Debutante / 15 Anos</option>
+                  <option value="Formatura">Formatura</option>
+                  <option value="Confraternização / Corporativo">Confraternização / Corporativo</option>
+                  <option value="Chá de Bebê / Panela">Chá de Bebê / Panela</option>
+                  <option value="Outro Evento">Outro Evento</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="dayPeriod">Dia do evento</label>
+                <select id="dayPeriod">
+                  <option value="weekday">Evento (Segunda a Quinta)</option>
+                  <option value="weekend" selected>Evento (Sexta a Domingo / Feriado)</option>
+                </select>
+              </div>
             </div>
 
-            <div class="field">
-              <label for="guestRange">Número de convidados (R$ 45 por pessoa extra acima de 50)</label>
-              <input type="range" id="guestRange" min="30" max="150" step="10" value="80" />
-              <div class="range-meta">
-                <span>30</span>
-                <strong id="guestCountLabel">80 convidados</strong>
-                <span>150</span>
+            <div class="inline-grid">
+              <div class="field">
+                <label for="weekdayPrice">Valor base Seg a Qui (R$)</label>
+                <input type="number" id="weekdayPrice" min="0" step="50" value="2200" />
+              </div>
+
+              <div class="field">
+                <label for="weekendPrice">Valor base Sex a Dom (R$)</label>
+                <input type="number" id="weekendPrice" min="0" step="50" value="3400" />
+              </div>
+            </div>
+
+            <div class="inline-grid">
+              <div class="field">
+                <label for="maxCapacity">Capacidade máxima do espaço</label>
+                <input type="number" id="maxCapacity" min="10" max="2000" step="5" value="150" />
+              </div>
+
+              <div class="field">
+                <label for="extraGuestPrice">Valor por convidado extra (acima de 50)</label>
+                <input type="number" id="extraGuestPrice" min="0" step="5" value="45" />
               </div>
             </div>
 
             <div class="field">
-              <label>Adicionais opcionais</label>
+              <label for="guestRange">Número de convidados simulado</label>
+              <input type="range" id="guestRange" min="10" max="150" step="5" value="80" />
+              <div class="range-meta">
+                <span>10</span>
+                <strong id="guestCountLabel">80 convidados</strong>
+                <span id="maxCapacityLabel">Máx: 150</span>
+              </div>
+            </div>
+
+            <div class="field">
+              <label>Adicionais opcionais (edite os valores ao lado)</label>
               <div class="checks">
-                <label class="check-item">
-                  <span class="check-left"><input type="checkbox" class="addon" value="650" data-name="Som e Iluminação" checked /> Som e Iluminação</span>
-                  <strong>+ R$ 650</strong>
-                </label>
-                <label class="check-item">
-                  <span class="check-left"><input type="checkbox" class="addon" value="900" data-name="Churrasqueira / Equipe" /> Churrasqueira / Equipe</span>
-                  <strong>+ R$ 900</strong>
-                </label>
-                <label class="check-item">
-                  <span class="check-left"><input type="checkbox" class="addon" value="500" data-name="Decoração Básica" /> Decoração Básica</span>
-                  <strong>+ R$ 500</strong>
-                </label>
+                <div class="check-item">
+                  <label class="check-left">
+                    <input type="checkbox" class="addon-chk" data-target="addonPrice1" data-name="Som e Iluminação" checked />
+                    Som e Iluminação
+                  </label>
+                  <span class="price-edit-wrap">+ R$ <input type="number" id="addonPrice1" min="0" step="50" value="650" /></span>
+                </div>
+
+                <div class="check-item">
+                  <label class="check-left">
+                    <input type="checkbox" class="addon-chk" data-target="addonPrice2" data-name="Churrasqueira / Equipe" />
+                    Churrasqueira / Equipe
+                  </label>
+                  <span class="price-edit-wrap">+ R$ <input type="number" id="addonPrice2" min="0" step="50" value="900" /></span>
+                </div>
+
+                <div class="check-item">
+                  <label class="check-left">
+                    <input type="checkbox" class="addon-chk" data-target="addonPrice3" data-name="Decoração Básica" />
+                    Decoração Básica
+                  </label>
+                  <span class="price-edit-wrap">+ R$ <input type="number" id="addonPrice3" min="0" step="50" value="500" /></span>
+                </div>
               </div>
             </div>
           </div>
 
           <div class="summary-panel">
             <div>
-              <span class="micro-note">Estimativa inicial simulada</span>
+              <span class="label-top">Estimativa inicial simulada</span>
               <div class="total-display" id="totalPrice">R$ 5.400</div>
-              <p class="micro-note" style="margin-top: 8px; margin-bottom: 6px;"><strong>Prévia da mensagem enviada ao WhatsApp do espaço:</strong></p>
+              <p style="font-size: 0.88rem; color: #e2e8f0; margin-top: 10px; margin-bottom: 8px;">
+                <strong>Prévia da mensagem enviada ao WhatsApp do espaço:</strong>
+              </p>
               <div class="wa-preview" id="waPreview"></div>
             </div>
 
-            <a href="#planos" class="btn btn-primary" style="width: 100%;">Quero isso no meu espaço por 7 dias grátis</a>
+            <a href="#planos" class="btn btn-cta" style="width: 100%;">Quero isso no meu espaço por 7 dias grátis</a>
           </div>
         </div>
       </div>
@@ -698,15 +834,15 @@
           <div class="card">
             <div class="step-num">1</div>
             <h3>Preencha em 5 etapas</h3>
-            <p style="color: var(--muted); font-size: 0.94rem;">
-              Coloque o logotipo e o nome do seu espaço, seu WhatsApp, até 3 fotos do ambiente e os valores base de convidados e adicionais.
+            <p style="color: var(--text-secondary); font-size: 0.95rem;">
+              Coloque o logotipo e o nome do seu espaço, seu WhatsApp, a capacidade de convidados, até 3 fotos do ambiente e os valores que você cobra.
             </p>
           </div>
 
           <div class="card">
             <div class="step-num">2</div>
             <h3>Compartilhe seu link</h3>
-            <p style="color: var(--muted); font-size: 0.94rem;">
+            <p style="color: var(--text-secondary); font-size: 0.95rem;">
               Coloque o endereço exclusivo da sua calculadora nas suas redes sociais, no Google Maps e nas respostas automáticas do WhatsApp.
             </p>
           </div>
@@ -714,7 +850,7 @@
           <div class="card">
             <div class="step-num">3</div>
             <h3>Receba orçamentos prontos</h3>
-            <p style="color: var(--muted); font-size: 0.94rem;">
+            <p style="color: var(--text-secondary); font-size: 0.95rem;">
               Acompanhe os pedidos chegando organizados no seu WhatsApp, prontos para você avançar na visita ou no fechamento.
             </p>
           </div>
@@ -751,7 +887,7 @@
               <p class="price-cycle">Cobrado R$ 320,00 a cada 3 meses</p>
               <p class="micro-note">Ativação imediata via Pix ou Cartão após o teste.</p>
             </div>
-            <a href="#fechamento" class="btn btn-primary" style="margin-top: 20px;">Começar 7 dias grátis</a>
+            <a href="#fechamento" class="btn btn-cta" style="margin-top: 20px;">Começar 7 dias grátis</a>
           </div>
 
           <div class="plan-card">
@@ -792,8 +928,8 @@
           </div>
 
           <div class="card faq-item">
-            <h4>Posso alterar meus preços e fotos depois?</h4>
-            <p>Sim, sempre que precisar ajustar valores de convidados, adicionais ou trocar as fotos e o logotipo do espaço.</p>
+            <h4>Posso alterar meus preços, capacidade e fotos depois?</h4>
+            <p>Sim, sempre que precisar ajustar valores de convidados, adicionais, capacidade ou trocar as fotos e o logotipo do espaço.</p>
           </div>
         </div>
       </div>
@@ -804,7 +940,7 @@
       <div class="container">
         <div class="cta-final">
           <h2>Seu espaço merece orçamentos mais rápidos e clientes mais decididos.</h2>
-          <a href="#planos" class="btn btn-primary">Criar minha calculadora grátis por 7 dias</a>
+          <a href="#planos" class="btn btn-cta">Criar minha calculadora grátis por 7 dias</a>
         </div>
       </div>
     </section>
@@ -817,24 +953,31 @@
   </footer>
 
   <script>
-    const eventTypeEl = document.getElementById("eventType");
+    const eventCategoryEl = document.getElementById("eventCategory");
+    const dayPeriodEl = document.getElementById("dayPeriod");
+    const weekdayPriceEl = document.getElementById("weekdayPrice");
+    const weekendPriceEl = document.getElementById("weekendPrice");
+    const maxCapacityEl = document.getElementById("maxCapacity");
+    const extraGuestPriceEl = document.getElementById("extraGuestPrice");
     const guestRangeEl = document.getElementById("guestRange");
     const guestCountLabelEl = document.getElementById("guestCountLabel");
-    const addonEls = document.querySelectorAll(".addon");
+    const maxCapacityLabelEl = document.getElementById("maxCapacityLabel");
+    const addonChecks = document.querySelectorAll(".addon-chk");
+    const addonInputs = [
+      document.getElementById("addonPrice1"),
+      document.getElementById("addonPrice2"),
+      document.getElementById("addonPrice3")
+    ];
     const totalPriceEl = document.getElementById("totalPrice");
     const waPreviewEl = document.getElementById("waPreview");
     const photoThumbs = document.querySelectorAll(".photo-thumb");
     const photoCaptionEl = document.getElementById("photoCaption");
 
-    let selectedPhotoText = "Foto 1: Salão Principal • Ambiente climatizado e palco";
-
     photoThumbs.forEach((thumb) => {
       thumb.addEventListener("click", () => {
         photoThumbs.forEach((t) => t.classList.remove("active"));
         thumb.classList.add("active");
-        selectedPhotoText = thumb.dataset.photo;
-        photoCaptionEl.textContent = selectedPhotoText;
-        updateCalculator();
+        photoCaptionEl.textContent = thumb.dataset.photo;
       });
     });
 
@@ -846,21 +989,40 @@
       });
     }
 
+    function syncCapacity() {
+      const maxCap = Math.max(10, Number(maxCapacityEl.value) || 150);
+      guestRangeEl.max = maxCap;
+      maxCapacityLabelEl.textContent = `Máx: ${maxCap}`;
+
+      if (Number(guestRangeEl.value) > maxCap) {
+        guestRangeEl.value = maxCap;
+      }
+      updateCalculator();
+    }
+
     function updateCalculator() {
-      const basePrice = Number(eventTypeEl.value);
-      const eventLabel = eventTypeEl.options[eventTypeEl.selectedIndex].dataset.label;
+      const category = eventCategoryEl.value;
+      const period = dayPeriodEl.value;
+      const periodLabel = dayPeriodEl.options[dayPeriodEl.selectedIndex].text;
+
+      const basePrice = period === "weekday"
+        ? Math.max(0, Number(weekdayPriceEl.value) || 0)
+        : Math.max(0, Number(weekendPriceEl.value) || 0);
+
       const guests = Number(guestRangeEl.value);
       guestCountLabelEl.textContent = `${guests} convidados`;
 
+      const perExtraGuest = Math.max(0, Number(extraGuestPriceEl.value) || 0);
       const extraGuests = Math.max(0, guests - 50);
-      const extraGuestsCost = extraGuests * 45;
+      const extraGuestsCost = extraGuests * perExtraGuest;
 
       const selectedAddons = [];
       let addonsCost = 0;
 
-      addonEls.forEach((chk) => {
+      addonChecks.forEach((chk) => {
         if (chk.checked) {
-          addonsCost += Number(chk.value);
+          const priceInput = document.getElementById(chk.dataset.target);
+          addonsCost += Math.max(0, Number(priceInput.value) || 0);
           selectedAddons.push(chk.dataset.name);
         }
       });
@@ -870,18 +1032,26 @@
 
       const addonsText = selectedAddons.length > 0 ? selectedAddons.join(", ") : "Nenhum";
       waPreviewEl.textContent =
-        `Olá! Simulei um orçamento para o Espaço Jardim Real:\n` +
-        `• Modalidade: ${eventLabel}\n` +
+        `Olá! Simulei um orçamento para o Seu Espaço:\n` +
+        `• Tipo de festa: ${category}\n` +
+        `• Período: ${periodLabel}\n` +
         `• Convidados: ${guests}\n` +
         `• Adicionais: ${addonsText}\n` +
         `• Estimativa inicial: ${formatBRL(total)}`;
     }
 
-    eventTypeEl.addEventListener("change", updateCalculator);
+    maxCapacityEl.addEventListener("input", syncCapacity);
+    eventCategoryEl.addEventListener("change", updateCalculator);
+    dayPeriodEl.addEventListener("change", updateCalculator);
+    weekdayPriceEl.addEventListener("input", updateCalculator);
+    weekendPriceEl.addEventListener("input", updateCalculator);
+    extraGuestPriceEl.addEventListener("input", updateCalculator);
     guestRangeEl.addEventListener("input", updateCalculator);
-    addonEls.forEach((chk) => chk.addEventListener("change", updateCalculator));
 
-    updateCalculator();
+    addonChecks.forEach((chk) => chk.addEventListener("change", updateCalculator));
+    addonInputs.forEach((inp) => inp.addEventListener("input", updateCalculator));
+
+    syncCapacity();
   </script>
 </body>
 </html>
