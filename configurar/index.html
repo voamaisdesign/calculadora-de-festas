@@ -1,0 +1,411 @@
+<!-- ARQUIVO: CONFIGURADOR 5 PASSOS (configurar/index.html) -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Configurar Meu Espaço (5 Passos) — Calculadora de Festas</title>
+  <style>
+    :root {
+      --bg: #e8ecf2;
+      --surface: #ffffff;
+      --surface-alt: #f1f5f9;
+      --surface-dark: #0f172a;
+      --text: #0f172a;
+      --text-secondary: #334155;
+      --border: #94a3b8;
+      --border-light: #cbd5e1;
+      --primary: #1e3a8a;
+      --primary-hover: #172554;
+      --cta: #d97706;
+      --cta-hover: #b45309;
+      --badge-bg: #dbeafe;
+      --success-bg: #dcfce7;
+      --success-text: #166534;
+      --radius: 12px;
+      --shadow: 0 6px 20px rgba(15, 23, 42, 0.10);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 0 20px 48px;
+    }
+
+    header {
+      background: var(--surface-dark);
+      color: #ffffff;
+      border-bottom: 2px solid #1e293b;
+      margin-bottom: 28px;
+    }
+
+    .nav {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 20px;
+      min-height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .nav-brand {
+      font-weight: 800;
+      font-size: 1rem;
+      color: #ffffff;
+      text-decoration: none;
+    }
+
+    .nav-link {
+      color: #e2e8f0;
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .nav-link:hover {
+      color: #fbbf24;
+    }
+
+    .top-box {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow);
+      margin-bottom: 22px;
+    }
+
+    .top-box h1 {
+      font-size: clamp(1.45rem, 2.8vw, 2rem);
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+
+    .top-box p {
+      color: var(--text-secondary);
+      font-size: 0.96rem;
+    }
+
+    /* Barra de 5 etapas */
+    .stepper {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+
+    .step-pill {
+      background: var(--surface);
+      border: 1.5px solid var(--border-light);
+      border-radius: 10px;
+      padding: 10px 8px;
+      text-align: center;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      cursor: pointer;
+    }
+
+    .step-pill.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+    }
+
+    .step-pill.done {
+      border-color: var(--primary);
+      background: var(--badge-bg);
+      color: var(--primary-hover);
+    }
+
+    .panel {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 26px;
+      box-shadow: var(--shadow);
+    }
+
+    .step-content {
+      display: none;
+    }
+
+    .step-content.active {
+      display: block;
+    }
+
+    .step-title {
+      font-size: 1.25rem;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .step-desc {
+      color: var(--text-secondary);
+      font-size: 0.94rem;
+      margin-bottom: 20px;
+    }
+
+    .field {
+      margin-bottom: 16px;
+    }
+
+    .field label {
+      display: block;
+      font-weight: 700;
+      font-size: 0.92rem;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+
+    .field input[type="text"],
+    .field input[type="tel"],
+    .field input[type="number"],
+    .field textarea {
+      width: 100%;
+      padding: 11px 12px;
+      border-radius: 8px;
+      border: 1.5px solid var(--border);
+      font-size: 0.96rem;
+      font-weight: 600;
+      color: var(--text);
+      background: #ffffff;
+    }
+
+    .field input:focus,
+    .field textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .hint {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    .inline-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .upload-card {
+      border: 2px dashed var(--primary);
+      background: #f8fafc;
+      border-radius: 10px;
+      padding: 18px;
+      text-align: center;
+      margin-bottom: 14px;
+    }
+
+    .preview-img {
+      max-width: 240px;
+      max-height: 140px;
+      border-radius: 8px;
+      border: 1.5px solid var(--border-light);
+      margin: 12px auto 6px;
+      display: none;
+      object-fit: contain;
+      background: #ffffff;
+    }
+
+    .photos-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 10px;
+    }
+
+    .photo-slot {
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 12px;
+      background: #f8fafc;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .photo-slot img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid var(--border-light);
+      background: #e2e8f0;
+    }
+
+    .photo-placeholder {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      border-radius: 8px;
+      background: #e2e8f0;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.84rem;
+      font-weight: 700;
+    }
+
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .cat-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
+      border: 1.5px solid var(--border-light);
+      border-radius: 8px;
+      background: #f8fafc;
+      font-weight: 600;
+      font-size: 0.92rem;
+      cursor: pointer;
+    }
+
+    .cat-option input {
+      width: 17px;
+      height: 17px;
+      accent-color: var(--primary);
+    }
+
+    .addons-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .addon-row {
+      display: grid;
+      grid-template-columns: 1fr 140px;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .summary-box {
+      background: var(--surface-dark);
+      color: #ffffff;
+      border-radius: 10px;
+      padding: 18px;
+      margin-top: 18px;
+    }
+
+    .summary-box pre {
+      white-space: pre-wrap;
+      font-family: inherit;
+      font-size: 0.88rem;
+      color: #e2e8f0;
+      margin-top: 8px;
+    }
+
+    .status-msg {
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 8px;
+      background: var(--success-bg);
+      color: var(--success-text);
+      font-weight: 700;
+      font-size: 0.92rem;
+      display: none;
+    }
+
+    .actions-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-top: 24px;
+      padding-top: 18px;
+      border-top: 1.5px solid var(--border-light);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      border: 2px solid transparent;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn-cta {
+      background: var(--cta);
+      color: #ffffff;
+    }
+
+    .btn-cta:hover {
+      background: var(--cta-hover);
+    }
+
+    .btn-outline {
+      background: #ffffff;
+      color: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .btn-small {
+      padding: 7px 10px;
+      font-size: 0.82rem;
+      border-radius: 7px;
+    }
+
+    @media (max-width: 760px) {
+      .stepper {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .inline-2,
+      .photos-grid,
+      .categories-grid,
+      .addon-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <a href="../" class="nav-brand">CALCULADORA DE FESTAS • CONFIGURADOR</a>
+      <a href="../" class="nav-link">← Voltar para a página inicial</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="top-box">
+      <h1>Configure a calculadora do seu espaço em 5 passos
