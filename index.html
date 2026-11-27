@@ -77,6 +77,16 @@
       text-decoration: none;
     }
 
+    .brand-slot img {
+      max-height: 36px;
+      max-width: 140px;
+      width: auto;
+      height: auto;
+      border-radius: 6px;
+      object-fit: contain;
+      display: none;
+    }
+
     .nav-links {
       display: flex;
       align-items: center;
@@ -107,6 +117,12 @@
       border: 2px solid transparent;
       cursor: pointer;
       transition: background 0.16s ease, border-color 0.16s ease;
+    }
+
+    .btn-sm {
+      padding: 7px 11px;
+      font-size: 0.8rem;
+      border-radius: 8px;
     }
 
     .btn-cta {
@@ -226,8 +242,10 @@
       border-radius: 10px;
       background: #f8fafc;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
+      gap: 8px;
       padding: 16px;
       margin-bottom: 12px;
       font-size: 1.15rem;
@@ -235,10 +253,21 @@
       color: var(--primary);
     }
 
+    .logo-preview-box img {
+      max-height: 84px;
+      max-width: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border-radius: 6px;
+      display: none;
+    }
+
     .client-logo-card small {
       display: block;
       color: var(--text-secondary);
       font-size: 0.84rem;
+      margin-top: 8px;
     }
 
     /* Sections */
@@ -434,6 +463,12 @@
       margin-bottom: 10px;
     }
 
+    .photo-slot {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
     .photo-thumb {
       border: 2px solid var(--border-light);
       border-radius: 8px;
@@ -441,6 +476,7 @@
       background: #f8fafc;
       aspect-ratio: 4 / 3;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       font-size: 0.8rem;
@@ -448,12 +484,25 @@
       color: var(--text-secondary);
       text-align: center;
       padding: 6px;
+      overflow: hidden;
+    }
+
+    .photo-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 6px;
+      display: none;
     }
 
     .photo-thumb.active {
       border-color: var(--primary);
       background: var(--badge-bg);
       color: var(--primary-hover);
+    }
+
+    .file-input-hidden {
+      display: none;
     }
 
     .summary-panel {
@@ -634,7 +683,8 @@
   <header>
     <div class="container nav">
       <a href="#topo" class="brand-slot" title="Espaço reservado para o logotipo do cliente">
-        <span>Seu logotipo aqui</span>
+        <img id="headerLogoImg" alt="Logotipo do espaço" />
+        <span id="headerLogoText">Seu logotipo aqui</span>
       </a>
 
       <nav class="nav-links">
@@ -669,9 +719,12 @@
         <aside class="client-logo-card">
           <span class="label">Identidade do seu espaço na calculadora</span>
           <div class="logo-preview-box">
-            Seu logotipo aqui
+            <img id="cardLogoImg" alt="Prévia do logotipo do espaço" />
+            <span id="cardLogoText">Seu logotipo aqui</span>
           </div>
-          <small>O logotipo do seu espaço (comprimido automaticamente) aparece no topo do simulador e do resumo.</small>
+          <label for="logoUploadInput" class="btn btn-outline btn-sm">Enviar logotipo (comprime automático)</label>
+          <input type="file" id="logoUploadInput" class="file-input-hidden" accept="image/*" />
+          <small id="logoCompressInfo">O logotipo do seu espaço (comprimido automaticamente) aparece no topo do simulador e do resumo.</small>
         </aside>
       </div>
     </section>
@@ -721,11 +774,34 @@
             </div>
 
             <div class="field">
-              <label>Fotos do espaço (até 3 fotos na demonstração)</label>
+              <label>Fotos do espaço (até 3 fotos na demonstração — comprimidas automaticamente)</label>
               <div class="photos-strip" id="photoSelector">
-                <div class="photo-thumb active" data-photo="Foto 1: Salão Principal • Ambiente climatizado e palco">Foto 1: Salão</div>
-                <div class="photo-thumb" data-photo="Foto 2: Área Externa • Jardim e espaço gourmet">Foto 2: Área Externa</div>
-                <div class="photo-thumb" data-photo="Foto 3: Buffet & Mesas • Montagem completa">Foto 3: Estrutura</div>
+                <div class="photo-slot">
+                  <div class="photo-thumb active" data-index="0" data-photo="Foto 1: Salão Principal • Ambiente climatizado e palco">
+                    <img id="photoImg0" alt="Foto 1 do espaço" />
+                    <span id="photoLabel0">Foto 1: Salão</span>
+                  </div>
+                  <label for="photoInput0" class="btn btn-outline btn-sm">Enviar foto 1</label>
+                  <input type="file" id="photoInput0" class="file-input-hidden photo-file-input" data-index="0" accept="image/*" />
+                </div>
+
+                <div class="photo-slot">
+                  <div class="photo-thumb" data-index="1" data-photo="Foto 2: Área Externa • Jardim e espaço gourmet">
+                    <img id="photoImg1" alt="Foto 2 do espaço" />
+                    <span id="photoLabel1">Foto 2: Área Externa</span>
+                  </div>
+                  <label for="photoInput1" class="btn btn-outline btn-sm">Enviar foto 2</label>
+                  <input type="file" id="photoInput1" class="file-input-hidden photo-file-input" data-index="1" accept="image/*" />
+                </div>
+
+                <div class="photo-slot">
+                  <div class="photo-thumb" data-index="2" data-photo="Foto 3: Buffet & Mesas • Montagem completa">
+                    <img id="photoImg2" alt="Foto 3 do espaço" />
+                    <span id="photoLabel2">Foto 3: Estrutura</span>
+                  </div>
+                  <label for="photoInput2" class="btn btn-outline btn-sm">Enviar foto 3</label>
+                  <input type="file" id="photoInput2" class="file-input-hidden photo-file-input" data-index="2" accept="image/*" />
+                </div>
               </div>
               <p class="micro-note" id="photoCaption">Foto 1: Salão Principal • Ambiente climatizado e palco</p>
             </div>
@@ -975,15 +1051,96 @@
     const guestCountLabelEl = document.getElementById("guestCountLabel");
     const maxCapacityLabelEl = document.getElementById("maxCapacityLabel");
     const addonChecks = document.querySelectorAll(".addon-chk");
-    const addonInputs = [
-      document.getElementById("addonPrice1"),
-      document.getElementById("addonPrice2"),
-      document.getElementById("addonPrice3")
-    ];
     const totalPriceEl = document.getElementById("totalPrice");
     const waPreviewEl = document.getElementById("waPreview");
     const photoThumbs = document.querySelectorAll(".photo-thumb");
     const photoCaptionEl = document.getElementById("photoCaption");
+
+    const logoUploadInput = document.getElementById("logoUploadInput");
+    const headerLogoImg = document.getElementById("headerLogoImg");
+    const headerLogoText = document.getElementById("headerLogoText");
+    const cardLogoImg = document.getElementById("cardLogoImg");
+    const cardLogoText = document.getElementById("cardLogoText");
+    const logoCompressInfo = document.getElementById("logoCompressInfo");
+
+    const photoFileInputs = document.querySelectorAll(".photo-file-input");
+
+    function compressImageFile(file, maxWidth, quality) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          const img = new Image();
+          img.onload = () => {
+            let width = img.width;
+            let height = img.height;
+
+            if (width > maxWidth) {
+              height = Math.round((height * maxWidth) / width);
+              width = maxWidth;
+            }
+
+            const canvas = document.createElement("canvas");
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, width, height);
+
+            const dataUrl = canvas.toDataURL("image/jpeg", quality);
+            const approxBytes = Math.round((dataUrl.length * 3) / 4);
+            resolve({
+              dataUrl,
+              width,
+              height,
+              kb: Math.max(1, Math.round(approxBytes / 1024))
+            });
+          };
+          img.onerror = reject;
+          img.src = ev.target.result;
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    logoUploadInput.addEventListener("change", async (e) => {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+
+      const compressed = await compressImageFile(file, 360, 0.82);
+
+      headerLogoImg.src = compressed.dataUrl;
+      headerLogoImg.style.display = "block";
+      headerLogoText.style.display = "none";
+
+      cardLogoImg.src = compressed.dataUrl;
+      cardLogoImg.style.display = "block";
+      cardLogoText.style.display = "none";
+
+      logoCompressInfo.textContent = `Logotipo comprimido: ${compressed.width}x${compressed.height}px (~${compressed.kb} KB).`;
+    });
+
+    photoFileInputs.forEach((input) => {
+      input.addEventListener("change", async (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+
+        const idx = Number(input.dataset.index);
+        const compressed = await compressImageFile(file, 900, 0.78);
+
+        const imgEl = document.getElementById(`photoImg${idx}`);
+        const labelEl = document.getElementById(`photoLabel${idx}`);
+        const thumbEl = document.querySelector(`.photo-thumb[data-index="${idx}"]`);
+
+        imgEl.src = compressed.dataUrl;
+        imgEl.style.display = "block";
+        labelEl.style.display = "none";
+
+        photoThumbs.forEach((t) => t.classList.remove("active"));
+        thumbEl.classList.add("active");
+        thumbEl.dataset.photo = `Foto ${idx + 1} comprimida (${compressed.width}x${compressed.height}px • ~${compressed.kb} KB)`;
+        photoCaptionEl.textContent = thumbEl.dataset.photo;
+      });
+    });
 
     photoThumbs.forEach((thumb) => {
       thumb.addEventListener("click", () => {
@@ -1060,10 +1217,15 @@
     extraGuestPriceEl.addEventListener("input", updateCalculator);
     guestRangeEl.addEventListener("input", updateCalculator);
 
-    addonChecks.forEach((chk) => chk.addEventListener("change", updateCalculator));
-    addonInputs.forEach((inp) => inp.addEventListener("input", updateCalculator));
+    addonChecks.forEach((chk) => {
+      chk.addEventListener("change", updateCalculator);
+      const priceInput = document.getElementById(chk.dataset.target);
+      if (priceInput) {
+        priceInput.addEventListener("input", updateCalculator);
+      }
+    });
 
-    syncCapacity();
+    updateCalculator();
   </script>
 </body>
 </html>
