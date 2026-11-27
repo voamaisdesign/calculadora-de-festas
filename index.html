@@ -16,8 +16,8 @@
       --border-light: #cbd5e1;
       --primary: #1e3a8a;
       --primary-hover: #172554;
-      --cta: #d97706;
-      --cta-hover: #b45309;
+      --cta: #ffff00;
+      --cta-hover: #e6e600;
       --badge-bg: #dbeafe;
       --badge-text: #1e3a8a;
       --radius: 12px;
@@ -67,24 +67,20 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      padding: 8px 14px;
-      border: 2px dashed #94a3b8;
-      border-radius: 10px;
-      background: #1e293b;
-      font-size: 0.9rem;
-      font-weight: 700;
-      color: #ffffff;
+      padding: 4px 8px;
+      border-radius: 8px;
+      background: transparent;
       text-decoration: none;
+      flex-shrink: 0;
     }
 
     .brand-slot img {
-      max-height: 36px;
-      max-width: 140px;
+      height: 44px;
       width: auto;
-      height: auto;
-      border-radius: 6px;
+      max-width: 220px;
       object-fit: contain;
-      display: none;
+      border-radius: 6px;
+      display: block;
     }
 
     .nav-links {
@@ -101,7 +97,7 @@
     }
 
     .nav-links a:hover {
-      color: #fbbf24;
+      color: #ffff00;
     }
 
     .btn {
@@ -127,7 +123,7 @@
 
     .btn-cta {
       background: var(--cta);
-      color: #ffffff;
+      color: #0f172a;
     }
 
     .btn-cta:hover {
@@ -525,7 +521,7 @@
     .total-display {
       font-size: 2rem;
       font-weight: 800;
-      color: #fbbf24;
+      color: #ffff00;
       margin-top: 2px;
     }
 
@@ -682,9 +678,9 @@
 
   <header>
     <div class="container nav">
-      <a href="#topo" class="brand-slot" title="Espaço reservado para o logotipo do cliente">
-        <img id="headerLogoImg" alt="Logotipo do espaço" />
-        <span id="headerLogoText">Seu logotipo aqui</span>
+      <!-- LOGOTIPO FIXO DO TOPO: salve a imagem gerada como logo-calculadora-de-festas.jpg na mesma pasta do index.html -->
+      <a href="#topo" class="brand-slot" title="Calculadora de Festas">
+        <img id="headerLogoImg" src="logo-calculadora-de-festas.jpg" alt="Logotipo Calculadora de Festas" />
       </a>
 
       <nav class="nav-links">
@@ -1057,8 +1053,6 @@
     const photoCaptionEl = document.getElementById("photoCaption");
 
     const logoUploadInput = document.getElementById("logoUploadInput");
-    const headerLogoImg = document.getElementById("headerLogoImg");
-    const headerLogoText = document.getElementById("headerLogoText");
     const cardLogoImg = document.getElementById("cardLogoImg");
     const cardLogoText = document.getElementById("cardLogoText");
     const logoCompressInfo = document.getElementById("logoCompressInfo");
@@ -1108,15 +1102,11 @@
 
       const compressed = await compressImageFile(file, 360, 0.82);
 
-      headerLogoImg.src = compressed.dataUrl;
-      headerLogoImg.style.display = "block";
-      headerLogoText.style.display = "none";
-
       cardLogoImg.src = compressed.dataUrl;
       cardLogoImg.style.display = "block";
       cardLogoText.style.display = "none";
 
-      logoCompressInfo.textContent = `Logotipo comprimido: ${compressed.width}x${compressed.height}px (~${compressed.kb} KB).`;
+      logoCompressInfo.textContent = `Logotipo do espaço comprimido: ${compressed.width}x${compressed.height}px (~${compressed.kb} KB).`;
     });
 
     photoFileInputs.forEach((input) => {
