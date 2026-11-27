@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Calculadora de Festas — Simulador de Orçamento</title>
+  <title>Calculadora de Festas — Orçamentos para Salões, Buffets e Espaços de Eventos</title>
   <style>
     :root {
       --bg: #e8ecf2;
       --surface: #ffffff;
+      --surface-alt: #f1f5f9;
       --surface-dark: #0f172a;
       --text: #0f172a;
       --text-secondary: #334155;
@@ -15,9 +16,10 @@
       --border-light: #cbd5e1;
       --primary: #1e3a8a;
       --primary-hover: #172554;
-      --accent: #ffff00;
-      --accent-hover: #e6e600;
+      --cta: #d97706;
+      --cta-hover: #b45309;
       --badge-bg: #dbeafe;
+      --badge-text: #1e3a8a;
       --radius: 12px;
       --shadow: 0 6px 20px rgba(15, 23, 42, 0.10);
     }
@@ -33,39 +35,70 @@
       background: var(--bg);
       color: var(--text);
       line-height: 1.55;
-      padding: 24px 16px 48px;
+      -webkit-font-smoothing: antialiased;
     }
 
-    .wrap {
-      max-width: 980px;
+    .container {
+      width: 100%;
+      max-width: 1120px;
       margin: 0 auto;
+      padding: 0 20px;
     }
 
-    .topbar {
+    /* Header */
+    header {
       background: var(--surface-dark);
       color: #ffffff;
-      border-radius: var(--radius);
-      padding: 18px 22px;
+      border-bottom: 2px solid #1e293b;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .nav {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      min-height: 92px;
+      padding: 8px 0;
       gap: 14px;
-      flex-wrap: wrap;
-      margin-bottom: 20px;
-      box-shadow: var(--shadow);
     }
 
-    .brand-title {
-      font-size: 1.25rem;
-      font-weight: 900;
-      color: var(--accent);
-      letter-spacing: -0.01em;
+    .brand-slot {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 4px;
+      border-radius: 8px;
+      background: transparent;
+      text-decoration: none;
+      flex-shrink: 0;
     }
 
-    .brand-sub {
-      font-size: 0.86rem;
-      color: #cbd5e1;
-      margin-top: 2px;
+    .brand-slot img {
+      height: 76px;
+      width: auto;
+      max-width: 360px;
+      object-fit: contain;
+      border-radius: 6px;
+      display: block;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 0.92rem;
+    }
+
+    .nav-links a {
+      color: #e2e8f0;
+      text-decoration: none;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .nav-links a:hover {
+      color: #fbbf24;
     }
 
     .btn {
@@ -73,23 +106,31 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      padding: 11px 18px;
+      padding: 13px 22px;
       border-radius: 10px;
       font-weight: 700;
-      font-size: 0.92rem;
+      font-size: 0.96rem;
       text-decoration: none;
       border: 2px solid transparent;
       cursor: pointer;
-      transition: background 0.15s ease, border-color 0.15s ease;
+      white-space: nowrap;
+      transition: background 0.16s ease, border-color 0.16s ease;
     }
 
-    .btn-accent {
-      background: var(--accent);
-      color: #0f172a;
+    .btn-sm {
+      padding: 7px 11px;
+      font-size: 0.8rem;
+      border-radius: 8px;
+      white-space: normal;
     }
 
-    .btn-accent:hover {
-      background: var(--accent-hover);
+    .btn-cta {
+      background: var(--cta);
+      color: #ffffff;
+    }
+
+    .btn-cta:hover {
+      background: var(--cta-hover);
     }
 
     .btn-primary {
@@ -111,18 +152,207 @@
       background: var(--badge-bg);
     }
 
-    .panel {
+    /* Hero */
+    .hero {
+      padding: 52px 0 44px;
+      background: linear-gradient(180deg, #dde3ee 0%, #e8ecf2 100%);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .pill {
+      display: inline-block;
+      background: var(--primary);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.84rem;
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-size: clamp(2.1rem, 4.4vw, 3.25rem);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      color: var(--primary);
+      text-transform: uppercase;
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
+
+    .hero-tagline {
+      font-size: clamp(1.2rem, 2.2vw, 1.55rem);
+      line-height: 1.3;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 14px;
+      max-width: 52ch;
+    }
+
+    .hero p.lead {
+      font-size: 1.06rem;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+      max-width: 60ch;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .micro-note {
+      font-size: 0.86rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .client-logo-card {
       background: var(--surface);
       border: 2px solid var(--border);
       border-radius: var(--radius);
       padding: 24px;
       box-shadow: var(--shadow);
+      text-align: center;
     }
 
-    .sim-grid {
+    .client-logo-card .label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .logo-preview-box {
+      min-height: 116px;
+      border: 2px dashed var(--primary);
+      border-radius: 10px;
+      background: #f8fafc;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 16px;
+      margin-bottom: 12px;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .logo-preview-box img {
+      max-height: 84px;
+      max-width: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border-radius: 6px;
+      display: none;
+    }
+
+    .client-logo-card small {
+      display: block;
+      color: var(--text-secondary);
+      font-size: 0.84rem;
+      margin-top: 8px;
+    }
+
+    /* Sections */
+    section {
+      padding: 48px 0;
+    }
+
+    .section-header {
+      max-width: 720px;
+      margin-bottom: 28px;
+    }
+
+    .section-header h2 {
+      font-size: clamp(1.5rem, 2.6vw, 2.05rem);
+      line-height: 1.22;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    .section-header p {
+      color: var(--text-secondary);
+      font-size: 1rem;
+    }
+
+    /* Dor vs Solucao */
+    .compare-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1.5px solid var(--border-light);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 14px;
+      color: var(--text);
+    }
+
+    .card ul {
+      list-style: none;
+      display: grid;
+      gap: 12px;
+      color: var(--text-secondary);
+      font-size: 0.96rem;
+    }
+
+    .card ul li strong {
+      color: var(--text);
+    }
+
+    .card-pain {
+      border-top: 5px solid #b91c1c;
+    }
+
+    .card-gain {
+      border-top: 5px solid var(--primary);
+    }
+
+    /* Demo Interativa */
+    .demo-box {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
       display: grid;
       grid-template-columns: 1.1fr 0.9fr;
       gap: 24px;
+    }
+
+    .config-banner {
+      background: var(--badge-bg);
+      border: 1px solid #93c5fd;
+      color: var(--primary-hover);
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 0.86rem;
+      font-weight: 600;
+      margin-bottom: 16px;
     }
 
     .field {
@@ -133,8 +363,8 @@
       display: block;
       font-weight: 700;
       font-size: 0.92rem;
-      margin-bottom: 6px;
       color: var(--text);
+      margin-bottom: 6px;
     }
 
     .inline-grid {
@@ -144,7 +374,6 @@
     }
 
     .field select,
-    .field input[type="text"],
     .field input[type="number"] {
       width: 100%;
       padding: 10px 12px;
@@ -154,6 +383,12 @@
       color: var(--text);
       font-size: 0.95rem;
       font-weight: 600;
+    }
+
+    .field select:focus,
+    .field input[type="number"]:focus {
+      outline: none;
+      border-color: var(--primary);
     }
 
     .field input[type="range"] {
@@ -186,6 +421,7 @@
       border-radius: 8px;
       font-size: 0.92rem;
       font-weight: 600;
+      color: var(--text);
     }
 
     .check-left {
@@ -201,13 +437,74 @@
       accent-color: var(--primary);
     }
 
-    .addon-price-tag {
-      font-weight: 800;
-      color: var(--primary);
-      font-size: 0.9rem;
+    .price-edit-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.86rem;
+      color: var(--text-secondary);
     }
 
-    .summary-box {
+    .price-edit-wrap input[type="number"] {
+      width: 92px;
+      padding: 6px 8px;
+      border-radius: 6px;
+      border: 1.5px solid var(--border);
+      font-weight: 700;
+      color: var(--text);
+      text-align: right;
+    }
+
+    .photos-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .photo-slot {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .photo-thumb {
+      border: 2px solid var(--border-light);
+      border-radius: 8px;
+      cursor: pointer;
+      background: #f8fafc;
+      aspect-ratio: 4 / 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-align: center;
+      padding: 6px;
+      overflow: hidden;
+    }
+
+    .photo-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 6px;
+      display: none;
+    }
+
+    .photo-thumb.active {
+      border-color: var(--primary);
+      background: var(--badge-bg);
+      color: var(--primary-hover);
+    }
+
+    .file-input-hidden {
+      display: none;
+    }
+
+    .summary-panel {
       background: var(--surface-dark);
       color: #ffffff;
       border-radius: 12px;
@@ -218,485 +515,726 @@
       gap: 16px;
     }
 
-    .total-value {
-      font-size: 2.1rem;
-      font-weight: 900;
-      color: var(--accent);
+    .summary-panel .label-top {
+      font-size: 0.86rem;
+      color: #cbd5e1;
+      font-weight: 600;
+    }
+
+    .total-display {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #fbbf24;
       margin-top: 2px;
     }
 
-    .wa-box {
+    .wa-preview {
       background: #ffffff;
-      color: #0f172a;
+      border: 2px solid #94a3b8;
       border-radius: 10px;
       padding: 14px;
       font-size: 0.87rem;
       white-space: pre-line;
+      color: #0f172a;
       font-weight: 500;
     }
 
-    .config-drawer {
-      display: none;
-      margin-bottom: 20px;
-      border-top: 5px solid var(--primary);
+    /* 3 Passos */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
     }
 
-    .config-drawer.open {
-      display: block;
+    .step-num {
+      display: inline-flex;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #ffffff;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.95rem;
+      margin-bottom: 12px;
     }
 
-    .link-output {
-      width: 100%;
-      padding: 10px 12px;
-      border-radius: 8px;
-      border: 1.5px solid var(--primary);
+    /* Planos */
+    .plans-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .plan-card {
+      background: var(--surface);
+      border: 2px solid var(--border-light);
+      border-radius: var(--radius);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: var(--shadow);
+    }
+
+    .plan-card.featured {
+      border: 3px solid var(--primary);
       background: #f8fafc;
-      font-size: 0.86rem;
-      font-weight: 600;
-      color: var(--text);
-      margin-top: 8px;
     }
 
-    .status-msg {
-      font-size: 0.85rem;
+    .badge {
+      display: inline-block;
+      font-size: 0.78rem;
       font-weight: 700;
-      color: var(--primary);
-      margin-top: 8px;
-      min-height: 20px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+      background: #e2e8f0;
+      color: #1e293b;
     }
 
-    @media (max-width: 820px) {
-      .sim-grid,
+    .badge-accent {
+      background: var(--primary);
+      color: #ffffff;
+    }
+
+    .price-month {
+      font-size: 2.05rem;
+      font-weight: 800;
+      color: var(--text);
+      margin: 8px 0 4px;
+    }
+
+    .price-month span {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .price-cycle {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    /* FAQ */
+    .faq-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .faq-item h4 {
+      margin-bottom: 6px;
+      font-size: 1.02rem;
+      color: var(--text);
+    }
+
+    .faq-item p {
+      color: var(--text-secondary);
+      font-size: 0.94rem;
+    }
+
+    /* CTA Final & Footer */
+    .cta-final {
+      background: var(--surface-dark);
+      color: #ffffff;
+      border-radius: var(--radius);
+      padding: 38px 28px;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .cta-final h2 {
+      font-size: clamp(1.45rem, 2.5vw, 1.95rem);
+      margin-bottom: 18px;
+    }
+
+    footer {
+      padding: 28px 0 40px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.88rem;
+      font-weight: 500;
+    }
+
+    @media (max-width: 980px) {
+      .nav-links {
+        display: none;
+      }
+    }
+
+    @media (max-width: 860px) {
+      .hero-grid,
+      .compare-grid,
+      .demo-box,
+      .steps-grid,
+      .plans-grid,
+      .faq-grid,
       .inline-grid {
         grid-template-columns: 1fr;
+      }
+
+      .nav {
+        min-height: 76px;
+      }
+
+      .brand-slot img {
+        height: 56px;
+        max-width: 210px;
+      }
+
+      header .btn {
+        padding: 10px 14px;
+        font-size: 0.86rem;
       }
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <header class="topbar">
-      <div>
-        <div class="brand-title" id="spaceTitleDisplay">Calculadora de Festas</div>
-        <div class="brand-sub" id="spaceSubtitleDisplay">Simule seu evento e envie o orçamento direto no WhatsApp</div>
+
+  <header>
+    <div class="container nav">
+      <!-- LOGOTIPO FIXO DO TOPO: salve a imagem gerada como logo-calculadora-de-festas.jpg na mesma pasta do index.html -->
+      <a href="#topo" class="brand-slot" title="Calculadora de Festas">
+        <img id="headerLogoImg" src="logo-calculadora-de-festas.jpg" alt="Logotipo Calculadora de Festas" />
+      </a>
+
+      <nav class="nav-links">
+        <a href="#como-funciona">Como funciona</a>
+        <a href="#demonstracao">Demonstração</a>
+        <a href="#planos">Planos</a>
+        <a href="#faq">Dúvidas</a>
+      </nav>
+
+      <a href="#planos" class="btn btn-cta">Testar grátis por 7 dias</a>
+    </div>
+  </header>
+
+  <main id="topo">
+    <!-- Seção 1: Topo -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <span class="pill">Para salões de festa, buffets e espaços de eventos</span>
+          <h1>CALCULADORA DE FESTAS</h1>
+          <p class="hero-tagline">Pare de perder tempo respondendo "qual o valor?" no WhatsApp. Deixe o cliente simular a festa sozinho.</p>
+          <p class="lead">
+            Crie a calculadora personalizada do seu espaço em poucos minutos. O cliente escolhe o tipo de festa, a data, o número de convidados e os adicionais, vê o valor estimado e envia o orçamento pronto direto para o seu WhatsApp.
+          </p>
+          <div class="hero-actions">
+            <a href="#planos" class="btn btn-cta">Testar grátis por 7 dias</a>
+            <a href="#demonstracao" class="btn btn-outline">Ver simulação ao vivo</a>
+          </div>
+          <p class="micro-note">Configure você mesmo em 5 passos simples • Não precisa instalar nada • Sem fidelidade</p>
+        </div>
+
+        <aside class="client-logo-card">
+          <span class="label">Identidade do seu espaço na calculadora</span>
+          <div class="logo-preview-box">
+            <img id="cardLogoImg" alt="Prévia do logotipo do espaço" />
+            <span id="cardLogoText">Seu logotipo aqui</span>
+          </div>
+          <label for="logoUploadInput" class="btn btn-outline btn-sm">Enviar logotipo (comprime automático)</label>
+          <input type="file" id="logoUploadInput" class="file-input-hidden" accept="image/*" />
+          <small id="logoCompressInfo">O logotipo do seu espaço (comprimido automaticamente) aparece no topo do simulador e do resumo.</small>
+        </aside>
       </div>
-      <button type="button" class="btn btn-outline" id="toggleConfigBtn">Configurar meu espaço</button>
-    </header>
-
-    <!-- Painel do dono do espaço para gerar seu próprio link sem edição manual -->
-    <section class="panel config-drawer" id="configDrawer">
-      <h2 style="font-size: 1.2rem; margin-bottom: 6px;">Configurar dados do espaço e gerar link próprio</h2>
-      <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 18px;">
-        Preencha os valores do seu espaço e clique em <strong>Gerar meu link pronto</strong>. Você não precisa mexer em código.
-      </p>
-
-      <div class="inline-grid">
-        <div class="field">
-          <label for="cfgSpaceName">Nome do espaço / buffet</label>
-          <input type="text" id="cfgSpaceName" value="Espaço Celebrar" />
-        </div>
-        <div class="field">
-          <label for="cfgWhatsapp">WhatsApp com DDD (somente números)</label>
-          <input type="text" id="cfgWhatsapp" value="51999999999" />
-        </div>
-      </div>
-
-      <div class="inline-grid">
-        <div class="field">
-          <label for="cfgWeekday">Valor base Seg a Qui (R$)</label>
-          <input type="number" id="cfgWeekday" min="0" step="50" value="2200" />
-        </div>
-        <div class="field">
-          <label for="cfgWeekend">Valor base Sex a Dom (R$)</label>
-          <input type="number" id="cfgWeekend" min="0" step="50" value="3400" />
-        </div>
-      </div>
-
-      <div class="inline-grid">
-        <div class="field">
-          <label for="cfgMaxGuests">Capacidade máxima de convidados</label>
-          <input type="number" id="cfgMaxGuests" min="10" max="2000" step="5" value="150" />
-        </div>
-        <div class="field">
-          <label for="cfgExtraGuest">Valor por convidado extra (acima de 50)</label>
-          <input type="number" id="cfgExtraGuest" min="0" step="5" value="45" />
-        </div>
-      </div>
-
-      <div class="inline-grid">
-        <div class="field">
-          <label for="cfgAddon1Name">Adicional 1 — Nome</label>
-          <input type="text" id="cfgAddon1Name" value="Som e Iluminação" />
-        </div>
-        <div class="field">
-          <label for="cfgAddon1Price">Adicional 1 — Valor (R$)</label>
-          <input type="number" id="cfgAddon1Price" min="0" step="50" value="650" />
-        </div>
-      </div>
-
-      <div class="inline-grid">
-        <div class="field">
-          <label for="cfgAddon2Name">Adicional 2 — Nome</label>
-          <input type="text" id="cfgAddon2Name" value="Churrasqueira / Equipe" />
-        </div>
-        <div class="field">
-          <label for="cfgAddon2Price">Adicional 2 — Valor (R$)</label>
-          <input type="number" id="cfgAddon2Price" min="0" step="50" value="900" />
-        </div>
-      </div>
-
-      <div class="inline-grid">
-        <div class="field">
-          <label for="cfgAddon3Name">Adicional 3 — Nome</label>
-          <input type="text" id="cfgAddon3Name" value="Decoração Básica" />
-        </div>
-        <div class="field">
-          <label for="cfgAddon3Price">Adicional 3 — Valor (R$)</label>
-          <input type="number" id="cfgAddon3Price" min="0" step="50" value="500" />
-        </div>
-      </div>
-
-      <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-        <button type="button" class="btn btn-primary" id="generateLinkBtn">Gerar meu link pronto</button>
-        <button type="button" class="btn btn-outline" id="copyLinkBtn">Copiar link</button>
-      </div>
-
-      <input type="text" class="link-output" id="generatedLinkOutput" readonly placeholder="Seu link personalizado aparecerá aqui..." />
-      <div class="status-msg" id="configStatusMsg"></div>
     </section>
 
-    <!-- Simulador usado por quem vai fazer a festa -->
-    <main class="panel sim-grid">
-      <div>
-        <div class="inline-grid">
-          <div class="field">
-            <label for="eventType">Tipo de festa / evento</label>
-            <select id="eventType">
-              <option value="Aniversário Adulto">Aniversário Adulto</option>
-              <option value="Festa Infantil">Festa Infantil</option>
-              <option value="Casamento" selected>Casamento</option>
-              <option value="Debutante / 15 Anos">Debutante / 15 Anos</option>
-              <option value="Formatura">Formatura</option>
-              <option value="Confraternização / Corporativo">Confraternização / Corporativo</option>
-              <option value="Chá de Bebê / Panela">Chá de Bebê / Panela</option>
-              <option value="Outro Evento">Outro Evento</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label for="dayType">Dia do evento</label>
-            <select id="dayType">
-              <option value="weekday">Segunda a Quinta</option>
-              <option value="weekend" selected>Sexta a Domingo / Feriado</option>
-            </select>
-          </div>
+    <!-- Seção 2: Dor vs. Solução -->
+    <section id="como-funciona">
+      <div class="container">
+        <div class="section-header">
+          <h2>Como funciona hoje vs. Como fica com a sua calculadora</h2>
+          <p>Menos mensagens repetitivas e mais conversas com quem já sabe o que quer.</p>
         </div>
 
-        <div class="field">
-          <label for="guestSlider">Número de convidados</label>
-          <input type="range" id="guestSlider" min="10" max="150" step="5" value="80" />
-          <div class="range-meta">
-            <span>10</span>
-            <strong id="guestLabel">80 convidados</strong>
-            <span id="maxGuestLabel">Máx: 150</span>
+        <div class="compare-grid">
+          <div class="card card-pain">
+            <h3>Sem a calculadora</h3>
+            <ul>
+              <li><strong>Curiosos somem:</strong> pedem preço nas redes sociais ou no WhatsApp e desaparecem assim que ouvem o valor.</li>
+              <li><strong>Conta manual repetitiva:</strong> você gasta horas somando convidados, pacotes e adicionais todos os dias.</li>
+              <li><strong>Demora custa datas:</strong> quem espera horas por uma resposta acaba fechando em outro espaço.</li>
+            </ul>
           </div>
-        </div>
 
-        <div class="field">
-          <label>Adicionais opcionais</label>
-          <div class="checks">
-            <div class="check-item">
-              <label class="check-left">
-                <input type="checkbox" class="sim-addon" data-idx="1" checked />
-                <span id="simAddon1Name">Som e Iluminação</span>
-              </label>
-              <span class="addon-price-tag" id="simAddon1PriceLabel">+ R$ 650</span>
-            </div>
-
-            <div class="check-item">
-              <label class="check-left">
-                <input type="checkbox" class="sim-addon" data-idx="2" />
-                <span id="simAddon2Name">Churrasqueira / Equipe</span>
-              </label>
-              <span class="addon-price-tag" id="simAddon2PriceLabel">+ R$ 900</span>
-            </div>
-
-            <div class="check-item">
-              <label class="check-left">
-                <input type="checkbox" class="sim-addon" data-idx="3" />
-                <span id="simAddon3Name">Decoração Básica</span>
-              </label>
-              <span class="addon-price-tag" id="simAddon3PriceLabel">+ R$ 500</span>
-            </div>
+          <div class="card card-gain">
+            <h3>Com a sua calculadora</h3>
+            <ul>
+              <li><strong>Link sempre disponível:</strong> coloque nas suas redes sociais, no Google Maps e nas respostas automáticas do WhatsApp 24 horas por dia.</li>
+              <li><strong>Simulação em 1 minuto:</strong> o cliente monta a festa sozinho e já vê se cabe no orçamento antes de chamar.</li>
+              <li><strong>Lead qualificado:</strong> você recebe no WhatsApp o resumo organizado com tipo de evento, data, convidados, adicionais e estimativa.</li>
+            </ul>
           </div>
         </div>
       </div>
+    </section>
 
-      <aside class="summary-box">
-        <div>
-          <div style="font-size: 0.86rem; color: #cbd5e1; font-weight: 600;">Estimativa inicial do evento</div>
-          <div class="total-value" id="totalOutput">R$ 5.400</div>
-          <div style="font-size: 0.86rem; color: #e2e8f0; margin-top: 12px; margin-bottom: 6px; font-weight: 700;">
-            Resumo para envio no WhatsApp:
-          </div>
-          <div class="wa-box" id="waSummaryBox"></div>
+    <!-- Seção 3: Demonstração Interativa -->
+    <section id="demonstracao">
+      <div class="container">
+        <div class="section-header">
+          <h2>Veja como o seu cliente vai usar no celular</h2>
+          <p>Você define a capacidade do seu espaço e os valores que cobra. Teste abaixo editando os valores ou simulando como cliente:</p>
         </div>
 
-        <a href="#" target="_blank" rel="noopener" class="btn btn-accent" id="sendWhatsappBtn" style="width: 100%;">
-          Enviar orçamento no WhatsApp
-        </a>
-      </aside>
-    </main>
-  </div>
+        <div class="demo-box">
+          <div>
+            <div class="config-banner">
+              Simulador editável: altere a capacidade máxima e os preços abaixo para testar com a realidade do seu espaço.
+            </div>
+
+            <div class="field">
+              <label>Fotos do espaço (até 3 fotos na demonstração — comprimidas automaticamente)</label>
+              <div class="photos-strip" id="photoSelector">
+                <div class="photo-slot">
+                  <div class="photo-thumb active" data-index="0" data-photo="Foto 1: Salão Principal • Ambiente climatizado e palco">
+                    <img id="photoImg0" alt="Foto 1 do espaço" />
+                    <span id="photoLabel0">Foto 1: Salão</span>
+                  </div>
+                  <label for="photoInput0" class="btn btn-outline btn-sm">Enviar foto 1</label>
+                  <input type="file" id="photoInput0" class="file-input-hidden photo-file-input" data-index="0" accept="image/*" />
+                </div>
+
+                <div class="photo-slot">
+                  <div class="photo-thumb" data-index="1" data-photo="Foto 2: Área Externa • Jardim e espaço gourmet">
+                    <img id="photoImg1" alt="Foto 2 do espaço" />
+                    <span id="photoLabel1">Foto 2: Área Externa</span>
+                  </div>
+                  <label for="photoInput1" class="btn btn-outline btn-sm">Enviar foto 2</label>
+                  <input type="file" id="photoInput1" class="file-input-hidden photo-file-input" data-index="1" accept="image/*" />
+                </div>
+
+                <div class="photo-slot">
+                  <div class="photo-thumb" data-index="2" data-photo="Foto 3: Buffet & Mesas • Montagem completa">
+                    <img id="photoImg2" alt="Foto 3 do espaço" />
+                    <span id="photoLabel2">Foto 3: Estrutura</span>
+                  </div>
+                  <label for="photoInput2" class="btn btn-outline btn-sm">Enviar foto 3</label>
+                  <input type="file" id="photoInput2" class="file-input-hidden photo-file-input" data-index="2" accept="image/*" />
+                </div>
+              </div>
+              <p class="micro-note" id="photoCaption">Foto 1: Salão Principal • Ambiente climatizado e palco</p>
+            </div>
+
+            <div class="inline-grid">
+              <div class="field">
+                <label for="eventCategory">Tipo de festa / evento</label>
+                <select id="eventCategory">
+                  <option value="Aniversário Adulto">Aniversário Adulto</option>
+                  <option value="Festa Infantil">Festa Infantil</option>
+                  <option value="Casamento" selected>Casamento</option>
+                  <option value="Debutante / 15 Anos">Debutante / 15 Anos</option>
+                  <option value="Formatura">Formatura</option>
+                  <option value="Confraternização / Corporativo">Confraternização / Corporativo</option>
+                  <option value="Chá de Bebê / Panela">Chá de Bebê / Panela</option>
+                  <option value="Outro Evento">Outro Evento</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="dayPeriod">Dia do evento</label>
+                <select id="dayPeriod">
+                  <option value="weekday">Evento (Segunda a Quinta)</option>
+                  <option value="weekend" selected>Evento (Sexta a Domingo / Feriado)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="inline-grid">
+              <div class="field">
+                <label for="weekdayPrice">Valor base Seg a Qui (R$)</label>
+                <input type="number" id="weekdayPrice" min="0" step="50" value="2200" />
+              </div>
+
+              <div class="field">
+                <label for="weekendPrice">Valor base Sex a Dom (R$)</label>
+                <input type="number" id="weekendPrice" min="0" step="50" value="3400" />
+              </div>
+            </div>
+
+            <div class="inline-grid">
+              <div class="field">
+                <label for="maxCapacity">Capacidade máxima do espaço</label>
+                <input type="number" id="maxCapacity" min="10" max="2000" step="5" value="150" />
+              </div>
+
+              <div class="field">
+                <label for="extraGuestPrice">Valor por convidado extra (acima de 50)</label>
+                <input type="number" id="extraGuestPrice" min="0" step="5" value="45" />
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="guestRange">Número de convidados simulado</label>
+              <input type="range" id="guestRange" min="10" max="150" step="5" value="80" />
+              <div class="range-meta">
+                <span>10</span>
+                <strong id="guestCountLabel">80 convidados</strong>
+                <span id="maxCapacityLabel">Máx: 150</span>
+              </div>
+            </div>
+
+            <div class="field">
+              <label>Adicionais opcionais (edite os valores ao lado)</label>
+              <div class="checks">
+                <div class="check-item">
+                  <label class="check-left">
+                    <input type="checkbox" class="addon-chk" data-target="addonPrice1" data-name="Som e Iluminação" checked />
+                    Som e Iluminação
+                  </label>
+                  <span class="price-edit-wrap">+ R$ <input type="number" id="addonPrice1" min="0" step="50" value="650" /></span>
+                </div>
+
+                <div class="check-item">
+                  <label class="check-left">
+                    <input type="checkbox" class="addon-chk" data-target="addonPrice2" data-name="Churrasqueira / Equipe" />
+                    Churrasqueira / Equipe
+                  </label>
+                  <span class="price-edit-wrap">+ R$ <input type="number" id="addonPrice2" min="0" step="50" value="900" /></span>
+                </div>
+
+                <div class="check-item">
+                  <label class="check-left">
+                    <input type="checkbox" class="addon-chk" data-target="addonPrice3" data-name="Decoração Básica" />
+                    Decoração Básica
+                  </label>
+                  <span class="price-edit-wrap">+ R$ <input type="number" id="addonPrice3" min="0" step="50" value="500" /></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="summary-panel">
+            <div>
+              <span class="label-top">Estimativa inicial simulada</span>
+              <div class="total-display" id="totalPrice">R$ 5.400</div>
+              <p style="font-size: 0.88rem; color: #e2e8f0; margin-top: 10px; margin-bottom: 8px;">
+                <strong>Prévia da mensagem enviada ao WhatsApp do espaço:</strong>
+              </p>
+              <div class="wa-preview" id="waPreview"></div>
+            </div>
+
+            <a href="#planos" class="btn btn-cta" style="width: 100%;">Quero isso no meu espaço por 7 dias grátis</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção 4: 3 Passos -->
+    <section>
+      <div class="container">
+        <div class="section-header">
+          <h2>Pronto para usar em poucos minutos</h2>
+          <p>Sem depender de suporte técnico para colocar a calculadora no ar.</p>
+        </div>
+
+        <div class="steps-grid">
+          <div class="card">
+            <div class="step-num">1</div>
+            <h3>Preencha em 5 etapas</h3>
+            <p style="color: var(--text-secondary); font-size: 0.95rem;">
+              Coloque o logotipo e o nome do seu espaço, seu WhatsApp, a capacidade de convidados, até 3 fotos do ambiente e os valores que você cobra.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="step-num">2</div>
+            <h3>Compartilhe seu link</h3>
+            <p style="color: var(--text-secondary); font-size: 0.95rem;">
+              Coloque o endereço exclusivo da sua calculadora nas suas redes sociais, no Google Maps e nas respostas automáticas do WhatsApp.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="step-num">3</div>
+            <h3>Receba orçamentos prontos</h3>
+            <p style="color: var(--text-secondary); font-size: 0.95rem;">
+              Acompanhe os pedidos chegando organizados no seu WhatsApp, prontos para você avançar na visita ou no fechamento.
+            </p>
+          </div>
+        </div>
+        <p class="micro-note" style="margin-top: 14px;">Acompanha guia rápido em vídeo para celular e computador.</p>
+      </div>
+    </section>
+
+    <!-- Seção 5: Planos -->
+    <section id="planos">
+      <div class="container">
+        <div class="section-header">
+          <h2>Teste grátis por 7 dias. Escolha um plano só se fizer sentido para o seu espaço.</h2>
+          <p>Todos os planos incluem calculadora ilimitada, envio direto para o WhatsApp e até 3 fotos do seu espaço.</p>
+        </div>
+
+        <div class="plans-grid">
+          <div class="plan-card">
+            <div>
+              <span class="badge">Flexível</span>
+              <h3>Mensal</h3>
+              <div class="price-month">R$ 120,00 <span>/mês</span></div>
+              <p class="price-cycle">Cobrado mensalmente</p>
+              <p class="micro-note">Ativação imediata via Pix ou Cartão após o teste.</p>
+            </div>
+            <a href="#fechamento" class="btn btn-outline" style="margin-top: 20px;">Começar 7 dias grátis</a>
+          </div>
+
+          <div class="plan-card featured">
+            <div>
+              <span class="badge badge-accent">Mais escolhido</span>
+              <h3>Trimestral</h3>
+              <div class="price-month">R$ 106,67 <span>/mês</span></div>
+              <p class="price-cycle">Cobrado R$ 320,00 a cada 3 meses</p>
+              <p class="micro-note">Ativação imediata via Pix ou Cartão após o teste.</p>
+            </div>
+            <a href="#fechamento" class="btn btn-cta" style="margin-top: 20px;">Começar 7 dias grátis</a>
+          </div>
+
+          <div class="plan-card">
+            <div>
+              <span class="badge">Economize 27%</span>
+              <h3>Semestral</h3>
+              <div class="price-month">R$ 88,00 <span>/mês</span></div>
+              <p class="price-cycle">Cobrado R$ 528,00 a cada 6 meses</p>
+              <p class="micro-note">Ativação imediata via Pix ou Cartão após o teste.</p>
+            </div>
+            <a href="#fechamento" class="btn btn-outline" style="margin-top: 20px;">Começar 7 dias grátis</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção 6: FAQ -->
+    <section id="faq">
+      <div class="container">
+        <div class="section-header">
+          <h2>Perguntas frequentes</h2>
+        </div>
+
+        <div class="faq-grid">
+          <div class="card faq-item">
+            <h4>Preciso ter site próprio para usar?</h4>
+            <p>Não. Você ganha um link pronto para colocar direto nas suas redes sociais, no Google Maps ou no WhatsApp.</p>
+          </div>
+
+          <div class="card faq-item">
+            <h4>Preciso entender de informática ou programação?</h4>
+            <p>Não. Todo o cadastro é guiado em 5 telas simples, com passo a passo para fazer pelo celular ou computador.</p>
+          </div>
+
+          <div class="card faq-item">
+            <h4>E se eu não quiser continuar depois dos 7 dias?</h4>
+            <p>Basta não ativar nenhum plano. O acesso de teste expira automaticamente, sem cobrança surpresa e sem multa.</p>
+          </div>
+
+          <div class="card faq-item">
+            <h4>Posso alterar meus preços, capacidade e fotos depois?</h4>
+            <p>Sim, sempre que precisar ajustar valores de convidados, adicionais, capacidade ou trocar as fotos e o logotipo do espaço.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção 7: Fechamento -->
+    <section id="fechamento">
+      <div class="container">
+        <div class="cta-final">
+          <h2>Seu espaço merece orçamentos mais rápidos e clientes mais decididos.</h2>
+          <a href="#planos" class="btn btn-cta">Criar minha calculadora grátis por 7 dias</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      Calculadora de Festas • Orçamentos para Salões, Buffets e Espaços de Eventos • Teste gratuito de 7 dias.
+    </div>
+  </footer>
 
   <script>
-    const STORAGE_KEY = "calc_festas_config_v1";
+    const eventCategoryEl = document.getElementById("eventCategory");
+    const dayPeriodEl = document.getElementById("dayPeriod");
+    const weekdayPriceEl = document.getElementById("weekdayPrice");
+    const weekendPriceEl = document.getElementById("weekendPrice");
+    const maxCapacityEl = document.getElementById("maxCapacity");
+    const extraGuestPriceEl = document.getElementById("extraGuestPrice");
+    const guestRangeEl = document.getElementById("guestRange");
+    const guestCountLabelEl = document.getElementById("guestCountLabel");
+    const maxCapacityLabelEl = document.getElementById("maxCapacityLabel");
+    const addonChecks = document.querySelectorAll(".addon-chk");
+    const totalPriceEl = document.getElementById("totalPrice");
+    const waPreviewEl = document.getElementById("waPreview");
+    const photoThumbs = document.querySelectorAll(".photo-thumb");
+    const photoCaptionEl = document.getElementById("photoCaption");
 
-    const defaultConfig = {
-      spaceName: "Espaço Celebrar",
-      whatsapp: "51999999999",
-      weekday: 2200,
-      weekend: 3400,
-      maxGuests: 150,
-      extraGuest: 45,
-      addons: [
-        { name: "Som e Iluminação", price: 650 },
-        { name: "Churrasqueira / Equipe", price: 900 },
-        { name: "Decoração Básica", price: 500 }
-      ]
-    };
+    const logoUploadInput = document.getElementById("logoUploadInput");
+    const cardLogoImg = document.getElementById("cardLogoImg");
+    const cardLogoText = document.getElementById("cardLogoText");
+    const logoCompressInfo = document.getElementById("logoCompressInfo");
 
-    let currentConfig = { ...defaultConfig, addons: defaultConfig.addons.map(a => ({ ...a })) };
+    const photoFileInputs = document.querySelectorAll(".photo-file-input");
 
-    const toggleConfigBtn = document.getElementById("toggleConfigBtn");
-    const configDrawer = document.getElementById("configDrawer");
-    const generateLinkBtn = document.getElementById("generateLinkBtn");
-    const copyLinkBtn = document.getElementById("copyLinkBtn");
-    const generatedLinkOutput = document.getElementById("generatedLinkOutput");
-    const configStatusMsg = document.getElementById("configStatusMsg");
+    function compressImageFile(file, maxWidth, quality) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          const img = new Image();
+          img.onload = () => {
+            let width = img.width;
+            let height = img.height;
 
-    const cfgSpaceName = document.getElementById("cfgSpaceName");
-    const cfgWhatsapp = document.getElementById("cfgWhatsapp");
-    const cfgWeekday = document.getElementById("cfgWeekday");
-    const cfgWeekend = document.getElementById("cfgWeekend");
-    const cfgMaxGuests = document.getElementById("cfgMaxGuests");
-    const cfgExtraGuest = document.getElementById("cfgExtraGuest");
-    const cfgAddon1Name = document.getElementById("cfgAddon1Name");
-    const cfgAddon1Price = document.getElementById("cfgAddon1Price");
-    const cfgAddon2Name = document.getElementById("cfgAddon2Name");
-    const cfgAddon2Price = document.getElementById("cfgAddon2Price");
-    const cfgAddon3Name = document.getElementById("cfgAddon3Name");
-    const cfgAddon3Price = document.getElementById("cfgAddon3Price");
+            if (width > maxWidth) {
+              height = Math.round((height * maxWidth) / width);
+              width = maxWidth;
+            }
 
-    const spaceTitleDisplay = document.getElementById("spaceTitleDisplay");
-    const spaceSubtitleDisplay = document.getElementById("spaceSubtitleDisplay");
-    const eventTypeEl = document.getElementById("eventType");
-    const dayTypeEl = document.getElementById("dayType");
-    const guestSliderEl = document.getElementById("guestSlider");
-    const guestLabelEl = document.getElementById("guestLabel");
-    const maxGuestLabelEl = document.getElementById("maxGuestLabel");
-    const simAddonChecks = document.querySelectorAll(".sim-addon");
-    const totalOutputEl = document.getElementById("totalOutput");
-    const waSummaryBoxEl = document.getElementById("waSummaryBox");
-    const sendWhatsappBtnEl = document.getElementById("sendWhatsappBtn");
+            const canvas = document.createElement("canvas");
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, width, height);
 
-    function formatBRL(val) {
-      return Number(val || 0).toLocaleString("pt-BR", {
+            const dataUrl = canvas.toDataURL("image/jpeg", quality);
+            const approxBytes = Math.round((dataUrl.length * 3) / 4);
+            resolve({
+              dataUrl,
+              width,
+              height,
+              kb: Math.max(1, Math.round(approxBytes / 1024))
+            });
+          };
+          img.onerror = reject;
+          img.src = ev.target.result;
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    logoUploadInput.addEventListener("change", async (e) => {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+
+      const compressed = await compressImageFile(file, 360, 0.82);
+
+      cardLogoImg.src = compressed.dataUrl;
+      cardLogoImg.style.display = "block";
+      cardLogoText.style.display = "none";
+
+      logoCompressInfo.textContent = `Logotipo do espaço comprimido: ${compressed.width}x${compressed.height}px (~${compressed.kb} KB).`;
+    });
+
+    photoFileInputs.forEach((input) => {
+      input.addEventListener("change", async (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+
+        const idx = Number(input.dataset.index);
+        const compressed = await compressImageFile(file, 900, 0.78);
+
+        const imgEl = document.getElementById(`photoImg${idx}`);
+        const labelEl = document.getElementById(`photoLabel${idx}`);
+        const thumbEl = document.querySelector(`.photo-thumb[data-index="${idx}"]`);
+
+        imgEl.src = compressed.dataUrl;
+        imgEl.style.display = "block";
+        labelEl.style.display = "none";
+
+        photoThumbs.forEach((t) => t.classList.remove("active"));
+        thumbEl.classList.add("active");
+        thumbEl.dataset.photo = `Foto ${idx + 1} comprimida (${compressed.width}x${compressed.height}px • ~${compressed.kb} KB)`;
+        photoCaptionEl.textContent = thumbEl.dataset.photo;
+      });
+    });
+
+    photoThumbs.forEach((thumb) => {
+      thumb.addEventListener("click", () => {
+        photoThumbs.forEach((t) => t.classList.remove("active"));
+        thumb.classList.add("active");
+        photoCaptionEl.textContent = thumb.dataset.photo;
+      });
+    });
+
+    function formatBRL(value) {
+      return value.toLocaleString("pt-BR", {
         style: "currency",
         currency: "BRL",
         maximumFractionDigits: 0
       });
     }
 
-    function encodeConfig(cfg) {
-      const jsonStr = JSON.stringify(cfg);
-      return btoa(unescape(encodeURIComponent(jsonStr)));
-    }
+    function syncCapacity() {
+      const maxCap = Math.max(10, Number(maxCapacityEl.value) || 150);
+      guestRangeEl.max = maxCap;
+      maxCapacityLabelEl.textContent = `Máx: ${maxCap}`;
 
-    function decodeConfig(b64) {
-      try {
-        const jsonStr = decodeURIComponent(escape(atob(b64)));
-        const parsed = JSON.parse(jsonStr);
-        if (!parsed || typeof parsed !== "object") return null;
-        return {
-          spaceName: String(parsed.spaceName || defaultConfig.spaceName).slice(0, 80),
-          whatsapp: String(parsed.whatsapp || defaultConfig.whatsapp).replace(/\D/g, ""),
-          weekday: Math.max(0, Number(parsed.weekday) || 0),
-          weekend: Math.max(0, Number(parsed.weekend) || 0),
-          maxGuests: Math.max(10, Math.min(2000, Number(parsed.maxGuests) || 150)),
-          extraGuest: Math.max(0, Number(parsed.extraGuest) || 0),
-          addons: [1, 2, 3].map((n, i) => ({
-            name: String((parsed.addons && parsed.addons[i] && parsed.addons[i].name) || defaultConfig.addons[i].name).slice(0, 50),
-            price: Math.max(0, Number((parsed.addons && parsed.addons[i] && parsed.addons[i].price) || defaultConfig.addons[i].price) || 0)
-          }))
-        };
-      } catch {
-        return null;
+      if (Number(guestRangeEl.value) > maxCap) {
+        guestRangeEl.value = maxCap;
       }
+      updateCalculator();
     }
 
-    function fillConfigInputs(cfg) {
-      cfgSpaceName.value = cfg.spaceName;
-      cfgWhatsapp.value = cfg.whatsapp;
-      cfgWeekday.value = cfg.weekday;
-      cfgWeekend.value = cfg.weekend;
-      cfgMaxGuests.value = cfg.maxGuests;
-      cfgExtraGuest.value = cfg.extraGuest;
-      cfgAddon1Name.value = cfg.addons[0].name;
-      cfgAddon1Price.value = cfg.addons[0].price;
-      cfgAddon2Name.value = cfg.addons[1].name;
-      cfgAddon2Price.value = cfg.addons[1].price;
-      cfgAddon3Name.value = cfg.addons[2].name;
-      cfgAddon3Price.value = cfg.addons[2].price;
-    }
+    function updateCalculator() {
+      const category = eventCategoryEl.value;
+      const period = dayPeriodEl.value;
+      const periodLabel = dayPeriodEl.options[dayPeriodEl.selectedIndex].text;
 
-    function applyConfigToUI(cfg) {
-      currentConfig = cfg;
-      spaceTitleDisplay.textContent = cfg.spaceName;
-      spaceSubtitleDisplay.textContent = `Calculadora de Festas • Simule seu orçamento com ${cfg.spaceName}`;
-      document.title = `${cfg.spaceName} — Calculadora de Festas`;
+      const basePrice = period === "weekday"
+        ? Math.max(0, Number(weekdayPriceEl.value) || 0)
+        : Math.max(0, Number(weekendPriceEl.value) || 0);
 
-      guestSliderEl.max = cfg.maxGuests;
-      maxGuestLabelEl.textContent = `Máx: ${cfg.maxGuests}`;
-      if (Number(guestSliderEl.value) > cfg.maxGuests) {
-        guestSliderEl.value = cfg.maxGuests;
-      }
+      const guests = Number(guestRangeEl.value);
+      guestCountLabelEl.textContent = `${guests} convidados`;
 
-      for (let i = 0; i < 3; i++) {
-        document.getElementById(`simAddon${i + 1}Name`).textContent = cfg.addons[i].name;
-        document.getElementById(`simAddon${i + 1}PriceLabel`).textContent = `+ ${formatBRL(cfg.addons[i].price)}`;
-      }
-
-      updateSimulation();
-    }
-
-    function updateSimulation() {
-      const eventType = eventTypeEl.value;
-      const dayType = dayTypeEl.value;
-      const dayLabel = dayTypeEl.options[dayTypeEl.selectedIndex].text;
-
-      const baseCost = dayType === "weekday" ? currentConfig.weekday : currentConfig.weekend;
-      const guests = Number(guestSliderEl.value);
-      guestLabelEl.textContent = `${guests} convidados`;
-
+      const perExtraGuest = Math.max(0, Number(extraGuestPriceEl.value) || 0);
       const extraGuests = Math.max(0, guests - 50);
-      const extraCost = extraGuests * currentConfig.extraGuest;
+      const extraGuestsCost = extraGuests * perExtraGuest;
 
+      const selectedAddons = [];
       let addonsCost = 0;
-      const chosenAddons = [];
 
-      simAddonChecks.forEach((chk) => {
+      addonChecks.forEach((chk) => {
         if (chk.checked) {
-          const idx = Number(chk.dataset.idx) - 1;
-          addonsCost += currentConfig.addons[idx].price;
-          chosenAddons.push(currentConfig.addons[idx].name);
+          const priceInput = document.getElementById(chk.dataset.target);
+          addonsCost += Math.max(0, Number(priceInput.value) || 0);
+          selectedAddons.push(chk.dataset.name);
         }
       });
 
-      const total = baseCost + extraCost + addonsCost;
-      totalOutputEl.textContent = formatBRL(total);
+      const total = basePrice + extraGuestsCost + addonsCost;
+      totalPriceEl.textContent = formatBRL(total);
 
-      const addonsText = chosenAddons.length > 0 ? chosenAddons.join(", ") : "Nenhum";
-      const message =
-        `Olá! Vim pela calculadora do *${currentConfig.spaceName}* e simulei:\n` +
-        `• Tipo de evento: ${eventType}\n` +
-        `• Período: ${dayLabel}\n` +
+      const addonsText = selectedAddons.length > 0 ? selectedAddons.join(", ") : "Nenhum";
+      waPreviewEl.textContent =
+        `Olá! Simulei um orçamento para o Seu Espaço:\n` +
+        `• Tipo de festa: ${category}\n` +
+        `• Período: ${periodLabel}\n` +
         `• Convidados: ${guests}\n` +
         `• Adicionais: ${addonsText}\n` +
         `• Estimativa inicial: ${formatBRL(total)}`;
-
-      waSummaryBoxEl.textContent = message;
-
-      const cleanPhone = (currentConfig.whatsapp || "").replace(/\D/g, "");
-      const waUrl = cleanPhone
-        ? `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`
-        : `https://wa.me/?text=${encodeURIComponent(message)}`;
-
-      sendWhatsappBtnEl.href = waUrl;
     }
 
-    function readConfigFromInputs() {
-      return {
-        spaceName: (cfgSpaceName.value || "").trim().slice(0, 80) || defaultConfig.spaceName,
-        whatsapp: (cfgWhatsapp.value || "").replace(/\D/g, ""),
-        weekday: Math.max(0, Number(cfgWeekday.value) || 0),
-        weekend: Math.max(0, Number(cfgWeekend.value) || 0),
-        maxGuests: Math.max(10, Math.min(2000, Number(cfgMaxGuests.value) || 150)),
-        extraGuest: Math.max(0, Number(cfgExtraGuest.value) || 0),
-        addons: [
-          { name: (cfgAddon1Name.value || "").trim().slice(0, 50) || "Adicional 1", price: Math.max(0, Number(cfgAddon1Price.value) || 0) },
-          { name: (cfgAddon2Name.value || "").trim().slice(0, 50) || "Adicional 2", price: Math.max(0, Number(cfgAddon2Price.value) || 0) },
-          { name: (cfgAddon3Name.value || "").trim().slice(0, 50) || "Adicional 3", price: Math.max(0, Number(cfgAddon3Price.value) || 0) }
-        ]
-      };
-    }
+    maxCapacityEl.addEventListener("input", syncCapacity);
+    eventCategoryEl.addEventListener("change", updateCalculator);
+    dayPeriodEl.addEventListener("change", updateCalculator);
+    weekdayPriceEl.addEventListener("input", updateCalculator);
+    weekendPriceEl.addEventListener("input", updateCalculator);
+    extraGuestPriceEl.addEventListener("input", updateCalculator);
+    guestRangeEl.addEventListener("input", updateCalculator);
 
-    toggleConfigBtn.addEventListener("click", () => {
-      configDrawer.classList.toggle("open");
-    });
-
-    generateLinkBtn.addEventListener("click", () => {
-      const cfg = readConfigFromInputs();
-      applyConfigToUI(cfg);
-
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(cfg));
-      } catch {}
-
-      const encoded = encodeConfig(cfg);
-      const baseUrl = window.location.href.split("#")[0].split("?")[0];
-      const shareUrl = `${baseUrl}?espaco=${encodeURIComponent(encoded)}`;
-      generatedLinkOutput.value = shareUrl;
-      configStatusMsg.textContent = "Link personalizado gerado e salvo no seu navegador!";
-    });
-
-    copyLinkBtn.addEventListener("click", async () => {
-      if (!generatedLinkOutput.value) {
-        generateLinkBtn.click();
-      }
-      try {
-        await navigator.clipboard.writeText(generatedLinkOutput.value);
-        configStatusMsg.textContent = "Link copiado para a área de transferência!";
-      } catch {
-        generatedLinkOutput.select();
-        configStatusMsg.textContent = "Link selecionado — pressione Ctrl+C para copiar.";
+    addonChecks.forEach((chk) => {
+      chk.addEventListener("change", updateCalculator);
+      const priceInput = document.getElementById(chk.dataset.target);
+      if (priceInput) {
+        priceInput.addEventListener("input", updateCalculator);
       }
     });
 
-    eventTypeEl.addEventListener("change", updateSimulation);
-    dayTypeEl.addEventListener("change", updateSimulation);
-    guestSliderEl.addEventListener("input", updateSimulation);
-    simAddonChecks.forEach(chk => chk.addEventListener("change", updateSimulation));
-
-    (function init() {
-      const params = new URLSearchParams(window.location.search);
-      const urlData = params.get("espaco");
-
-      if (urlData) {
-        const decoded = decodeConfig(urlData);
-        if (decoded) {
-          fillConfigInputs(decoded);
-          applyConfigToUI(decoded);
-          return;
-        }
-      }
-
-      try {
-        const saved = localStorage.getItem(STORAGE_KEY);
-        if (saved) {
-          const parsedSaved = JSON.parse(saved);
-          const validated = decodeConfig(encodeConfig(parsedSaved));
-          if (validated) {
-            fillConfigInputs(validated);
-            applyConfigToUI(validated);
-            return;
-          }
-        }
-      } catch {}
-
-      fillConfigInputs(currentConfig);
-      applyConfigToUI(currentConfig);
-    })();
+    updateCalculator();
   </script>
 </body>
 </html>
