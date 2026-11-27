@@ -340,6 +340,16 @@
       color: var(--text-muted);
     }
 
+    footer a {
+      color: var(--accent);
+      font-weight: 700;
+      text-decoration: underline;
+    }
+
+    footer a:hover {
+      color: var(--accent-hover);
+    }
+
     @media (max-width: 820px) {
       .grid-2,
       .demo-grid,
@@ -497,7 +507,7 @@
     </section>
 
     <footer>
-      Produzido por <strong>calculadoradefestas.com.br</strong>
+      Produzido por <a href="https://calculadoradefestas.com.br" target="_blank" rel="noopener noreferrer">calculadoradefestas.com.br</a>
     </footer>
   </div>
 
@@ -558,3 +568,41 @@
       return new Promise((resolve) => {
         const reader = new FileReader();
         reader.onload = (e) => {
+          const img = new Image();
+          img.onload = () => {
+            const scale = Math.min(1, maxWidth / img.width);
+            const canvas = document.createElement("canvas");
+            canvas.width = Math.round(img.width * scale);
+            canvas.height = Math.round(img.height * scale);
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            resolve(canvas.toDataURL("image/jpeg", quality));
+          };
+          img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    photoInputEl.addEventListener("change", async () => {
+      const files = Array.from(photoInputEl.files || []).slice(0, 3);
+      photoPreviewEl.innerHTML = "";
+      for (const file of files) {
+        const dataUrl = await compressImageFile(file);
+        const div = document.createElement("div");
+        div.className = "photo-thumb";
+        const kb = Math.round((dataUrl.length * 3) / 4 / 1024);
+        div.innerHTML = `<img src="${dataUrl}" alt="Prévia do espaço" /><span>~${kb} KB</span>`;
+        photoPreviewEl.appendChild(div);
+      }
+    });
+
+    eventTypeEl.addEventListener("change", updateCalculator);
+    dayTypeEl.addEventListener("change", updateCalculator);
+    guestCountEl.addEventListener("input", updateCalculator);
+    addonChks.forEach((chk) => chk.addEventListener("change", updateCalculator));
+
+    updateCalculator();
+  </script>
+</body>
+</html>
