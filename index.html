@@ -3,25 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Calculadora de Festas — Orçamentos para Salões, Buffets e Espaços de Eventos</title>
+  <title>Calculadora de Festas — Orçamentos de Eventos sem Planilhas</title>
   <style>
     :root {
-      --bg: #e8ecf2;
-      --surface: #ffffff;
-      --surface-alt: #f1f5f9;
-      --surface-dark: #0f172a;
-      --text: #0f172a;
-      --text-secondary: #334155;
-      --border: #94a3b8;
-      --border-light: #cbd5e1;
-      --primary: #1e3a8a;
-      --primary-hover: #172554;
-      --cta: #d97706;
-      --cta-hover: #b45309;
-      --badge-bg: #dbeafe;
-      --badge-text: #1e3a8a;
-      --radius: 12px;
-      --shadow: 0 6px 20px rgba(15, 23, 42, 0.10);
+      --bg: #0b1120;
+      --surface: #111827;
+      --surface-card: #1e293b;
+      --text: #f8fafc;
+      --text-muted: #cbd5e1;
+      --border: #334155;
+      --accent: #facc15;
+      --accent-hover: #eab308;
+      --accent-text: #0f172a;
+      --radius: 14px;
+      --shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
     }
 
     * {
@@ -34,71 +29,79 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       background: var(--bg);
       color: var(--text);
-      line-height: 1.55;
-      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
+      padding: 24px 16px 48px;
     }
 
-    .container {
-      width: 100%;
-      max-width: 1120px;
+    .wrap {
+      max-width: 1020px;
       margin: 0 auto;
-      padding: 0 20px;
     }
 
-    /* Header */
     header {
-      background: var(--surface-dark);
-      color: #ffffff;
-      border-bottom: 2px solid #1e293b;
-      position: sticky;
-      top: 0;
-      z-index: 20;
-    }
-
-    .nav {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      min-height: 92px;
-      padding: 8px 0;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
       gap: 14px;
     }
 
-    .brand-slot {
-      display: inline-flex;
-      align-items: center;
-      padding: 2px 4px;
-      border-radius: 8px;
-      background: transparent;
-      text-decoration: none;
-      flex-shrink: 0;
-    }
-
-    .brand-slot img {
-      height: 76px;
+    .logo-area img {
+      height: 52px;
       width: auto;
-      max-width: 360px;
+      border-radius: 8px;
       object-fit: contain;
-      border-radius: 6px;
-      display: block;
+      background: #ffffff;
+      padding: 4px;
     }
 
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      font-size: 0.92rem;
+    .brand-name {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--accent);
     }
 
-    .nav-links a {
-      color: #e2e8f0;
-      text-decoration: none;
-      font-weight: 600;
-      white-space: nowrap;
+    .brand-tag {
+      font-size: 0.88rem;
+      color: var(--text-muted);
     }
 
-    .nav-links a:hover {
-      color: #fbbf24;
+    .hero {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px 24px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero h1 {
+      font-size: clamp(1.6rem, 3.2vw, 2.35rem);
+      line-height: 1.2;
+      margin-bottom: 12px;
+      color: #ffffff;
+    }
+
+    .hero h1 span {
+      color: var(--accent);
+    }
+
+    .hero p {
+      color: var(--text-muted);
+      max-width: 740px;
+      margin-bottom: 20px;
     }
 
     .btn {
@@ -106,253 +109,70 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      padding: 13px 22px;
+      padding: 12px 20px;
       border-radius: 10px;
       font-weight: 700;
-      font-size: 0.96rem;
+      font-size: 0.95rem;
       text-decoration: none;
-      border: 2px solid transparent;
+      border: none;
       cursor: pointer;
-      white-space: nowrap;
-      transition: background 0.16s ease, border-color 0.16s ease;
+      transition: background 0.15s ease, transform 0.15s ease;
     }
 
-    .btn-sm {
-      padding: 7px 11px;
-      font-size: 0.8rem;
-      border-radius: 8px;
-      white-space: normal;
+    .btn-accent {
+      background: var(--accent);
+      color: var(--accent-text);
     }
 
-    .btn-cta {
-      background: var(--cta);
-      color: #ffffff;
+    .btn-accent:hover {
+      background: var(--accent-hover);
     }
 
-    .btn-cta:hover {
-      background: var(--cta-hover);
-    }
-
-    .btn-primary {
-      background: var(--primary);
-      color: #ffffff;
-    }
-
-    .btn-primary:hover {
-      background: var(--primary-hover);
-    }
-
-    .btn-outline {
-      background: var(--surface);
-      color: var(--primary);
-      border-color: var(--primary);
-    }
-
-    .btn-outline:hover {
-      background: var(--badge-bg);
-    }
-
-    /* Hero */
-    .hero {
-      padding: 52px 0 44px;
-      background: linear-gradient(180deg, #dde3ee 0%, #e8ecf2 100%);
-      border-bottom: 1px solid var(--border-light);
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.25fr 0.75fr;
-      gap: 28px;
-      align-items: center;
-    }
-
-    .pill {
-      display: inline-block;
-      background: var(--primary);
-      color: #ffffff;
-      font-weight: 700;
-      font-size: 0.84rem;
-      padding: 6px 14px;
-      border-radius: 999px;
-      margin-bottom: 16px;
-    }
-
-    h1 {
-      font-size: clamp(2.1rem, 4.4vw, 3.25rem);
-      line-height: 1.08;
-      letter-spacing: -0.02em;
-      color: var(--primary);
-      text-transform: uppercase;
-      font-weight: 900;
-      margin-bottom: 12px;
-    }
-
-    .hero-tagline {
-      font-size: clamp(1.2rem, 2.2vw, 1.55rem);
-      line-height: 1.3;
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 14px;
-      max-width: 52ch;
-    }
-
-    .hero p.lead {
-      font-size: 1.06rem;
-      color: var(--text-secondary);
-      margin-bottom: 24px;
-      max-width: 60ch;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 14px;
-    }
-
-    .micro-note {
-      font-size: 0.86rem;
-      color: var(--text-secondary);
-      font-weight: 500;
-    }
-
-    .client-logo-card {
-      background: var(--surface);
-      border: 2px solid var(--border);
-      border-radius: var(--radius);
-      padding: 24px;
-      box-shadow: var(--shadow);
-      text-align: center;
-    }
-
-    .client-logo-card .label {
-      font-size: 0.8rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--primary);
-      margin-bottom: 12px;
-      display: block;
-    }
-
-    .logo-preview-box {
-      min-height: 116px;
-      border: 2px dashed var(--primary);
-      border-radius: 10px;
-      background: #f8fafc;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 16px;
-      margin-bottom: 12px;
-      font-size: 1.15rem;
-      font-weight: 800;
-      color: var(--primary);
-    }
-
-    .logo-preview-box img {
-      max-height: 84px;
-      max-width: 100%;
-      width: auto;
-      height: auto;
-      object-fit: contain;
-      border-radius: 6px;
-      display: none;
-    }
-
-    .client-logo-card small {
-      display: block;
-      color: var(--text-secondary);
-      font-size: 0.84rem;
-      margin-top: 8px;
-    }
-
-    /* Sections */
-    section {
-      padding: 48px 0;
-    }
-
-    .section-header {
-      max-width: 720px;
-      margin-bottom: 28px;
-    }
-
-    .section-header h2 {
-      font-size: clamp(1.5rem, 2.6vw, 2.05rem);
-      line-height: 1.22;
-      color: var(--text);
-      margin-bottom: 10px;
-    }
-
-    .section-header p {
-      color: var(--text-secondary);
-      font-size: 1rem;
-    }
-
-    /* Dor vs Solucao */
-    .compare-grid {
+    .grid-2 {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 22px;
+      gap: 18px;
+      margin-bottom: 24px;
     }
 
     .card {
       background: var(--surface);
-      border: 1.5px solid var(--border-light);
+      border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 24px;
+      padding: 22px;
       box-shadow: var(--shadow);
     }
 
+    .card h2,
     .card h3 {
+      color: var(--accent);
+      margin-bottom: 10px;
       font-size: 1.15rem;
-      margin-bottom: 14px;
-      color: var(--text);
     }
 
     .card ul {
-      list-style: none;
-      display: grid;
-      gap: 12px;
-      color: var(--text-secondary);
-      font-size: 0.96rem;
+      padding-left: 18px;
+      color: var(--text-muted);
     }
 
-    .card ul li strong {
-      color: var(--text);
+    .card li {
+      margin-bottom: 6px;
     }
 
-    .card-pain {
-      border-top: 5px solid #b91c1c;
-    }
-
-    .card-gain {
-      border-top: 5px solid var(--primary);
-    }
-
-    /* Demo Interativa */
-    .demo-box {
+    .demo-section {
       background: var(--surface);
-      border: 2px solid var(--border);
+      border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 24px;
+      padding: 26px 24px;
+      margin-bottom: 24px;
       box-shadow: var(--shadow);
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 24px;
     }
 
-    .config-banner {
-      background: var(--badge-bg);
-      border: 1px solid #93c5fd;
-      color: var(--primary-hover);
-      padding: 10px 14px;
-      border-radius: 8px;
-      font-size: 0.86rem;
-      font-weight: 600;
-      margin-bottom: 16px;
+    .demo-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 24px;
+      margin-top: 18px;
     }
 
     .field {
@@ -363,878 +183,378 @@
       display: block;
       font-weight: 700;
       font-size: 0.92rem;
-      color: var(--text);
       margin-bottom: 6px;
-    }
-
-    .inline-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
+      color: var(--text);
     }
 
     .field select,
-    .field input[type="number"] {
+    .field input[type="number"],
+    .field input[type="file"] {
       width: 100%;
       padding: 10px 12px;
       border-radius: 8px;
-      border: 1.5px solid var(--border);
-      background: #ffffff;
+      border: 1px solid var(--border);
+      background: var(--surface-card);
       color: var(--text);
       font-size: 0.95rem;
-      font-weight: 600;
-    }
-
-    .field select:focus,
-    .field input[type="number"]:focus {
-      outline: none;
-      border-color: var(--primary);
     }
 
     .field input[type="range"] {
       width: 100%;
-      accent-color: var(--primary);
+      accent-color: var(--accent);
       cursor: pointer;
     }
 
-    .range-meta {
+    .range-labels {
       display: flex;
       justify-content: space-between;
       font-size: 0.86rem;
-      color: var(--text-secondary);
+      color: var(--text-muted);
       margin-top: 4px;
     }
 
-    .checks {
+    .addons {
       display: grid;
-      gap: 10px;
+      gap: 8px;
     }
 
-    .check-item {
+    .addon-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
-      padding: 10px 12px;
-      border: 1.5px solid var(--border-light);
-      background: #f8fafc;
+      background: var(--surface-card);
+      border: 1px solid var(--border);
       border-radius: 8px;
+      padding: 10px 12px;
       font-size: 0.92rem;
-      font-weight: 600;
-      color: var(--text);
     }
 
-    .check-left {
+    .addon-row label {
       display: flex;
       align-items: center;
       gap: 8px;
+      margin: 0;
       cursor: pointer;
+      font-weight: 600;
     }
 
-    .check-left input[type="checkbox"] {
-      width: 17px;
-      height: 17px;
-      accent-color: var(--primary);
+    .addon-row input[type="checkbox"] {
+      accent-color: var(--accent);
+      width: 16px;
+      height: 16px;
     }
 
-    .price-edit-wrap {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 0.86rem;
-      color: var(--text-secondary);
-    }
-
-    .price-edit-wrap input[type="number"] {
-      width: 92px;
-      padding: 6px 8px;
-      border-radius: 6px;
-      border: 1.5px solid var(--border);
-      font-weight: 700;
-      color: var(--text);
-      text-align: right;
-    }
-
-    .photos-strip {
+    .photo-preview {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      margin-bottom: 10px;
-    }
-
-    .photo-slot {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
+      gap: 10px;
+      margin-top: 10px;
     }
 
     .photo-thumb {
-      border: 2px solid var(--border-light);
+      background: var(--surface-card);
+      border: 1px solid var(--border);
       border-radius: 8px;
-      cursor: pointer;
-      background: #f8fafc;
-      aspect-ratio: 4 / 3;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: var(--text-secondary);
-      text-align: center;
       padding: 6px;
-      overflow: hidden;
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--text-muted);
     }
 
     .photo-thumb img {
       width: 100%;
-      height: 100%;
+      height: 76px;
       object-fit: cover;
       border-radius: 6px;
-      display: none;
+      display: block;
+      margin-bottom: 4px;
     }
 
-    .photo-thumb.active {
-      border-color: var(--primary);
-      background: var(--badge-bg);
-      color: var(--primary-hover);
-    }
-
-    .file-input-hidden {
-      display: none;
-    }
-
-    .summary-panel {
-      background: var(--surface-dark);
-      color: #ffffff;
+    .summary-box {
+      background: var(--surface-card);
+      border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 22px;
+      padding: 20px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       gap: 16px;
     }
 
-    .summary-panel .label-top {
-      font-size: 0.86rem;
-      color: #cbd5e1;
-      font-weight: 600;
-    }
-
-    .total-display {
+    .price-big {
       font-size: 2rem;
       font-weight: 800;
-      color: #fbbf24;
-      margin-top: 2px;
+      color: var(--accent);
+      margin: 4px 0 12px;
     }
 
     .wa-preview {
-      background: #ffffff;
-      border: 2px solid #94a3b8;
-      border-radius: 10px;
-      padding: 14px;
-      font-size: 0.87rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 0.86rem;
       white-space: pre-line;
-      color: #0f172a;
-      font-weight: 500;
+      color: var(--text-muted);
     }
 
-    /* 3 Passos */
-    .steps-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-
-    .step-num {
-      display: inline-flex;
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      background: var(--primary);
-      color: #ffffff;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      font-size: 0.95rem;
-      margin-bottom: 12px;
-    }
-
-    /* Planos */
     .plans-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+      gap: 16px;
+      margin-bottom: 24px;
     }
 
-    .plan-card {
-      background: var(--surface);
-      border: 2px solid var(--border-light);
-      border-radius: var(--radius);
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      box-shadow: var(--shadow);
-    }
-
-    .plan-card.featured {
-      border: 3px solid var(--primary);
-      background: #f8fafc;
-    }
-
-    .badge {
-      display: inline-block;
-      font-size: 0.78rem;
-      font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 999px;
-      margin-bottom: 10px;
-      background: #e2e8f0;
-      color: #1e293b;
-    }
-
-    .badge-accent {
-      background: var(--primary);
-      color: #ffffff;
-    }
-
-    .price-month {
-      font-size: 2.05rem;
+    .plan-price {
+      font-size: 1.5rem;
       font-weight: 800;
-      color: var(--text);
-      margin: 8px 0 4px;
-    }
-
-    .price-month span {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: var(--text-secondary);
-    }
-
-    .price-cycle {
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      font-weight: 600;
-      margin-bottom: 16px;
-    }
-
-    /* FAQ */
-    .faq-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 18px;
-    }
-
-    .faq-item h4 {
-      margin-bottom: 6px;
-      font-size: 1.02rem;
-      color: var(--text);
-    }
-
-    .faq-item p {
-      color: var(--text-secondary);
-      font-size: 0.94rem;
-    }
-
-    /* CTA Final & Footer */
-    .cta-final {
-      background: var(--surface-dark);
       color: #ffffff;
-      border-radius: var(--radius);
-      padding: 38px 28px;
-      text-align: center;
-      box-shadow: var(--shadow);
+      margin: 8px 0;
     }
 
-    .cta-final h2 {
-      font-size: clamp(1.45rem, 2.5vw, 1.95rem);
-      margin-bottom: 18px;
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+      padding: 12px 0;
+    }
+
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+
+    .faq-q {
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+
+    .faq-a {
+      color: var(--text-muted);
+      font-size: 0.92rem;
     }
 
     footer {
-      padding: 28px 0 40px;
+      margin-top: 32px;
+      padding: 18px 16px;
       text-align: center;
-      color: var(--text-secondary);
-      font-size: 0.88rem;
-      font-weight: 500;
+      font-size: 0.9rem;
+      color: var(--text-muted);
     }
 
-    @media (max-width: 980px) {
-      .nav-links {
-        display: none;
-      }
-    }
-
-    @media (max-width: 860px) {
-      .hero-grid,
-      .compare-grid,
-      .demo-box,
-      .steps-grid,
-      .plans-grid,
-      .faq-grid,
-      .inline-grid {
+    @media (max-width: 820px) {
+      .grid-2,
+      .demo-grid,
+      .plans-grid {
         grid-template-columns: 1fr;
-      }
-
-      .nav {
-        min-height: 76px;
-      }
-
-      .brand-slot img {
-        height: 56px;
-        max-width: 210px;
-      }
-
-      header .btn {
-        padding: 10px 14px;
-        font-size: 0.86rem;
       }
     }
   </style>
 </head>
 <body>
-
-  <header>
-    <div class="container nav">
-      <!-- LOGOTIPO FIXO DO TOPO: salve a imagem gerada como logo-calculadora-de-festas.jpg na mesma pasta do index.html -->
-      <a href="#topo" class="brand-slot" title="Calculadora de Festas">
-        <img id="headerLogoImg" src="logo-calculadora-de-festas.jpg" alt="Logotipo Calculadora de Festas" />
-      </a>
-
-      <nav class="nav-links">
-        <a href="#como-funciona">Como funciona</a>
-        <a href="#demonstracao">Demonstração</a>
-        <a href="#planos">Planos</a>
-        <a href="#faq">Dúvidas</a>
-      </nav>
-
-      <a href="#planos" class="btn btn-cta">Testar grátis por 7 dias</a>
-    </div>
-  </header>
-
-  <main id="topo">
-    <!-- Seção 1: Topo -->
-    <section class="hero">
-      <div class="container hero-grid">
+  <div class="wrap">
+    <header>
+      <div class="logo-area">
+        <img src="logo-calculadora-de-festas.jpg" alt="Logotipo Calculadora de Festas" />
         <div>
-          <span class="pill">Para salões de festa, buffets e espaços de eventos</span>
-          <h1>CALCULADORA DE FESTAS</h1>
-          <p class="hero-tagline">Pare de perder tempo respondendo "qual o valor?" no WhatsApp. Deixe o cliente simular a festa sozinho.</p>
-          <p class="lead">
-            Crie a calculadora personalizada do seu espaço em poucos minutos. O cliente escolhe o tipo de festa, a data, o número de convidados e os adicionais, vê o valor estimado e envia o orçamento pronto direto para o seu WhatsApp.
-          </p>
-          <div class="hero-actions">
-            <a href="#planos" class="btn btn-cta">Testar grátis por 7 dias</a>
-            <a href="#demonstracao" class="btn btn-outline">Ver simulação ao vivo</a>
-          </div>
-          <p class="micro-note">Configure você mesmo em 5 passos simples • Não precisa instalar nada • Sem fidelidade</p>
+          <div class="brand-name">Calculadora de Festas</div>
+          <div class="brand-tag">Simulador de orçamentos para espaços de eventos e buffets</div>
         </div>
+      </div>
+      <a href="#demo" class="btn btn-accent">Testar demonstração</a>
+    </header>
 
-        <aside class="client-logo-card">
-          <span class="label">Identidade do seu espaço na calculadora</span>
-          <div class="logo-preview-box">
-            <img id="cardLogoImg" alt="Prévia do logotipo do espaço" />
-            <span id="cardLogoText">Seu logotipo aqui</span>
-          </div>
-          <label for="logoUploadInput" class="btn btn-outline btn-sm">Enviar logotipo (comprime automático)</label>
-          <input type="file" id="logoUploadInput" class="file-input-hidden" accept="image/*" />
-          <small id="logoCompressInfo">O logotipo do seu espaço (comprimido automaticamente) aparece no topo do simulador e do resumo.</small>
-        </aside>
+    <section class="hero">
+      <h1>Transforme visitas curiosas em <span>orçamentos prontos no WhatsApp</span></h1>
+      <p>
+        Seu espaço recebe pedidos de orçamento o dia inteiro. Com a Calculadora de Festas, o cliente simula convidados,
+        dia do evento e adicionais em segundos — e já envia o resumo direto para o seu WhatsApp.
+      </p>
+      <a href="#demo" class="btn btn-accent">Simular agora</a>
+    </section>
+
+    <section class="grid-2">
+      <div class="card">
+        <h2>Antes (atendimento manual)</h2>
+        <ul>
+          <li>Responder dezenas de mensagens repetitivas por dia</li>
+          <li>Fazer conta isolada no papel ou em planilhas soltas</li>
+          <li>Perder interessados que desistem de esperar resposta</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>Com a Calculadora de Festas</h2>
+        <ul>
+          <li>Estimativa imediata para o cliente que está navegando</li>
+          <li>Regras claras de convidados, dias e adicionais</li>
+          <li>Resumo estruturado chegando direto no seu WhatsApp</li>
+        </ul>
       </div>
     </section>
 
-    <!-- Seção 2: Dor vs. Solução -->
-    <section id="como-funciona">
-      <div class="container">
-        <div class="section-header">
-          <h2>Como funciona hoje vs. Como fica com a sua calculadora</h2>
-          <p>Menos mensagens repetitivas e mais conversas com quem já sabe o que quer.</p>
-        </div>
+    <section class="demo-section" id="demo">
+      <h2>Demonstração interativa</h2>
+      <p style="color: var(--text-muted); font-size: 0.94rem;">
+        Teste como funciona a simulação de convidados, adicionais e envio de resumo.
+      </p>
 
-        <div class="compare-grid">
-          <div class="card card-pain">
-            <h3>Sem a calculadora</h3>
-            <ul>
-              <li><strong>Curiosos somem:</strong> pedem preço nas redes sociais ou no WhatsApp e desaparecem assim que ouvem o valor.</li>
-              <li><strong>Conta manual repetitiva:</strong> você gasta horas somando convidados, pacotes e adicionais todos os dias.</li>
-              <li><strong>Demora custa datas:</strong> quem espera horas por uma resposta acaba fechando em outro espaço.</li>
-            </ul>
+      <div class="demo-grid">
+        <div>
+          <div class="field">
+            <label for="eventType">Tipo de evento</label>
+            <select id="eventType">
+              <option value="Aniversário">Aniversário</option>
+              <option value="Casamento">Casamento</option>
+              <option value="Confraternização">Confraternização</option>
+              <option value="Festa Infantil">Festa Infantil</option>
+            </select>
           </div>
 
-          <div class="card card-gain">
-            <h3>Com a sua calculadora</h3>
-            <ul>
-              <li><strong>Link sempre disponível:</strong> coloque nas suas redes sociais, no Google Maps e nas respostas automáticas do WhatsApp 24 horas por dia.</li>
-              <li><strong>Simulação em 1 minuto:</strong> o cliente monta a festa sozinho e já vê se cabe no orçamento antes de chamar.</li>
-              <li><strong>Lead qualificado:</strong> você recebe no WhatsApp o resumo organizado com tipo de evento, data, convidados, adicionais e estimativa.</li>
-            </ul>
+          <div class="field">
+            <label for="dayType">Período</label>
+            <select id="dayType">
+              <option value="weekday">Segunda a Quinta (Base R$ 2.000)</option>
+              <option value="weekend" selected>Sexta a Domingo / Feriado (Base R$ 3.200)</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="guestCount">Quantidade de convidados</label>
+            <input type="range" id="guestCount" min="20" max="200" step="10" value="80" />
+            <div class="range-labels">
+              <span>20</span>
+              <strong id="guestDisplay" style="color: var(--accent);">80 convidados</strong>
+              <span>200</span>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Adicionais opcionais</label>
+            <div class="addons">
+              <div class="addon-row">
+                <label><input type="checkbox" class="addon-chk" data-price="600" data-name="Som e Iluminação" checked /> Som e Iluminação</label>
+                <span>+ R$ 600</span>
+              </div>
+              <div class="addon-row">
+                <label><input type="checkbox" class="addon-chk" data-price="850" data-name="Equipe de Apoio" /> Equipe de Apoio</label>
+                <span>+ R$ 850</span>
+              </div>
+              <div class="addon-row">
+                <label><input type="checkbox" class="addon-chk" data-price="500" data-name="Decoração Base" /> Decoração Base</label>
+                <span>+ R$ 500</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="photoInput">Prévia de fotos do espaço (até 3 imagens, comprimidas no navegador)</label>
+            <input type="file" id="photoInput" accept="image/*" multiple />
+            <div class="photo-preview" id="photoPreview"></div>
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- Seção 3: Demonstração Interativa -->
-    <section id="demonstracao">
-      <div class="container">
-        <div class="section-header">
-          <h2>Veja como o seu cliente vai usar no celular</h2>
-          <p>Você define a capacidade do seu espaço e os valores que cobra. Teste abaixo editando os valores ou simulando como cliente:</p>
-        </div>
-
-        <div class="demo-box">
+        <div class="summary-box">
           <div>
-            <div class="config-banner">
-              Simulador editável: altere a capacidade máxima e os preços abaixo para testar com a realidade do seu espaço.
-            </div>
-
-            <div class="field">
-              <label>Fotos do espaço (até 3 fotos na demonstração — comprimidas automaticamente)</label>
-              <div class="photos-strip" id="photoSelector">
-                <div class="photo-slot">
-                  <div class="photo-thumb active" data-index="0" data-photo="Foto 1: Salão Principal • Ambiente climatizado e palco">
-                    <img id="photoImg0" alt="Foto 1 do espaço" />
-                    <span id="photoLabel0">Foto 1: Salão</span>
-                  </div>
-                  <label for="photoInput0" class="btn btn-outline btn-sm">Enviar foto 1</label>
-                  <input type="file" id="photoInput0" class="file-input-hidden photo-file-input" data-index="0" accept="image/*" />
-                </div>
-
-                <div class="photo-slot">
-                  <div class="photo-thumb" data-index="1" data-photo="Foto 2: Área Externa • Jardim e espaço gourmet">
-                    <img id="photoImg1" alt="Foto 2 do espaço" />
-                    <span id="photoLabel1">Foto 2: Área Externa</span>
-                  </div>
-                  <label for="photoInput1" class="btn btn-outline btn-sm">Enviar foto 2</label>
-                  <input type="file" id="photoInput1" class="file-input-hidden photo-file-input" data-index="1" accept="image/*" />
-                </div>
-
-                <div class="photo-slot">
-                  <div class="photo-thumb" data-index="2" data-photo="Foto 3: Buffet & Mesas • Montagem completa">
-                    <img id="photoImg2" alt="Foto 3 do espaço" />
-                    <span id="photoLabel2">Foto 3: Estrutura</span>
-                  </div>
-                  <label for="photoInput2" class="btn btn-outline btn-sm">Enviar foto 3</label>
-                  <input type="file" id="photoInput2" class="file-input-hidden photo-file-input" data-index="2" accept="image/*" />
-                </div>
-              </div>
-              <p class="micro-note" id="photoCaption">Foto 1: Salão Principal • Ambiente climatizado e palco</p>
-            </div>
-
-            <div class="inline-grid">
-              <div class="field">
-                <label for="eventCategory">Tipo de festa / evento</label>
-                <select id="eventCategory">
-                  <option value="Aniversário Adulto">Aniversário Adulto</option>
-                  <option value="Festa Infantil">Festa Infantil</option>
-                  <option value="Casamento" selected>Casamento</option>
-                  <option value="Debutante / 15 Anos">Debutante / 15 Anos</option>
-                  <option value="Formatura">Formatura</option>
-                  <option value="Confraternização / Corporativo">Confraternização / Corporativo</option>
-                  <option value="Chá de Bebê / Panela">Chá de Bebê / Panela</option>
-                  <option value="Outro Evento">Outro Evento</option>
-                </select>
-              </div>
-
-              <div class="field">
-                <label for="dayPeriod">Dia do evento</label>
-                <select id="dayPeriod">
-                  <option value="weekday">Evento (Segunda a Quinta)</option>
-                  <option value="weekend" selected>Evento (Sexta a Domingo / Feriado)</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="inline-grid">
-              <div class="field">
-                <label for="weekdayPrice">Valor base Seg a Qui (R$)</label>
-                <input type="number" id="weekdayPrice" min="0" step="50" value="2200" />
-              </div>
-
-              <div class="field">
-                <label for="weekendPrice">Valor base Sex a Dom (R$)</label>
-                <input type="number" id="weekendPrice" min="0" step="50" value="3400" />
-              </div>
-            </div>
-
-            <div class="inline-grid">
-              <div class="field">
-                <label for="maxCapacity">Capacidade máxima do espaço</label>
-                <input type="number" id="maxCapacity" min="10" max="2000" step="5" value="150" />
-              </div>
-
-              <div class="field">
-                <label for="extraGuestPrice">Valor por convidado extra (acima de 50)</label>
-                <input type="number" id="extraGuestPrice" min="0" step="5" value="45" />
-              </div>
-            </div>
-
-            <div class="field">
-              <label for="guestRange">Número de convidados simulado</label>
-              <input type="range" id="guestRange" min="10" max="150" step="5" value="80" />
-              <div class="range-meta">
-                <span>10</span>
-                <strong id="guestCountLabel">80 convidados</strong>
-                <span id="maxCapacityLabel">Máx: 150</span>
-              </div>
-            </div>
-
-            <div class="field">
-              <label>Adicionais opcionais (edite os valores ao lado)</label>
-              <div class="checks">
-                <div class="check-item">
-                  <label class="check-left">
-                    <input type="checkbox" class="addon-chk" data-target="addonPrice1" data-name="Som e Iluminação" checked />
-                    Som e Iluminação
-                  </label>
-                  <span class="price-edit-wrap">+ R$ <input type="number" id="addonPrice1" min="0" step="50" value="650" /></span>
-                </div>
-
-                <div class="check-item">
-                  <label class="check-left">
-                    <input type="checkbox" class="addon-chk" data-target="addonPrice2" data-name="Churrasqueira / Equipe" />
-                    Churrasqueira / Equipe
-                  </label>
-                  <span class="price-edit-wrap">+ R$ <input type="number" id="addonPrice2" min="0" step="50" value="900" /></span>
-                </div>
-
-                <div class="check-item">
-                  <label class="check-left">
-                    <input type="checkbox" class="addon-chk" data-target="addonPrice3" data-name="Decoração Básica" />
-                    Decoração Básica
-                  </label>
-                  <span class="price-edit-wrap">+ R$ <input type="number" id="addonPrice3" min="0" step="50" value="500" /></span>
-                </div>
-              </div>
-            </div>
+            <div style="font-size: 0.88rem; color: var(--text-muted);">Estimativa simulada</div>
+            <div class="price-big" id="totalPrice">R$ 5.150</div>
+            <div style="font-size: 0.88rem; font-weight: 700; margin-bottom: 6px;">Mensagem para WhatsApp:</div>
+            <div class="wa-preview" id="waPreview"></div>
           </div>
 
-          <div class="summary-panel">
-            <div>
-              <span class="label-top">Estimativa inicial simulada</span>
-              <div class="total-display" id="totalPrice">R$ 5.400</div>
-              <p style="font-size: 0.88rem; color: #e2e8f0; margin-top: 10px; margin-bottom: 8px;">
-                <strong>Prévia da mensagem enviada ao WhatsApp do espaço:</strong>
-              </p>
-              <div class="wa-preview" id="waPreview"></div>
-            </div>
-
-            <a href="#planos" class="btn btn-cta" style="width: 100%;">Quero isso no meu espaço por 7 dias grátis</a>
-          </div>
+          <a href="#" target="_blank" rel="noopener" class="btn btn-accent" id="waBtn" style="width: 100%;">
+            Enviar simulação no WhatsApp
+          </a>
         </div>
       </div>
     </section>
 
-    <!-- Seção 4: 3 Passos -->
-    <section>
-      <div class="container">
-        <div class="section-header">
-          <h2>Pronto para usar em poucos minutos</h2>
-          <p>Sem depender de suporte técnico para colocar a calculadora no ar.</p>
-        </div>
-
-        <div class="steps-grid">
-          <div class="card">
-            <div class="step-num">1</div>
-            <h3>Preencha em 5 etapas</h3>
-            <p style="color: var(--text-secondary); font-size: 0.95rem;">
-              Coloque o logotipo e o nome do seu espaço, seu WhatsApp, a capacidade de convidados, até 3 fotos do ambiente e os valores que você cobra.
-            </p>
-          </div>
-
-          <div class="card">
-            <div class="step-num">2</div>
-            <h3>Compartilhe seu link</h3>
-            <p style="color: var(--text-secondary); font-size: 0.95rem;">
-              Coloque o endereço exclusivo da sua calculadora nas suas redes sociais, no Google Maps e nas respostas automáticas do WhatsApp.
-            </p>
-          </div>
-
-          <div class="card">
-            <div class="step-num">3</div>
-            <h3>Receba orçamentos prontos</h3>
-            <p style="color: var(--text-secondary); font-size: 0.95rem;">
-              Acompanhe os pedidos chegando organizados no seu WhatsApp, prontos para você avançar na visita ou no fechamento.
-            </p>
-          </div>
-        </div>
-        <p class="micro-note" style="margin-top: 14px;">Acompanha guia rápido em vídeo para celular e computador.</p>
+    <section class="plans-grid">
+      <div class="card">
+        <h3>Essencial</h3>
+        <div class="plan-price">7 dias grátis</div>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">Ideal para um espaço de eventos começar a receber orçamentos estruturados.</p>
+      </div>
+      <div class="card">
+        <h3>Profissional</h3>
+        <div class="plan-price">7 dias grátis</div>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">Mais opções de adicionais, regras flexíveis e apresentação completa do espaço.</p>
+      </div>
+      <div class="card">
+        <h3>Multi-espaços</h3>
+        <div class="plan-price">7 dias grátis</div>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">Para quem opera mais de um salão, área ou pacote de eventos.</p>
       </div>
     </section>
 
-    <!-- Seção 5: Planos -->
-    <section id="planos">
-      <div class="container">
-        <div class="section-header">
-          <h2>Teste grátis por 7 dias. Escolha um plano só se fizer sentido para o seu espaço.</h2>
-          <p>Todos os planos incluem calculadora ilimitada, envio direto para o WhatsApp e até 3 fotos do seu espaço.</p>
-        </div>
-
-        <div class="plans-grid">
-          <div class="plan-card">
-            <div>
-              <span class="badge">Flexível</span>
-              <h3>Mensal</h3>
-              <div class="price-month">R$ 120,00 <span>/mês</span></div>
-              <p class="price-cycle">Cobrado mensalmente</p>
-              <p class="micro-note">Ativação imediata via Pix ou Cartão após o teste.</p>
-            </div>
-            <a href="#fechamento" class="btn btn-outline" style="margin-top: 20px;">Começar 7 dias grátis</a>
-          </div>
-
-          <div class="plan-card featured">
-            <div>
-              <span class="badge badge-accent">Mais escolhido</span>
-              <h3>Trimestral</h3>
-              <div class="price-month">R$ 106,67 <span>/mês</span></div>
-              <p class="price-cycle">Cobrado R$ 320,00 a cada 3 meses</p>
-              <p class="micro-note">Ativação imediata via Pix ou Cartão após o teste.</p>
-            </div>
-            <a href="#fechamento" class="btn btn-cta" style="margin-top: 20px;">Começar 7 dias grátis</a>
-          </div>
-
-          <div class="plan-card">
-            <div>
-              <span class="badge">Economize 27%</span>
-              <h3>Semestral</h3>
-              <div class="price-month">R$ 88,00 <span>/mês</span></div>
-              <p class="price-cycle">Cobrado R$ 528,00 a cada 6 meses</p>
-              <p class="micro-note">Ativação imediata via Pix ou Cartão após o teste.</p>
-            </div>
-            <a href="#fechamento" class="btn btn-outline" style="margin-top: 20px;">Começar 7 dias grátis</a>
-          </div>
-        </div>
+    <section class="card">
+      <h2>Perguntas frequentes</h2>
+      <div class="faq-item">
+        <div class="faq-q">Precisa instalar algum programa pesado?</div>
+        <div class="faq-a">Não. Tudo roda no navegador, no celular ou no computador.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">O orçamento final é fechado automaticamente?</div>
+        <div class="faq-a">A calculadora gera uma estimativa inicial organizada para você confirmar os detalhes da data com o cliente.</div>
       </div>
     </section>
 
-    <!-- Seção 6: FAQ -->
-    <section id="faq">
-      <div class="container">
-        <div class="section-header">
-          <h2>Perguntas frequentes</h2>
-        </div>
-
-        <div class="faq-grid">
-          <div class="card faq-item">
-            <h4>Preciso ter site próprio para usar?</h4>
-            <p>Não. Você ganha um link pronto para colocar direto nas suas redes sociais, no Google Maps ou no WhatsApp.</p>
-          </div>
-
-          <div class="card faq-item">
-            <h4>Preciso entender de informática ou programação?</h4>
-            <p>Não. Todo o cadastro é guiado em 5 telas simples, com passo a passo para fazer pelo celular ou computador.</p>
-          </div>
-
-          <div class="card faq-item">
-            <h4>E se eu não quiser continuar depois dos 7 dias?</h4>
-            <p>Basta não ativar nenhum plano. O acesso de teste expira automaticamente, sem cobrança surpresa e sem multa.</p>
-          </div>
-
-          <div class="card faq-item">
-            <h4>Posso alterar meus preços, capacidade e fotos depois?</h4>
-            <p>Sim, sempre que precisar ajustar valores de convidados, adicionais, capacidade ou trocar as fotos e o logotipo do espaço.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Seção 7: Fechamento -->
-    <section id="fechamento">
-      <div class="container">
-        <div class="cta-final">
-          <h2>Seu espaço merece orçamentos mais rápidos e clientes mais decididos.</h2>
-          <a href="#planos" class="btn btn-cta">Criar minha calculadora grátis por 7 dias</a>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="container">
-      Calculadora de Festas • Orçamentos para Salões, Buffets e Espaços de Eventos • Teste gratuito de 7 dias.
-    </div>
-  </footer>
+    <footer>
+      Produzido por <strong>calculadoradefestas.com.br</strong>
+    </footer>
+  </div>
 
   <script>
-    const eventCategoryEl = document.getElementById("eventCategory");
-    const dayPeriodEl = document.getElementById("dayPeriod");
-    const weekdayPriceEl = document.getElementById("weekdayPrice");
-    const weekendPriceEl = document.getElementById("weekendPrice");
-    const maxCapacityEl = document.getElementById("maxCapacity");
-    const extraGuestPriceEl = document.getElementById("extraGuestPrice");
-    const guestRangeEl = document.getElementById("guestRange");
-    const guestCountLabelEl = document.getElementById("guestCountLabel");
-    const maxCapacityLabelEl = document.getElementById("maxCapacityLabel");
-    const addonChecks = document.querySelectorAll(".addon-chk");
+    const eventTypeEl = document.getElementById("eventType");
+    const dayTypeEl = document.getElementById("dayType");
+    const guestCountEl = document.getElementById("guestCount");
+    const guestDisplayEl = document.getElementById("guestDisplay");
+    const addonChks = document.querySelectorAll(".addon-chk");
     const totalPriceEl = document.getElementById("totalPrice");
     const waPreviewEl = document.getElementById("waPreview");
-    const photoThumbs = document.querySelectorAll(".photo-thumb");
-    const photoCaptionEl = document.getElementById("photoCaption");
-
-    const logoUploadInput = document.getElementById("logoUploadInput");
-    const cardLogoImg = document.getElementById("cardLogoImg");
-    const cardLogoText = document.getElementById("cardLogoText");
-    const logoCompressInfo = document.getElementById("logoCompressInfo");
-
-    const photoFileInputs = document.querySelectorAll(".photo-file-input");
-
-    function compressImageFile(file, maxWidth, quality) {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = (ev) => {
-          const img = new Image();
-          img.onload = () => {
-            let width = img.width;
-            let height = img.height;
-
-            if (width > maxWidth) {
-              height = Math.round((height * maxWidth) / width);
-              width = maxWidth;
-            }
-
-            const canvas = document.createElement("canvas");
-            canvas.width = width;
-            canvas.height = height;
-            const ctx = canvas.getContext("2d");
-            ctx.drawImage(img, 0, 0, width, height);
-
-            const dataUrl = canvas.toDataURL("image/jpeg", quality);
-            const approxBytes = Math.round((dataUrl.length * 3) / 4);
-            resolve({
-              dataUrl,
-              width,
-              height,
-              kb: Math.max(1, Math.round(approxBytes / 1024))
-            });
-          };
-          img.onerror = reject;
-          img.src = ev.target.result;
-        };
-        reader.onerror = reject;
-        reader.readAsDataURL(file);
-      });
-    }
-
-    logoUploadInput.addEventListener("change", async (e) => {
-      const file = e.target.files && e.target.files[0];
-      if (!file) return;
-
-      const compressed = await compressImageFile(file, 360, 0.82);
-
-      cardLogoImg.src = compressed.dataUrl;
-      cardLogoImg.style.display = "block";
-      cardLogoText.style.display = "none";
-
-      logoCompressInfo.textContent = `Logotipo do espaço comprimido: ${compressed.width}x${compressed.height}px (~${compressed.kb} KB).`;
-    });
-
-    photoFileInputs.forEach((input) => {
-      input.addEventListener("change", async (e) => {
-        const file = e.target.files && e.target.files[0];
-        if (!file) return;
-
-        const idx = Number(input.dataset.index);
-        const compressed = await compressImageFile(file, 900, 0.78);
-
-        const imgEl = document.getElementById(`photoImg${idx}`);
-        const labelEl = document.getElementById(`photoLabel${idx}`);
-        const thumbEl = document.querySelector(`.photo-thumb[data-index="${idx}"]`);
-
-        imgEl.src = compressed.dataUrl;
-        imgEl.style.display = "block";
-        labelEl.style.display = "none";
-
-        photoThumbs.forEach((t) => t.classList.remove("active"));
-        thumbEl.classList.add("active");
-        thumbEl.dataset.photo = `Foto ${idx + 1} comprimida (${compressed.width}x${compressed.height}px • ~${compressed.kb} KB)`;
-        photoCaptionEl.textContent = thumbEl.dataset.photo;
-      });
-    });
-
-    photoThumbs.forEach((thumb) => {
-      thumb.addEventListener("click", () => {
-        photoThumbs.forEach((t) => t.classList.remove("active"));
-        thumb.classList.add("active");
-        photoCaptionEl.textContent = thumb.dataset.photo;
-      });
-    });
+    const waBtnEl = document.getElementById("waBtn");
+    const photoInputEl = document.getElementById("photoInput");
+    const photoPreviewEl = document.getElementById("photoPreview");
 
     function formatBRL(value) {
-      return value.toLocaleString("pt-BR", {
+      return Number(value || 0).toLocaleString("pt-BR", {
         style: "currency",
         currency: "BRL",
         maximumFractionDigits: 0
       });
     }
 
-    function syncCapacity() {
-      const maxCap = Math.max(10, Number(maxCapacityEl.value) || 150);
-      guestRangeEl.max = maxCap;
-      maxCapacityLabelEl.textContent = `Máx: ${maxCap}`;
-
-      if (Number(guestRangeEl.value) > maxCap) {
-        guestRangeEl.value = maxCap;
-      }
-      updateCalculator();
-    }
-
     function updateCalculator() {
-      const category = eventCategoryEl.value;
-      const period = dayPeriodEl.value;
-      const periodLabel = dayPeriodEl.options[dayPeriodEl.selectedIndex].text;
+      const eventType = eventTypeEl.value;
+      const baseCost = dayTypeEl.value === "weekday" ? 2000 : 3200;
+      const guests = Number(guestCountEl.value);
+      guestDisplayEl.textContent = `${guests} convidados`;
 
-      const basePrice = period === "weekday"
-        ? Math.max(0, Number(weekdayPriceEl.value) || 0)
-        : Math.max(0, Number(weekendPriceEl.value) || 0);
-
-      const guests = Number(guestRangeEl.value);
-      guestCountLabelEl.textContent = `${guests} convidados`;
-
-      const perExtraGuest = Math.max(0, Number(extraGuestPriceEl.value) || 0);
       const extraGuests = Math.max(0, guests - 50);
-      const extraGuestsCost = extraGuests * perExtraGuest;
+      const extraCost = extraGuests * 45;
 
-      const selectedAddons = [];
       let addonsCost = 0;
-
-      addonChecks.forEach((chk) => {
+      const selectedAddons = [];
+      addonChks.forEach((chk) => {
         if (chk.checked) {
-          const priceInput = document.getElementById(chk.dataset.target);
-          addonsCost += Math.max(0, Number(priceInput.value) || 0);
+          addonsCost += Number(chk.dataset.price || 0);
           selectedAddons.push(chk.dataset.name);
         }
       });
 
-      const total = basePrice + extraGuestsCost + addonsCost;
+      const total = baseCost + extraCost + addonsCost;
       totalPriceEl.textContent = formatBRL(total);
 
-      const addonsText = selectedAddons.length > 0 ? selectedAddons.join(", ") : "Nenhum";
-      waPreviewEl.textContent =
-        `Olá! Simulei um orçamento para o Seu Espaço:\n` +
-        `• Tipo de festa: ${category}\n` +
-        `• Período: ${periodLabel}\n` +
+      const addonsText = selectedAddons.length ? selectedAddons.join(", ") : "Nenhum";
+      const summary =
+        `Olá! Simulei um orçamento na Calculadora de Festas:\n` +
+        `• Evento: ${eventType}\n` +
         `• Convidados: ${guests}\n` +
         `• Adicionais: ${addonsText}\n` +
-        `• Estimativa inicial: ${formatBRL(total)}`;
+        `• Estimativa: ${formatBRL(total)}`;
+
+      waPreviewEl.textContent = summary;
+      waBtnEl.href = `https://wa.me/?text=${encodeURIComponent(summary)}`;
     }
 
-    maxCapacityEl.addEventListener("input", syncCapacity);
-    eventCategoryEl.addEventListener("change", updateCalculator);
-    dayPeriodEl.addEventListener("change", updateCalculator);
-    weekdayPriceEl.addEventListener("input", updateCalculator);
-    weekendPriceEl.addEventListener("input", updateCalculator);
-    extraGuestPriceEl.addEventListener("input", updateCalculator);
-    guestRangeEl.addEventListener("input", updateCalculator);
-
-    addonChecks.forEach((chk) => {
-      chk.addEventListener("change", updateCalculator);
-      const priceInput = document.getElementById(chk.dataset.target);
-      if (priceInput) {
-        priceInput.addEventListener("input", updateCalculator);
-      }
-    });
-
-    updateCalculator();
-  </script>
-</body>
-</html>
+    function compressImageFile(file, maxWidth = 600, quality = 0.72) {
+      return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
