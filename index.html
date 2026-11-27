@@ -3,20 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Calculadora de Festas — Orçamentos de Eventos sem Planilhas</title>
+  <title>Calculadora de Festas — Simulador de Orçamento</title>
   <style>
     :root {
-      --bg: #0b1120;
-      --surface: #111827;
-      --surface-card: #1e293b;
-      --text: #f8fafc;
-      --text-muted: #cbd5e1;
-      --border: #334155;
-      --accent: #facc15;
-      --accent-hover: #eab308;
-      --accent-text: #0f172a;
-      --radius: 14px;
-      --shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+      --bg: #e8ecf2;
+      --surface: #ffffff;
+      --surface-dark: #0f172a;
+      --text: #0f172a;
+      --text-secondary: #334155;
+      --border: #94a3b8;
+      --border-light: #cbd5e1;
+      --primary: #1e3a8a;
+      --primary-hover: #172554;
+      --accent: #ffff00;
+      --accent-hover: #e6e600;
+      --badge-bg: #dbeafe;
+      --radius: 12px;
+      --shadow: 0 6px 20px rgba(15, 23, 42, 0.10);
     }
 
     * {
@@ -29,79 +32,40 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       background: var(--bg);
       color: var(--text);
-      line-height: 1.6;
+      line-height: 1.55;
       padding: 24px 16px 48px;
     }
 
     .wrap {
-      max-width: 1020px;
+      max-width: 980px;
       margin: 0 auto;
     }
 
-    header {
-      background: var(--surface);
-      border: 1px solid var(--border);
+    .topbar {
+      background: var(--surface-dark);
+      color: #ffffff;
       border-radius: var(--radius);
-      padding: 20px 24px;
+      padding: 18px 22px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
-      margin-bottom: 24px;
-      box-shadow: var(--shadow);
-    }
-
-    .logo-area {
-      display: flex;
-      align-items: center;
       gap: 14px;
-    }
-
-    .logo-area img {
-      height: 52px;
-      width: auto;
-      border-radius: 8px;
-      object-fit: contain;
-      background: #ffffff;
-      padding: 4px;
-    }
-
-    .brand-name {
-      font-size: 1.25rem;
-      font-weight: 800;
-      color: var(--accent);
-    }
-
-    .brand-tag {
-      font-size: 0.88rem;
-      color: var(--text-muted);
-    }
-
-    .hero {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 32px 24px;
-      margin-bottom: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
       box-shadow: var(--shadow);
     }
 
-    .hero h1 {
-      font-size: clamp(1.6rem, 3.2vw, 2.35rem);
-      line-height: 1.2;
-      margin-bottom: 12px;
-      color: #ffffff;
-    }
-
-    .hero h1 span {
+    .brand-title {
+      font-size: 1.25rem;
+      font-weight: 900;
       color: var(--accent);
+      letter-spacing: -0.01em;
     }
 
-    .hero p {
-      color: var(--text-muted);
-      max-width: 740px;
-      margin-bottom: 20px;
+    .brand-sub {
+      font-size: 0.86rem;
+      color: #cbd5e1;
+      margin-top: 2px;
     }
 
     .btn {
@@ -109,70 +73,56 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      padding: 12px 20px;
+      padding: 11px 18px;
       border-radius: 10px;
       font-weight: 700;
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       text-decoration: none;
-      border: none;
+      border: 2px solid transparent;
       cursor: pointer;
-      transition: background 0.15s ease, transform 0.15s ease;
+      transition: background 0.15s ease, border-color 0.15s ease;
     }
 
     .btn-accent {
       background: var(--accent);
-      color: var(--accent-text);
+      color: #0f172a;
     }
 
     .btn-accent:hover {
       background: var(--accent-hover);
     }
 
-    .grid-2 {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 18px;
-      margin-bottom: 24px;
+    .btn-primary {
+      background: var(--primary);
+      color: #ffffff;
     }
 
-    .card {
+    .btn-primary:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn-outline {
       background: var(--surface);
-      border: 1px solid var(--border);
+      color: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .btn-outline:hover {
+      background: var(--badge-bg);
+    }
+
+    .panel {
+      background: var(--surface);
+      border: 2px solid var(--border);
       border-radius: var(--radius);
-      padding: 22px;
+      padding: 24px;
       box-shadow: var(--shadow);
     }
 
-    .card h2,
-    .card h3 {
-      color: var(--accent);
-      margin-bottom: 10px;
-      font-size: 1.15rem;
-    }
-
-    .card ul {
-      padding-left: 18px;
-      color: var(--text-muted);
-    }
-
-    .card li {
-      margin-bottom: 6px;
-    }
-
-    .demo-section {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 26px 24px;
-      margin-bottom: 24px;
-      box-shadow: var(--shadow);
-    }
-
-    .demo-grid {
+    .sim-grid {
       display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
+      grid-template-columns: 1.1fr 0.9fr;
       gap: 24px;
-      margin-top: 18px;
     }
 
     .field {
@@ -187,169 +137,151 @@
       color: var(--text);
     }
 
+    .inline-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
     .field select,
-    .field input[type="number"],
-    .field input[type="file"] {
+    .field input[type="text"],
+    .field input[type="number"] {
       width: 100%;
       padding: 10px 12px;
       border-radius: 8px;
-      border: 1px solid var(--border);
-      background: var(--surface-card);
+      border: 1.5px solid var(--border);
+      background: #ffffff;
       color: var(--text);
       font-size: 0.95rem;
+      font-weight: 600;
     }
 
     .field input[type="range"] {
       width: 100%;
-      accent-color: var(--accent);
+      accent-color: var(--primary);
       cursor: pointer;
     }
 
-    .range-labels {
+    .range-meta {
       display: flex;
       justify-content: space-between;
       font-size: 0.86rem;
-      color: var(--text-muted);
+      color: var(--text-secondary);
       margin-top: 4px;
     }
 
-    .addons {
+    .checks {
       display: grid;
-      gap: 8px;
+      gap: 10px;
     }
 
-    .addon-row {
+    .check-item {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: var(--surface-card);
-      border: 1px solid var(--border);
-      border-radius: 8px;
+      gap: 10px;
       padding: 10px 12px;
+      border: 1.5px solid var(--border-light);
+      background: #f8fafc;
+      border-radius: 8px;
       font-size: 0.92rem;
-    }
-
-    .addon-row label {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin: 0;
-      cursor: pointer;
       font-weight: 600;
     }
 
-    .addon-row input[type="checkbox"] {
-      accent-color: var(--accent);
-      width: 16px;
-      height: 16px;
+    .check-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
     }
 
-    .photo-preview {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-top: 10px;
+    .check-left input[type="checkbox"] {
+      width: 17px;
+      height: 17px;
+      accent-color: var(--primary);
     }
 
-    .photo-thumb {
-      background: var(--surface-card);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 6px;
-      text-align: center;
-      font-size: 0.78rem;
-      color: var(--text-muted);
-    }
-
-    .photo-thumb img {
-      width: 100%;
-      height: 76px;
-      object-fit: cover;
-      border-radius: 6px;
-      display: block;
-      margin-bottom: 4px;
+    .addon-price-tag {
+      font-weight: 800;
+      color: var(--primary);
+      font-size: 0.9rem;
     }
 
     .summary-box {
-      background: var(--surface-card);
-      border: 1px solid var(--border);
+      background: var(--surface-dark);
+      color: #ffffff;
       border-radius: 12px;
-      padding: 20px;
+      padding: 22px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       gap: 16px;
     }
 
-    .price-big {
-      font-size: 2rem;
-      font-weight: 800;
+    .total-value {
+      font-size: 2.1rem;
+      font-weight: 900;
       color: var(--accent);
-      margin: 4px 0 12px;
+      margin-top: 2px;
     }
 
-    .wa-preview {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 12px;
-      font-size: 0.86rem;
+    .wa-box {
+      background: #ffffff;
+      color: #0f172a;
+      border-radius: 10px;
+      padding: 14px;
+      font-size: 0.87rem;
       white-space: pre-line;
-      color: var(--text-muted);
+      font-weight: 500;
     }
 
-    .plans-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-bottom: 24px;
+    .config-drawer {
+      display: none;
+      margin-bottom: 20px;
+      border-top: 5px solid var(--primary);
     }
 
-    .plan-price {
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: #ffffff;
-      margin: 8px 0;
+    .config-drawer.open {
+      display: block;
     }
 
-    .faq-item {
-      border-bottom: 1px solid var(--border);
-      padding: 12px 0;
+    .link-output {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1.5px solid var(--primary);
+      background: #f8fafc;
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-top: 8px;
     }
 
-    .faq-item:last-child {
-      border-bottom: none;
-    }
-
-    .faq-q {
+    .status-msg {
+      font-size: 0.85rem;
       font-weight: 700;
-      color: #ffffff;
-      margin-bottom: 4px;
-    }
-
-    .faq-a {
-      color: var(--text-muted);
-      font-size: 0.92rem;
+      color: var(--primary);
+      margin-top: 8px;
+      min-height: 20px;
     }
 
     footer {
-      margin-top: 32px;
-      padding: 18px 16px;
+      margin-top: 28px;
+      padding: 14px 16px;
       text-align: center;
-      font-size: 0.9rem;
-      color: var(--text-muted);
+      font-size: 0.88rem;
+      color: var(--text-secondary);
     }
 
     footer a {
-      color: inherit;
+      color: var(--primary);
       font-weight: 700;
       text-decoration: underline;
     }
 
     @media (max-width: 820px) {
-      .grid-2,
-      .demo-grid,
-      .plans-grid {
+      .sim-grid,
+      .inline-grid {
         grid-template-columns: 1fr;
       }
     }
@@ -357,248 +289,99 @@
 </head>
 <body>
   <div class="wrap">
-    <header>
-      <div class="logo-area">
-        <img src="logo-calculadora-de-festas.jpg" alt="Logotipo Calculadora de Festas" />
-        <div>
-          <div class="brand-name">Calculadora de Festas</div>
-          <div class="brand-tag">Simulador de orçamentos para espaços de eventos e buffets</div>
-        </div>
+    <header class="topbar">
+      <div>
+        <div class="brand-title" id="spaceTitleDisplay">Calculadora de Festas</div>
+        <div class="brand-sub" id="spaceSubtitleDisplay">Simule seu evento e envie o orçamento direto no WhatsApp</div>
       </div>
-      <a href="#demo" class="btn btn-accent">Testar demonstração</a>
+      <button type="button" class="btn btn-outline" id="toggleConfigBtn">Configurar meu espaço</button>
     </header>
 
-    <section class="hero">
-      <h1>Transforme visitas curiosas em <span>orçamentos prontos no WhatsApp</span></h1>
-      <p>
-        Seu espaço recebe pedidos de orçamento o dia inteiro. Com a Calculadora de Festas, o cliente simula convidados,
-        dia do evento e adicionais em segundos — e já envia o resumo direto para o seu WhatsApp.
-      </p>
-      <a href="#demo" class="btn btn-accent">Simular agora</a>
-    </section>
-
-    <section class="grid-2">
-      <div class="card">
-        <h2>Antes (atendimento manual)</h2>
-        <ul>
-          <li>Responder dezenas de mensagens repetitivas por dia</li>
-          <li>Fazer conta isolada no papel ou em planilhas soltas</li>
-          <li>Perder interessados que desistem de esperar resposta</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h2>Com a Calculadora de Festas</h2>
-        <ul>
-          <li>Estimativa imediata para o cliente que está navegando</li>
-          <li>Regras claras de convidados, dias e adicionais</li>
-          <li>Resumo estruturado chegando direto no seu WhatsApp</li>
-        </ul>
-      </div>
-    </section>
-
-    <section class="demo-section" id="demo">
-      <h2>Demonstração interativa</h2>
-      <p style="color: var(--text-muted); font-size: 0.94rem;">
-        Teste como funciona a simulação de convidados, adicionais e envio de resumo.
+    <!-- Painel do dono do espaço para gerar seu próprio link sem edição manual -->
+    <section class="panel config-drawer" id="configDrawer">
+      <h2 style="font-size: 1.2rem; margin-bottom: 6px;">Configurar dados do espaço e gerar link próprio</h2>
+      <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 18px;">
+        Preencha os valores do seu espaço e clique em <strong>Gerar meu link pronto</strong>. Você não precisa mexer em código.
       </p>
 
-      <div class="demo-grid">
-        <div>
-          <div class="field">
-            <label for="eventType">Tipo de evento</label>
-            <select id="eventType">
-              <option value="Aniversário">Aniversário</option>
-              <option value="Casamento">Casamento</option>
-              <option value="Confraternização">Confraternização</option>
-              <option value="Festa Infantil">Festa Infantil</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label for="dayType">Período</label>
-            <select id="dayType">
-              <option value="weekday">Segunda a Quinta (Base R$ 2.000)</option>
-              <option value="weekend" selected>Sexta a Domingo / Feriado (Base R$ 3.200)</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label for="guestCount">Quantidade de convidados</label>
-            <input type="range" id="guestCount" min="20" max="200" step="10" value="80" />
-            <div class="range-labels">
-              <span>20</span>
-              <strong id="guestDisplay" style="color: var(--accent);">80 convidados</strong>
-              <span>200</span>
-            </div>
-          </div>
-
-          <div class="field">
-            <label>Adicionais opcionais</label>
-            <div class="addons">
-              <div class="addon-row">
-                <label><input type="checkbox" class="addon-chk" data-price="600" data-name="Som e Iluminação" checked /> Som e Iluminação</label>
-                <span>+ R$ 600</span>
-              </div>
-              <div class="addon-row">
-                <label><input type="checkbox" class="addon-chk" data-price="850" data-name="Equipe de Apoio" /> Equipe de Apoio</label>
-                <span>+ R$ 850</span>
-              </div>
-              <div class="addon-row">
-                <label><input type="checkbox" class="addon-chk" data-price="500" data-name="Decoração Base" /> Decoração Base</label>
-                <span>+ R$ 500</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="field">
-            <label for="photoInput">Prévia de fotos do espaço (até 3 imagens, comprimidas no navegador)</label>
-            <input type="file" id="photoInput" accept="image/*" multiple />
-            <div class="photo-preview" id="photoPreview"></div>
-          </div>
+      <div class="inline-grid">
+        <div class="field">
+          <label for="cfgSpaceName">Nome do espaço / buffet</label>
+          <input type="text" id="cfgSpaceName" value="Espaço Celebrar" />
         </div>
-
-        <div class="summary-box">
-          <div>
-            <div style="font-size: 0.88rem; color: var(--text-muted);">Estimativa simulada</div>
-            <div class="price-big" id="totalPrice">R$ 5.150</div>
-            <div style="font-size: 0.88rem; font-weight: 700; margin-bottom: 6px;">Mensagem para WhatsApp:</div>
-            <div class="wa-preview" id="waPreview"></div>
-          </div>
-
-          <a href="#" target="_blank" rel="noopener" class="btn btn-accent" id="waBtn" style="width: 100%;">
-            Enviar simulação no WhatsApp
-          </a>
+        <div class="field">
+          <label for="cfgWhatsapp">WhatsApp com DDD (somente números)</label>
+          <input type="text" id="cfgWhatsapp" value="51999999999" />
         </div>
       </div>
+
+      <div class="inline-grid">
+        <div class="field">
+          <label for="cfgWeekday">Valor base Seg a Qui (R$)</label>
+          <input type="number" id="cfgWeekday" min="0" step="50" value="2200" />
+        </div>
+        <div class="field">
+          <label for="cfgWeekend">Valor base Sex a Dom (R$)</label>
+          <input type="number" id="cfgWeekend" min="0" step="50" value="3400" />
+        </div>
+      </div>
+
+      <div class="inline-grid">
+        <div class="field">
+          <label for="cfgMaxGuests">Capacidade máxima de convidados</label>
+          <input type="number" id="cfgMaxGuests" min="10" max="2000" step="5" value="150" />
+        </div>
+        <div class="field">
+          <label for="cfgExtraGuest">Valor por convidado extra (acima de 50)</label>
+          <input type="number" id="cfgExtraGuest" min="0" step="5" value="45" />
+        </div>
+      </div>
+
+      <div class="inline-grid">
+        <div class="field">
+          <label for="cfgAddon1Name">Adicional 1 — Nome</label>
+          <input type="text" id="cfgAddon1Name" value="Som e Iluminação" />
+        </div>
+        <div class="field">
+          <label for="cfgAddon1Price">Adicional 1 — Valor (R$)</label>
+          <input type="number" id="cfgAddon1Price" min="0" step="50" value="650" />
+        </div>
+      </div>
+
+      <div class="inline-grid">
+        <div class="field">
+          <label for="cfgAddon2Name">Adicional 2 — Nome</label>
+          <input type="text" id="cfgAddon2Name" value="Churrasqueira / Equipe" />
+        </div>
+        <div class="field">
+          <label for="cfgAddon2Price">Adicional 2 — Valor (R$)</label>
+          <input type="number" id="cfgAddon2Price" min="0" step="50" value="900" />
+        </div>
+      </div>
+
+      <div class="inline-grid">
+        <div class="field">
+          <label for="cfgAddon3Name">Adicional 3 — Nome</label>
+          <input type="text" id="cfgAddon3Name" value="Decoração Básica" />
+        </div>
+        <div class="field">
+          <label for="cfgAddon3Price">Adicional 3 — Valor (R$)</label>
+          <input type="number" id="cfgAddon3Price" min="0" step="50" value="500" />
+        </div>
+      </div>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+        <button type="button" class="btn btn-primary" id="generateLinkBtn">Gerar meu link pronto</button>
+        <button type="button" class="btn btn-outline" id="copyLinkBtn">Copiar link</button>
+      </div>
+
+      <input type="text" class="link-output" id="generatedLinkOutput" readonly placeholder="Seu link personalizado aparecerá aqui..." />
+      <div class="status-msg" id="configStatusMsg"></div>
     </section>
 
-    <section class="plans-grid">
-      <div class="card">
-        <h3>Essencial</h3>
-        <div class="plan-price">7 dias grátis</div>
-        <p style="color: var(--text-muted); font-size: 0.9rem;">Ideal para um espaço de eventos começar a receber orçamentos estruturados.</p>
-      </div>
-      <div class="card">
-        <h3>Profissional</h3>
-        <div class="plan-price">7 dias grátis</div>
-        <p style="color: var(--text-muted); font-size: 0.9rem;">Mais opções de adicionais, regras flexíveis e apresentação completa do espaço.</p>
-      </div>
-      <div class="card">
-        <h3>Multi-espaços</h3>
-        <div class="plan-price">7 dias grátis</div>
-        <p style="color: var(--text-muted); font-size: 0.9rem;">Para quem opera mais de um salão, área ou pacote de eventos.</p>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>Perguntas frequentes</h2>
-      <div class="faq-item">
-        <div class="faq-q">Precisa instalar algum programa pesado?</div>
-        <div class="faq-a">Não. Tudo roda no navegador, no celular ou no computador.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">O orçamento final é fechado automaticamente?</div>
-        <div class="faq-a">A calculadora gera uma estimativa inicial organizada para você confirmar os detalhes da data com o cliente.</div>
-      </div>
-    </section>
-
-    <footer>
-      Produzido por <a href="https://calculadoradefestas.com.br" target="_blank" rel="noopener noreferrer">calculadoradefestas.com.br</a>
-    </footer>
-  </div>
-
-  <script>
-    const eventTypeEl = document.getElementById("eventType");
-    const dayTypeEl = document.getElementById("dayType");
-    const guestCountEl = document.getElementById("guestCount");
-    const guestDisplayEl = document.getElementById("guestDisplay");
-    const addonChks = document.querySelectorAll(".addon-chk");
-    const totalPriceEl = document.getElementById("totalPrice");
-    const waPreviewEl = document.getElementById("waPreview");
-    const waBtnEl = document.getElementById("waBtn");
-    const photoInputEl = document.getElementById("photoInput");
-    const photoPreviewEl = document.getElementById("photoPreview");
-
-    function formatBRL(value) {
-      return Number(value || 0).toLocaleString("pt-BR", {
-        style: "currency",
-        currency: "BRL",
-        maximumFractionDigits: 0
-      });
-    }
-
-    function updateCalculator() {
-      const eventType = eventTypeEl.value;
-      const baseCost = dayTypeEl.value === "weekday" ? 2000 : 3200;
-      const guests = Number(guestCountEl.value);
-      guestDisplayEl.textContent = `${guests} convidados`;
-
-      const extraGuests = Math.max(0, guests - 50);
-      const extraCost = extraGuests * 45;
-
-      let addonsCost = 0;
-      const selectedAddons = [];
-      addonChks.forEach((chk) => {
-        if (chk.checked) {
-          addonsCost += Number(chk.dataset.price || 0);
-          selectedAddons.push(chk.dataset.name);
-        }
-      });
-
-      const total = baseCost + extraCost + addonsCost;
-      totalPriceEl.textContent = formatBRL(total);
-
-      const addonsText = selectedAddons.length ? selectedAddons.join(", ") : "Nenhum";
-      const summary =
-        `Olá! Simulei um orçamento na Calculadora de Festas:\n` +
-        `• Evento: ${eventType}\n` +
-        `• Convidados: ${guests}\n` +
-        `• Adicionais: ${addonsText}\n` +
-        `• Estimativa: ${formatBRL(total)}`;
-
-      waPreviewEl.textContent = summary;
-      waBtnEl.href = `https://wa.me/?text=${encodeURIComponent(summary)}`;
-    }
-
-    function compressImageFile(file, maxWidth = 600, quality = 0.72) {
-      return new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          const img = new Image();
-          img.onload = () => {
-            const scale = Math.min(1, maxWidth / img.width);
-            const canvas = document.createElement("canvas");
-            canvas.width = Math.round(img.width * scale);
-            canvas.height = Math.round(img.height * scale);
-            const ctx = canvas.getContext("2d");
-            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-            resolve(canvas.toDataURL("image/jpeg", quality));
-          };
-          img.src = e.target.result;
-        };
-        reader.readAsDataURL(file);
-      });
-    }
-
-    photoInputEl.addEventListener("change", async () => {
-      const files = Array.from(photoInputEl.files || []).slice(0, 3);
-      photoPreviewEl.innerHTML = "";
-      for (const file of files) {
-        const dataUrl = await compressImageFile(file);
-        const div = document.createElement("div");
-        div.className = "photo-thumb";
-        const kb = Math.round((dataUrl.length * 3) / 4 / 1024);
-        div.innerHTML = `<img src="${dataUrl}" alt="Prévia do espaço" /><span>~${kb} KB</span>`;
-        photoPreviewEl.appendChild(div);
-      }
-    });
-
-    eventTypeEl.addEventListener("change", updateCalculator);
-    dayTypeEl.addEventListener("change", updateCalculator);
-    guestCountEl.addEventListener("input", updateCalculator);
-    addonChks.forEach((chk) => chk.addEventListener("change", updateCalculator));
-
-    updateCalculator();
-  </script>
-</body>
-</html>
+    <!-- Simulador usado por quem vai fazer a festa -->
+    <main class="panel sim-grid">
+      <div>
+        <div class="inline-grid">
+          <div class="field">
+            <label for="eventType">Tipo de festa / evento</label>
